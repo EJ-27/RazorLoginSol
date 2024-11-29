@@ -1,41 +1,44 @@
-
 @page
-
 @model RazorLogin.Pages.MyDependents.IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "My Dependents";
 }
 
 <h1>My Dependents</h1>
 
 <hr />
 
+<!-- Add New Dependent Button -->
 <div>
     <a asp-page="./Create" class="btn btn-primary">Add New Dependent</a>
 </div>
 
-<h2>Your Dependents</h2>
-<table class="table">
+
+<!-- Dependents Table -->
+<table class="table table-striped mt-3">
     <thead>
         <tr>
             <th>Dependent ID</th>
             <th>Dependent Name</th>
-            <th>DOB</th>
+            <th>Date of Birth</th>
             <th>Relationship</th>
             <th>Healthcare Tier</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
+        <!-- Check if no dependents exist -->
         @if (Model.Dependant.Count == 0)
         {
             <tr>
-                <td colspan="6" class="text-center">No dependents found.</td>
+                <td colspan="6" class="text-center text-muted">No dependents found. Please add a dependent.</td>
             </tr>
         }
         else
         {
-            foreach (var dependent in Model.Dependant)
+            <!-- Iterate through and display each dependent -->
+            @foreach (var dependent in Model.Dependant)
             {
                 <tr>
                     <td>@dependent.DepndantId</td>
@@ -44,8 +47,9 @@
                     <td>@dependent.Relationship</td>
                     <td>@dependent.HealthcareTier</td>
                     <td>
-                        <a asp-page="./Edit" asp-route-id="@dependent.DepndantId">Edit</a>|
-                        <a asp-page="./Delete" asp-route-id="@dependent.DepndantId">Delete</a>
+                        <!-- Edit and Delete Actions -->
+                        <a class="btn btn-warning btn-sm" asp-page="./Edit" asp-route-id="@dependent.DepndantId">Edit</a> |
+                        <a class="btn btn-danger btn-sm" asp-page="./Delete" asp-route-id="@dependent.DepndantId">Delete</a>
                     </td>
                 </tr>
             }
@@ -53,8 +57,7 @@
     </tbody>
 </table>
 
+<!-- Back to Profile Link -->
 <div>
-    <a asp-page="./Index">Back to Profile</a>
-
+    <a class="btn btn-secondary" asp-page="./Index">Back to Profile</a>
 </div>
-

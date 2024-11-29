@@ -48,15 +48,38 @@ namespace RazorLogin.Pages.Admin.Cust
                 return NotFound();
             }
 
-            var customer = await _context.Customers.FindAsync(id);
-            if (customer != null)
-            {
-                Customer = customer;
-                _context.Customers.Remove(Customer);
-                await _context.SaveChangesAsync();
-            }
+            ModelState.Remove("Customer.CustomerEmail");
 
-            return RedirectToPage("./Index");
+            try
+            {
+                var customer = await _context.Customers.FindAsync(id);
+                if (customer == null)
+                {
+                    return NotFound();
+                }
+
+                // Check if the customer is related to any other entities (e.g., orders, etc.)
+                // You may need to check for foreign key relationships before deleting
+
+                // Remove the customer from the database
+                _context.Customers.Remove(customer);
+                await _context.SaveChangesAsync();
+
+                // If no error, redirect to Index
+                return RedirectToPage("./Index");
+            }
+            catch (DbUpdateException dbEx)
+            {
+                // Handle specific database errors (e.g., foreign key violations)
+                ModelState.AddModelError(string.Empty, "Cannot delete the customer because they are linked to Purchases and/or Ticket Purcases. " + dbEx.Message);
+                return Page(); // Return to the same page with the error
+            }
+            catch (Exception ex)
+            {
+                // Handle any other general errors
+                ModelState.AddModelError(string.Empty, "An unexpected error occurred: " + ex.Message);
+                return Page(); // Return to the same page with the error
+            }
         }
     }
 }

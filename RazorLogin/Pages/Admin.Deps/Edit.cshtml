@@ -24,16 +24,13 @@
                 <input asp-for="Dependant.DependentName" class="form-control" />
                 <span asp-validation-for="Dependant.DependentName" class="text-danger"></span>
             </div>
+
             <div class="form-group">
-                <label asp-for="Dependant.DependentSex" class="control-label"></label>
-                <input asp-for="Dependant.DependentSex" class="form-control" />
-                <span asp-validation-for="Dependant.DependentSex" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Dependant.DependentDob" class="control-label"></label>
-                <input asp-for="Dependant.DependentDob" class="form-control" />
+                <label asp-for="Dependant.DependentDob" class="control-label">Date of Birth</label>
+                <input asp-for="Dependant.DependentDob" class="form-control" type="date" />
                 <span asp-validation-for="Dependant.DependentDob" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="Dependant.Relationship" class="control-label"></label>
                 <input asp-for="Dependant.Relationship" class="form-control" />

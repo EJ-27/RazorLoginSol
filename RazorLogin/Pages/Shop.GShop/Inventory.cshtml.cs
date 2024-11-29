@@ -63,7 +63,8 @@ namespace RazorLogin.Pages.Shop.GShop
                                     ItemCount = reader.GetInt32(reader.GetOrdinal("Item_count")),
                                     RestockDate = dateOnly,
                                     ShopId = reader.GetInt32(reader.GetOrdinal("Shop_ID")),
-                                    FoodStoreId = reader.IsDBNull(reader.GetOrdinal("Food_store_ID")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("Food_store_ID"))
+                                    FoodStoreId = reader.IsDBNull(reader.GetOrdinal("Food_store_ID")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("Food_store_ID")),
+                                    ItemPrice= reader.GetInt32(reader.GetOrdinal("item_price"))
                                 });
                             }
                         }

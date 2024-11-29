@@ -1,0 +1,60 @@
+﻿@page
+@model RazorLogin.Pages.Shop.Eve.ReportModel
+
+@{
+    ViewData["Title"] = "Event Report";
+}
+
+<h2>Event Report</h2>
+
+<form method="post">
+    <div>
+        <label for="startDate">Start Date:</label>
+        <input type="date" id="startDate" name="startDate" value="@Model.StartDate?.ToString("yyyy-MM-dd")" />
+
+        <label for="endDate">End Date:</label>
+        <input type="date" id="endDate" name="endDate" value="@Model.EndDate?.ToString("yyyy-MM-dd")" />
+
+        <button type="submit">Generate Report</button>
+    </div>
+</form>
+
+@if (Model.Events != null && Model.Events.Count > 0)
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Event Name</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Date</th>
+                <th>Location</th>
+                <th>Employee First Name</th>
+                <th>Employee Last Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Events)
+            {
+                <tr>
+                    <td>@item.EventName</td>
+                    <td>@item.EventStartTime.ToString("hh\\:mm")</td>
+                    <td>@item.EventEndTime.ToString("hh\\:mm")</td>
+                    <td>@(item.EventDate.HasValue ? item.EventDate.Value.ToString("MM/dd/yyyy") : "N/A")</td>
+                    <td>@item.EventLocation</td>
+                    <td>@item.EventEmployeeRep?.EmployeeFirstName</td>
+                    <td>@item.EventEmployeeRep?.EmployeeLastName</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else if (Model.StartDate.HasValue && Model.EndDate.HasValue)
+{
+    <p>No events found for the selected date range.</p>
+}
+
+
+
+
+

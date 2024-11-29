@@ -2,65 +2,56 @@
 @model RazorLogin.Pages.Admin.FShps.IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Food Stores List";
 }
 
-<h1>Index</h1>
+<h1>Food Stores</h1>
 
+
+<!-- Instructions / Notes -->
 <p>
-    <a asp-page="Create">Create New</a>
+    In this table, each food store will display its manager's name (if one is assigned). If no manager is assigned, it will display "None".
+
 </p>
-<table class="table">
+
+<!-- Create Food Store Button -->
+<a class="btn btn-primary mb-3" asp-page="./Create">Create New Food Store</a>
+
+<table class="table table-striped mt-3">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.FoodStore[0].FoodStoreId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FoodStore[0].FoodStoreName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FoodStore[0].FoodStoreLocation)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FoodStore[0].FoodStoreOpenTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FoodStore[0].FoodStoreCloseTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FoodStore[0].FoodStoreYearToDateSales)
-            </th>
-            <th></th>
+            <th>Food Store ID</th>
+            <th>Food Store Name</th>
+            <th>Location</th>
+            <th>Open Time</th>
+            <th>Close Time</th>
+            <th>Manager</th>
+            <th>Inventory</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.FoodStore) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FoodStoreId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FoodStoreName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FoodStoreLocation)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FoodStoreOpenTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FoodStoreCloseTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FoodStoreYearToDateSales)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.FoodStoreId">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.FoodStoreId">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.FoodStoreId">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.FoodStores)
+        {
+            <tr>
+                <td>@item.FoodStoreId</td>
+                <td>@item.FoodStoreName</td>
+                <td>@item.FoodStoreLocation</td>
+                <td>@(item.FoodStoreOpenTime?.ToString("hh:mm tt") ?? "None")</td> <!-- Format Open Time or show "None" if null -->
+                <td>@(item.FoodStoreCloseTime?.ToString("hh:mm tt") ?? "None")</td> <!-- Format Close Time or show "None" if null -->
+                <td>@item.ManagerName</td> <!-- Display the manager's name (or 'None') -->
+                <td>
+                    <!-- Link to manage items in this shop -->
+                    <a asp-page="/Admin.IteF/Index" asp-route-foodstoreid="@item.FoodStoreId">Manage Items</a>
+                </td>
+                
+                <td>
+                    <!-- Edit and Delete Links -->
+                    <a class="btn btn-warning btn-sm" asp-page="./Edit" asp-route-id="@item.FoodStoreId">Edit</a>
+                    <a class="btn btn-danger btn-sm" asp-page="./Delete" asp-route-id="@item.FoodStoreId">Delete</a>
+                </td>
+            </tr>
+        }
+
     </tbody>
 </table>

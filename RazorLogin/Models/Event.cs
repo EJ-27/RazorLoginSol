@@ -18,6 +18,8 @@ public partial class Event
     public DateOnly? EventDate { get; set; }
 
     public string? EventLocation { get; set; }
+    public bool? IsDeleted { get; set; }
+
 
     public virtual Employee? EventEmployeeRep { get; set; } = null!;
 }

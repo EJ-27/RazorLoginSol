@@ -21,15 +21,17 @@
             </div>
             <div class="form-group">
                 <label asp-for="Manager.EmployeeId" class="control-label"></label>
-                <select asp-for="Manager.EmployeeId" class="form-control" asp-items="ViewBag.EmployeeId"></select>
+                <input asp-for="Manager.EmployeeId" class="form-control" />
                 <span asp-validation-for="Manager.EmployeeId" class="text-danger"></span>
             </div>
+          
             <div class="form-group">
                 <label asp-for="Manager.Department" class="control-label"></label><br />
-                <select asp-for="Manager.Department">
-                    <option value="GENERAL">GENERAL</option>
-                    <option value="FOOD">DINING</option>
-                    <option value="SHOP">SHOP</option>
+                <select asp-for="Manager.Department" class="form-control">
+                    <option value="GIFT">Gift</option>
+                    <option value="FOOD">Food</option>
+                    <option value="ZOO">Zoo</option>
+                    <option value="GENERAL">General</option>
                 </select>
                 <span asp-validation-for="Manager.Department" class="text-danger"></span>
             </div>

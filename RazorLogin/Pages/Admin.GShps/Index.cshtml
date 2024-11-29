@@ -2,65 +2,58 @@
 @model RazorLogin.Pages.Admin.GShps.IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Gift Shops List";
 }
 
-<h1>Index</h1>
+<h1>Gift Shops</h1>
 
+
+
+<!-- Instructions / Notes -->
 <p>
-    <a asp-page="Create">Create New</a>
+    In this table, each gift shop will display its manager's name (if one is assigned). If no manager is assigned, it will display "None".
+
 </p>
-<table class="table">
+
+<!-- Create Shop Button -->
+<a class="btn btn-primary mb-3" asp-page="./Create">Create New Shop</a>
+
+
+<table class="table table-striped mt-3">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.GiftShop[0].ShopId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.GiftShop[0].GiftShopName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.GiftShop[0].GiftShopLocation)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.GiftShop[0].GiftShopYearToDateSales)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.GiftShop[0].GiftShopOpenTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.GiftShop[0].GiftShopCloseTime)
-            </th>
-            <th></th>
+            <th>Gift Shop ID</th>
+            <th>Gift Shop Name</th>
+            <th>Location</th>
+            <th>Open Time</th>
+            <th>Close Time</th>
+            <th>Manager</th>
+            <th>Inventory</th>
+            <th>Actions</th>
+
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.GiftShop) {
-        <tr>
+        @foreach (var item in Model.GiftShops)
+        {
+            <tr>
+                <td>@item.ShopId</td>
+                <td>@item.GiftShopName</td>
+                <td>@item.GiftShopLocation</td>
+                <td>@item.GiftShopOpenTime.ToString("hh:mm tt")</td>
+                <td>@item.GiftShopCloseTime.ToString("hh:mm tt")</td>
+                <td>@item.ManagerName</td> <!-- Display the manager's name (or 'None') -->
                 <td>
-                    @Html.DisplayFor(modelItem => item.ShopId)
+                    <!-- Link to manage items in this shop -->
+                    <a asp-page="/Admin.Ite/Index" asp-route-shopId="@item.ShopId">Manage Items</a>
                 </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.GiftShopName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.GiftShopLocation)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.GiftShopYearToDateSales)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.GiftShopOpenTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.GiftShopCloseTime)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.ShopId">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.ShopId">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.ShopId">Delete</a>
-            </td>
-        </tr>
-}
+                <td>
+                    <!-- Edit and Delete Links -->
+                    <a class="btn btn-warning btn-sm" asp-page="./Edit" asp-route-id="@item.ShopId">Edit</a>
+                    <a class="btn btn-danger btn-sm" asp-page="./Delete" asp-route-id="@item.ShopId">Delete</a>
+                </td>
+            </tr>
+        }
+
     </tbody>
 </table>

@@ -1,0 +1,46 @@
+﻿@page
+@model RazorLogin.Pages.Manag.Purch.IndexModel
+@{
+    ViewData["Title"] = "Purchase Records";
+}
+
+<!-- Container with Light Green Background -->
+<div class="container mt-5 p-4" style="background-color: #e8f5e9; border-radius: 10px;">
+    <h2 class="text-success">Purchase Records</h2>
+
+    <!-- Card Layout for Purchase Records Table -->
+    <div class="card shadow-sm mt-4" style="border-radius: 8px;">
+        <div class="card-body">
+            @if (Model.Purchases.Any())
+            {
+                <table class="table table-hover">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Purchase ID</th>
+                            <th>Customer ID</th>
+                            <th class="text-center">Number of Items</th>
+                            <th>Total Purchase Price</th>
+                            <th>Purchase Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var purchase in Model.Purchases)
+                        {
+                            <tr>
+                                <td>@purchase.PurchaseId</td>
+                                <td>@purchase.CustomerId</td>
+                                <td class="text-center">@purchase.NumItems</td>
+                                <td>@purchase.TotalPurchasesPrice?.ToString("C")</td>
+                                <td>@purchase.PurchaseDate?.ToString("yyyy-MM-dd")</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p class="text-muted">No purchase records found.</p>
+            }
+        </div>
+    </div>
+</div>

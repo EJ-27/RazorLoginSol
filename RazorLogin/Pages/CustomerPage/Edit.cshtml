@@ -2,42 +2,84 @@
 @model RazorLogin.Pages.CustomerPage.EditModel
 
 @{
-    ViewData["Title"] = "Edit Account";
+    ViewData["Title"] = "Edit Account Details";
 }
 
-<h1>Edit Account</h1>
+<div class="container mt-4">
+    <h1>Edit Account Details</h1>
 
-<form method="post">
-    <input type="hidden" asp-for="Customer.CustomerId" />
-    <div class="form-group">
-        <label asp-for="Customer.CustomerFirstName"></label>
-        <input asp-for="Customer.CustomerFirstName" class="form-control" />
-        <span asp-validation-for="Customer.CustomerFirstName" class="text-danger"></span>
-    </div>
+    <form method="post">
+        <input type="hidden" asp-for="Customer.CustomerId" />
 
-    <div class="form-group">
-        <label asp-for="Customer.CustomerLastName"></label>
-        <input asp-for="Customer.CustomerLastName" class="form-control" />
-        <span asp-validation-for="Customer.CustomerLastName" class="text-danger"></span>
-    </div>
+        <div class="form-group">
+            <label asp-for="Customer.CustomerFirstName" class="form-label">First Name</label>
+            <input asp-for="Customer.CustomerFirstName" class="form-control" />
+            <span asp-validation-for="Customer.CustomerFirstName" class="text-danger"></span>
+        </div>
 
-    <div class="form-group">
-        <label asp-for="Customer.CustomerDob"></label>
-        <input asp-for="Customer.CustomerDob" class="form-control" type="date" />
-        <span asp-validation-for="Customer.CustomerDob" class="text-danger"></span>
-    </div>
+        <div class="form-group">
+            <label asp-for="Customer.CustomerLastName" class="form-label">Last Name</label>
+            <input asp-for="Customer.CustomerLastName" class="form-control" />
+            <span asp-validation-for="Customer.CustomerLastName" class="text-danger"></span>
+        </div>
 
-    <div class="form-group">
-        <label asp-for="Customer.CustomerAddress"></label>
-        <input asp-for="Customer.CustomerAddress" class="form-control" />
-        <span asp-validation-for="Customer.CustomerAddress" class="text-danger"></span>
-    </div>
+        <div class="form-group">
+            <label asp-for="Customer.CustomerDob" class="form-label">Date of Birth</label>
+            <input asp-for="Customer.CustomerDob" class="form-control" type="date" />
+            <span asp-validation-for="Customer.CustomerDob" class="text-danger"></span>
+        </div>
 
-    <!-- Hidden fields for fields that should not be edited -->
-    <input type="hidden" asp-for="Customer.MembershipStartDate" />
-    <input type="hidden" asp-for="Customer.MembershipEndDate" />
-    <input type="hidden" asp-for="Customer.MembershipType" />
-    <input type="hidden" asp-for="Customer.CustomerEmail" />
+        <div class="form-group">
+            <label asp-for="Customer.CustomerAddress" class="form-label">Address</label>
+            <input asp-for="Customer.CustomerAddress" class="form-control" />
+            <span asp-validation-for="Customer.CustomerAddress" class="text-danger"></span>
+        </div>
 
-    <button type="submit" class="btn btn-primary">Save</button>
-</form>
+        <!-- Hidden fields for fields that should not be edited -->
+        <input type="hidden" asp-for="Customer.MembershipStartDate" />
+        <input type="hidden" asp-for="Customer.MembershipEndDate" />
+        <input type="hidden" asp-for="Customer.MembershipType" />
+        <input type="hidden" asp-for="Customer.CustomerEmail" />
+
+        <button type="submit" class="btn btn-primary mt-3">Save</button>
+    </form>
+</div>
+
+<style>
+    .form-label {
+        font-weight: 600;
+        font-size: 1.1rem;
+        color: #333;
+    }
+
+    .form-control {
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        padding: 10px;
+        font-size: 1rem;
+    }
+
+    .form-control:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.25);
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #004085;
+    }
+
+    .alert-info {
+        background-color: #e9f7fd;
+        border-color: #a1c6ea;
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+</style>

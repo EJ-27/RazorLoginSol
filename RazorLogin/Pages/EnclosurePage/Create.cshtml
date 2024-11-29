@@ -1,0 +1,87 @@
+﻿@page
+@model RazorLogin.Pages.EnclosurePage.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Enclosure</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+           
+
+            <!-- EnclosureName -->
+            <div class="form-group mb-3">
+                <label asp-for="Enclosure.EnclosureName" class="form-label">Enclosure Name</label>
+                <input asp-for="Enclosure.EnclosureName" class="form-control" />
+                <span asp-validation-for="Enclosure.EnclosureName" class="text-danger"></span>
+            </div>
+
+            <!-- EnclosureDepartment -->
+            <div class="form-group mb-3">
+                <label asp-for="Enclosure.EnclosureDepartment" class="form-label">Department</label>
+                <input asp-for="Enclosure.EnclosureDepartment" class="form-control" />
+                <span asp-validation-for="Enclosure.EnclosureDepartment" class="text-danger"></span>
+            </div>
+
+            <!-- EnclosureOpenTime -->
+            <div class="form-group mb-3">
+                <label asp-for="Enclosure.EnclosureOpenTime" class="form-label">Open Time</label>
+                <input asp-for="Enclosure.EnclosureOpenTime" class="form-control" type="time" />
+                <span asp-validation-for="Enclosure.EnclosureOpenTime" class="text-danger"></span>
+            </div>
+
+            <!-- EnclosureCloseTime -->
+            <div class="form-group mb-3">
+                <label asp-for="Enclosure.EnclosureCloseTime" class="form-label">Close Time</label>
+                <input asp-for="Enclosure.EnclosureCloseTime" class="form-control" type="time" />
+                <span asp-validation-for="Enclosure.EnclosureCloseTime" class="text-danger"></span>
+            </div>
+
+            <!-- EnclosureCleaningTime -->
+            <div class="form-group mb-3">
+                <label asp-for="Enclosure.EnclosureCleaningTime" class="form-label">Cleaning Time</label>
+                <input asp-for="Enclosure.EnclosureCleaningTime" class="form-control" type="time" />
+                <span asp-validation-for="Enclosure.EnclosureCleaningTime" class="text-danger"></span>
+            </div>
+
+            <!-- EnclosureFeedingTime -->
+            <div class="form-group mb-3">
+                <label asp-for="Enclosure.EnclosureFeedingTime" class="form-label">Feeding Time</label>
+                <input asp-for="Enclosure.EnclosureFeedingTime" class="form-control" type="time" />
+                <span asp-validation-for="Enclosure.EnclosureFeedingTime" class="text-danger"></span>
+            </div>
+
+           
+
+            <!-- OccupancyStatus -->
+            <div class="form-group mb-3">
+                <label asp-for="Enclosure.OccupancyStatus" class="form-label">Occupancy Status</label>
+                <input asp-for="Enclosure.OccupancyStatus" class="form-control" />
+                <span asp-validation-for="Enclosure.OccupancyStatus" class="text-danger"></span>
+            </div>
+
+          
+
+            <div class="form-group mb-3">
+                <input type="submit" value="Create" class="btn btn-primary w-100" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

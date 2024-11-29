@@ -1,0 +1,34 @@
+﻿@page
+@model RazorLogin.Pages.Admin.Mana.EmpListModel
+
+@{
+    ViewData["Title"] = "Employees Under Manager";
+}
+
+<h1>Employees Under Manager @Model.ManagerId</h1>
+
+<table class="table table-striped mt-3">
+    <thead>
+        <tr>
+            <th>Employee ID</th>
+            <th>Employee Name</th>
+            <th>Department</th>
+            <th>Employment Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var employee in Model.Employees)
+        {
+            <tr>
+                <td>@employee.EmployeeId</td>
+                <td>@employee.EmployeeFirstName @employee.EmployeeLastName</td>
+                <td>@employee.Department</td>
+                <td>@employee.DateOfEmployment?.ToString("yyyy-MM-dd")</td>
+               
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- Back to Manager Page Button -->
+<a href="@Url.Page("/Admin.Mana/Index")" class="btn btn-secondary mt-3">Back to Managers</a>

@@ -1,0 +1,55 @@
+﻿@page
+@model RazorLogin.Pages.Admin.Anim.IndexModel
+
+@{
+    ViewData["Title"] = "Animals List";
+}
+
+<h1>Animals</h1>
+
+
+<!-- Button to navigate to Create page -->
+<a class="btn btn-success mb-3" asp-page="./Create">Create New Animal</a>
+
+<!-- Table for displaying animals -->
+<div class="table-responsive">
+    <table class="table table-striped table-bordered table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.Animal[0].AnimalId)</th>
+                <th>@Html.DisplayNameFor(model => model.Animal[0].AnimalName)</th>
+                <th>Enclosure ID</th>
+                <th>Zookeeper ID</th>
+                <th>Zookeeper Full Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Animal)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.AnimalId)</td>
+                    <td>@Html.DisplayFor(modelItem => item.AnimalName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Enclosure.EnclosureId)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Zookeeper.ZookeeperId)</td>
+                    <td>
+                        @item.Zookeeper.Employee.EmployeeFirstName @item.Zookeeper.Employee.EmployeeLastName
+                    </td>
+                    <td>
+                        <!-- Action Links Styled as Buttons -->
+                        <a class="btn btn-sm btn-primary" asp-page="./Edit" asp-route-id="@item.AnimalId">Edit</a>
+                        <a class="btn btn-sm btn-danger" asp-page="./Delete" asp-route-id="@item.AnimalId">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<!-- Optional: Paging (if you have many animals) -->
+<div class="pagination-container text-center">
+    <nav aria-label="Page navigation">
+        <!-- Add paging here if you implement pagination -->
+    </nav>
+</div>
+

@@ -1,0 +1,244 @@
+﻿@page
+@model RazorLogin.Pages.Admin.TixRep.IndexModel
+@{
+    ViewData["Title"] = "Ticket Report";
+}
+
+<h2>Ticket Report</h2>
+
+<!-- Form for selecting the date range -->
+<form method="get" class="mb-4">
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label for="StartDate">Start Date</label>
+            <input type="date" id="StartDate" name="StartDate" class="form-control" value="@Model.StartDate.ToString("yyyy-MM-dd")" required />
+        </div>
+        <div class="col-md-6 mb-3">
+            <label for="EndDate">End Date</label>
+            <input type="date" id="EndDate" name="EndDate" class="form-control" value="@Model.EndDate.ToString("yyyy-MM-dd")" required />
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Generate Report</button>
+</form>
+
+@if (Model.Report != null)
+{
+    <h3>Report Results</h3>
+
+    <!-- Ticket Count Section -->
+    <div class="row mb-4">
+        <!-- Child Ticket Count -->
+        <div class="col-md-3">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="card-title">Child Tickets</h5>
+                </div>
+                <div class="card-body">
+                    <h2 class="card-text text-center">
+                        @Model.Report.ChildCTR
+                    </h2>
+                    <p class="text-center">Total Child Tickets</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Adult Ticket Count -->
+        <div class="col-md-3">
+            <div class="card shadow-sm">
+                <div class="card-header bg-success text-white">
+                    <h5 class="card-title">Adult Tickets</h5>
+                </div>
+                <div class="card-body">
+                    <h2 class="card-text text-center">
+                        @Model.Report.AdultCTR
+                    </h2>
+                    <p class="text-center">Total Adult Tickets</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Senior Ticket Count -->
+        <div class="col-md-3">
+            <div class="card shadow-sm">
+                <div class="card-header bg-warning text-dark">
+                    <h5 class="card-title">Senior Tickets</h5>
+                </div>
+                <div class="card-body">
+                    <h2 class="card-text text-center">
+                        @Model.Report.SeniorCTR
+                    </h2>
+                    <p class="text-center">Total Senior Tickets</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Veteran Ticket Count -->
+        <div class="col-md-3">
+            <div class="card shadow-sm">
+                <div class="card-header bg-danger text-white">
+                    <h5 class="card-title">Veteran Tickets</h5>
+                </div>
+                <div class="card-body">
+                    <h2 class="card-text text-center">
+                        @Model.Report.VeteranCTR
+                    </h2>
+                    <p class="text-center">Total Veteran Tickets</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr />
+
+    <!-- Ticket Costs Section -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="card-title">Child Tickets</h5>
+                </div>
+                <div class="card-body">
+                    <h2 class="card-text text-center">
+                        @((Model.Report.TickCostsByTick.FirstOrDefault()?.ChildTotal?? 0).ToString("C"))
+                    </h2>
+                    <p class="text-center">Total Revenue for Children Tickets</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card shadow-sm">
+                <div class="card-header bg-success text-white">
+                    <h5 class="card-title">Adult Tickets</h5>
+                </div>
+                <div class="card-body">
+                    <h2 class="card-text text-center">
+                        @((Model.Report.TickCostsByTick.FirstOrDefault()?.AdultTotal?? 0).ToString("C"))
+                    </h2>
+                    <p class="text-center">Total Revenue for Adult Tickets</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card shadow-sm">
+                <div class="card-header bg-warning text-dark">
+                    <h5 class="card-title">Senior Tickets</h5>
+                </div>
+                <div class="card-body">
+                    <h2 class="card-text text-center">
+                        @((Model.Report.TickCostsByTick.FirstOrDefault()?.SeniorTotal?? 0).ToString("C"))
+                    </h2>
+                    <p class="text-center">Total Revenue for Senior Tickets</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card shadow-sm">
+                <div class="card-header bg-danger text-white">
+                    <h5 class="card-title">Veteran Tickets</h5>
+                </div>
+                <div class="card-body">
+                    <h2 class="card-text text-center">
+                        @((Model.Report.TickCostsByTick.FirstOrDefault()?.VeteranTotal?? 0).ToString("C"))
+                    </h2>
+                    <p class="text-center">Total Revenue for Veteran Tickets</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr />
+
+    <!-- Collapsible Section for detailed data -->
+    <div class="accordion" id="ticketDetailsAccordion">
+        <!-- Child Ticket Details -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingChild">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseChild" aria-expanded="true" aria-controls="collapseChild">
+                    Child Ticket Details
+                </button>
+            </h2>
+            <div id="collapseChild" class="accordion-collapse collapse show" aria-labelledby="headingChild" data-bs-parent="#ticketDetailsAccordion">
+                <div class="accordion-body">
+                    <p><strong>Average Customer Age:</strong> @Model.Report.ChildAvgAge?.ToString("F1") years</p>
+                    <h5>Membership Breakdown:</h5>
+                    <ul>
+                        @foreach (var count in Model.Report.ChildMembershipCounts)
+                        {
+                            <li>@count.Membership_type: @count.TicketCount ticket(s)</li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Adult Ticket Details -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingAdult">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAdult" aria-expanded="false" aria-controls="collapseAdult">
+                    Adult Ticket Details
+                </button>
+            </h2>
+            <div id="collapseAdult" class="accordion-collapse collapse" aria-labelledby="headingAdult" data-bs-parent="#ticketDetailsAccordion">
+                <div class="accordion-body">
+                    <p><strong>Average Customer Age:</strong> @Model.Report.AdultAvgAge?.ToString("F1") years</p>
+                    <h5>Membership Breakdown:</h5>
+                    <ul>
+                        @foreach (var count in Model.Report.AdultMembershipCounts)
+                        {
+                            <li>@count.Membership_type: @count.TicketCount ticket(s)</li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Senior Ticket Details -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingSenior">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSenior" aria-expanded="false" aria-controls="collapseSenior">
+                    Senior Ticket Details
+                </button>
+            </h2>
+            <div id="collapseSenior" class="accordion-collapse collapse" aria-labelledby="headingSenior" data-bs-parent="#ticketDetailsAccordion">
+                <div class="accordion-body">
+                    <p><strong>Average Customer Age:</strong> @Model.Report.SeniorAvgAge?.ToString("F1") years</p>
+                    <h5>Membership Breakdown:</h5>
+                    <ul>
+                        @foreach (var count in Model.Report.SeniorMembershipCounts)
+                        {
+                            <li>@count.Membership_type: @count.TicketCount ticket(s)</li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Veteran Ticket Details -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingVeteran">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseVeteran" aria-expanded="false" aria-controls="collapseVeteran">
+                    Veteran Ticket Details
+                </button>
+            </h2>
+            <div id="collapseVeteran" class="accordion-collapse collapse" aria-labelledby="headingVeteran" data-bs-parent="#ticketDetailsAccordion">
+                <div class="accordion-body">
+                    <p><strong>Average Customer Age:</strong> @Model.Report.VeteranAvgAge?.ToString("F1") years</p>
+                    <h5>Membership Breakdown:</h5>
+                    <ul>
+                        @foreach (var count in Model.Report.VeteranMembershipCounts)
+                        {
+                            <li>@count.Membership_type: @count.TicketCount ticket(s)</li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <p class="alert alert-warning">Please enter a valid date range to generate the report.</p>
+}

@@ -1,0 +1,63 @@
+﻿@page
+@model RazorLogin.Pages.Admin.Clos.EditModel
+
+@{
+    ViewData["Title"] = "Edit Closing";
+}
+
+<h1>Edit Closing</h1>
+
+<!-- Instruction Note -->
+<div class="mt-3">
+    <small class="text-muted">
+        Edit the details of the enclosure closing event. Make sure to update the start and end times, reason, and the associated enclosure. Once done, save the changes.
+    </small>
+</div>
+
+<hr />
+
+<!-- Form to Edit Closing -->
+<div class="row">
+    <div class="col-md-6">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <!-- Hidden field for ClosingId -->
+            <input type="hidden" asp-for="Closing.ClosingId" />
+
+          
+
+            <!-- Closing Reason -->
+            <div class="form-group">
+                <label asp-for="Closing.ClosingsReason" class="control-label"></label>
+                <input asp-for="Closing.ClosingsReason" class="form-control" />
+                <span asp-validation-for="Closing.ClosingsReason" class="text-danger"></span>
+            </div>
+
+            <!-- Enclosure Selection -->
+            <div class="form-group">
+                <label asp-for="Closing.EnclosureId" class="control-label"></label>
+                <select asp-for="Closing.EnclosureId" class="form-control" asp-items="ViewBag.EnclosureId">
+                    <option value="">Select Enclosure</option>  <!-- Optional default value -->
+                </select>
+                <span asp-validation-for="Closing.EnclosureId" class="text-danger"></span>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="form-group">
+                <input type="submit" value="Save Changes" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Back to List Link -->
+<div>
+    <a class="btn btn-secondary" asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

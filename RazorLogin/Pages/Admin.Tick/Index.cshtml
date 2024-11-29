@@ -2,59 +2,48 @@
 @model RazorLogin.Pages.Admin.Tick.IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Tickets";
 }
 
-<h1>Index</h1>
+<h1>Tickets</h1>
 
-<p>
-    <a asp-page="Create">Create New</a>
+<!-- Instruction Note -->
+<div class="mt-3">
+    <small class="text-muted">
+        This page displays all the tickets purchased by visitors. You can edit or delete ticket information as needed.
+    </small>
+</div>
+
+<!-- Link to Add New Ticket -->
+<p class="mt-3">
+    <a class="btn btn-primary" asp-page="./Create">Add New Ticket</a>
 </p>
-<table class="table">
+
+<!-- Tickets Table -->
+<table class="table table-striped mt-3">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Ticket[0].TicketType)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Ticket[0].TicketPrice)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Ticket[0].TicketPurchaseDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Ticket[0].TicketEntryTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Ticket[0].Purchase)
-            </th>
-            <th></th>
+            <th>Purchase ID</th>
+            <th>Ticket Type</th>
+            <th>Ticket Price</th>
+            <th>Purchase Date</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Ticket) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.TicketType)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TicketPrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TicketPurchaseDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TicketEntryTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Purchase.PurchaseId)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.TicketId">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.TicketId">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.TicketId">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.Ticket)
+        {
+            <tr>
+                <td>@item.Purchase?.PurchaseId</td> <!-- Ensure PurchaseId exists -->
+                <td>@item.TicketType</td>
+                <td>@item.TicketPrice.ToString("C")</td> <!-- Display price as currency -->
+                <td>@item.TicketPurchaseDate?.ToString("MM/dd/yyyy")</td> <!-- Format purchase date -->
+                <td>
+                    <!-- Action Buttons (Edit, Delete) -->
+                    <a class="btn btn-warning btn-sm" asp-page="./Edit" asp-route-id="@item.TicketId">Edit</a>
+                    <a class="btn btn-danger btn-sm" asp-page="./Delete" asp-route-id="@item.TicketId">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

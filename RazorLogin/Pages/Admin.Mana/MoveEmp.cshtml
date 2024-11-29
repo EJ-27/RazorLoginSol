@@ -1,0 +1,76 @@
+﻿@page
+@model RazorLogin.Pages.Admin.Mana.MoveEmpModel
+
+@{
+    ViewData["Title"] = "Edit Employee";
+}
+
+<h1>Edit Employee</h1>
+
+<form method="post">
+    <div class="form-group">
+        <label for="EmployeeFirstName">First Name</label>
+        <input type="text" class="form-control" id="EmployeeFirstName" name="EmployeeFirstName" value="@Model.Employee.EmployeeFirstName" required />
+    </div>
+
+    <div class="form-group">
+        <label for="EmployeeLastName">Last Name</label>
+        <input type="text" class="form-control" id="EmployeeLastName" name="EmployeeLastName" value="@Model.Employee.EmployeeLastName" required />
+    </div>
+
+    <div class="form-group">
+        <label for="Department">Department</label>
+        <input type="text" class="form-control" id="Department" name="Department" value="@Model.Employee.Department" required />
+    </div>
+
+    <div class="form-group">
+        <label for="DateOfEmployment">Date of Employment</label>
+        <input type="date" class="form-control" id="DateOfEmployment" name="DateOfEmployment" value="@Model.Employee.DateOfEmployment?.ToString("yyyy-MM-dd")" />
+    </div>
+
+    <!-- Food Store Dropdown for Manager or Shop -->
+    <div class="form-group" id="foodStoreDropdown">
+        <label asp-for="Employee.FoodStoreId" class="control-label"></label>
+        <select asp-for="Employee.FoodStoreId" class="form-control" id="FoodStoreDropdown">
+            <!-- Render both options (with and without managers) -->
+            <option value="">Select Food Store</option>
+
+            @if (ViewData["FoodStoresWithManagers"] != null)
+            {
+                foreach (var store in (List<SelectListItem>)ViewData["FoodStoresWithManagers"])
+                {
+                    <option value="@store.Value">@store.Text</option>
+                }
+            }
+
+        </select>
+        <span asp-validation-for="Employee.FoodStoreId" class="text-danger"></span>
+    </div>
+
+    <!-- Gift Shop Dropdown for Manager or Shop -->
+    <div class="form-group" id="giftShopDropdown">
+        <label asp-for="Employee.ShopId" class="control-label"></label>
+        <select asp-for="Employee.ShopId" class="form-control" id="GiftShopDropdown">
+            <!-- Render both options (with and without managers) -->
+            <option value="">Select Gift Shop</option>
+            @if (ViewData["GiftShopsWithManagers"] != null)
+            {
+                foreach (var store in (List<SelectListItem>)ViewData["GiftShopsWithManagers"])
+                {
+                    <option value="@store.Value">@store.Text</option>
+                }
+            }
+           
+
+        </select>
+        <span asp-validation-for="Employee.ShopId" class="text-danger"></span>
+    </div>
+
+
+    <!-- Hidden EmployeeId for postback -->
+    <input type="hidden" name="EmployeeId" value="@Model.Employee.EmployeeId" />
+
+    <button type="submit" class="btn btn-primary mt-3">Save Changes</button>
+</form>
+
+<a href="@Url.Page("/Admin.Mana/EmpList", new { managerId = Model.Employee.SupervisorId })" class="btn btn-secondary mt-3">Back to Employee List</a>

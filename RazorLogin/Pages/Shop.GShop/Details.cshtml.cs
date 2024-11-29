@@ -57,6 +57,7 @@ namespace RazorLogin.Pages.Shop.GShop
 
                         using (var reader = await giftShopCommand.ExecuteReaderAsync()) // Execute command and get a reader 
                         {
+                            //HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                             if (await reader.ReadAsync()) // Check if a row is returned
                             {
                                 // Since I am having problems with mapping the TimeOnly data type, I will read them as strings instead and convert them to TimeOnly manually

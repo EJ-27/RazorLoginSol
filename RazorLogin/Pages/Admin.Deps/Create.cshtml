@@ -5,22 +5,36 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h1>Add a Dependent to the Database</h1>
 
-<h4>Dependant</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Dependant.DepndantId" class="control-label"></label>
-                <input asp-for="Dependant.DepndantId" class="form-control" />
-                <span asp-validation-for="Dependant.DepndantId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="Dependant.EmployeeId" class="control-label"></label>
                 <select asp-for="Dependant.EmployeeId" class ="form-control" asp-items="ViewBag.EmployeeId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Dependant.DependentName" class="control-label"></label>
+                <input asp-for="Dependant.DependentName" class="form-control" />
+                <span asp-validation-for="Dependant.DependentName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Dependant.DependentDob" class="control-label"></label>
+                <input asp-for="Dependant.DependentDob" class="form-control" />
+                <span asp-validation-for="Dependant.DependentDob" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Dependant.Relationship" class="control-label"></label>
+                <input asp-for="Dependant.Relationship" class="form-control" />
+                <span asp-validation-for="Dependant.Relationship" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Dependant.HealthcareTier" class="control-label"></label>
+                <input asp-for="Dependant.HealthcareTier" class="form-control" />
+                <span asp-validation-for="Dependant.HealthcareTier" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
@@ -30,7 +44,7 @@
 </div>
 
 <div>
-    <a asp-page="Index">Back to List</a>
+    <a asp-page="Index">Back to Dependent List</a>
 </div>
 
 @section Scripts {

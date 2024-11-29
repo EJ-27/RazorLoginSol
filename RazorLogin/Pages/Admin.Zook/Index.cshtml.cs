@@ -18,12 +18,40 @@ namespace RazorLogin.Pages.Admin.Zook
             _context = context;
         }
 
-        public IList<Zookeeper> Zookeeper { get;set; } = default!;
+        public IList<ZookeeperViewModel> Zookeepers { get; set; } = default!;
 
         public async Task OnGetAsync()
         {
-            Zookeeper = await _context.Zookeepers
-                .Include(z => z.Employee).ToListAsync();
+            // Fetch zookeepers and their employee details
+            var zookeepers = await _context.Zookeepers
+                .Include(z => z.Employee) // Include the Employee details
+                .ToListAsync();
+
+            // Map the zookeepers to a view model
+            Zookeepers = zookeepers.Select(z => new ZookeeperViewModel
+            {
+                ZookeeperId = z.ZookeeperId,
+                EmployeeId = z.EmployeeId,
+                EmployeeFirstName = z.Employee?.EmployeeFirstName,
+                EmployeeLastName = z.Employee?.EmployeeLastName,
+                AssignedDepartment = z.AssignedDepartment,
+                NumAssignedCages = z.NumAssignedCages,
+                TrainingRenewalDate = z.TrainingRenewalDate?.ToString("yyyy-MM-dd"),
+                LastTrainingDate = z.LastTrainingDate?.ToString("yyyy-MM-dd")
+            }).ToList();
         }
+    }
+
+    // ViewModel for Zookeeper with Employee details
+    public class ZookeeperViewModel
+    {
+        public int ZookeeperId { get; set; }
+        public int EmployeeId { get; set; }
+        public string EmployeeFirstName { get; set; }
+        public string EmployeeLastName { get; set; }
+        public string AssignedDepartment { get; set; }
+        public short? NumAssignedCages { get; set; }
+        public string TrainingRenewalDate { get; set; }
+        public string LastTrainingDate { get; set; }
     }
 }

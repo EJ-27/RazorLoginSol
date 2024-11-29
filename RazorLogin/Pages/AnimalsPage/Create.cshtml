@@ -1,0 +1,74 @@
+﻿@page
+@model RazorLogin.Pages.AnimalsPage.CreateModel
+@{
+    ViewData["Title"] = "Create New Animal";
+}
+
+<!-- Container with Light Background and Rounded Corners -->
+<div class="container mt-5 p-4" style="background-color: #e8f5e9; border-radius: 10px;">
+    <h2 class="text-success mb-4">Create New Animal</h2>
+
+    <form method="post">
+
+        <!-- Hidden input for ZookeeperId -->
+        <input type="hidden" asp-for="Animal.ZookeeperId" />
+
+        <!-- Animal Name Field -->
+        <div class="form-group mb-3">
+            <label asp-for="Animal.AnimalName" class="control-label"></label>
+            <input asp-for="Animal.AnimalName" class="form-control" />
+            <span asp-validation-for="Animal.AnimalName" class="text-danger"></span>
+        </div>
+
+        <!-- Species Field -->
+        <div class="form-group mb-3">
+            <label asp-for="Animal.Species" class="control-label"></label>
+            <input asp-for="Animal.Species" class="form-control" />
+            <span asp-validation-for="Animal.Species" class="text-danger"></span>
+        </div>
+
+        <!-- Animal Sex Field -->
+        <div class="form-group mb-3">
+            <label asp-for="Animal.AnimalSex" class="control-label">Animal Sex</label>
+            <select asp-for="Animal.AnimalSex" class="form-control">
+                <option value="">Select Sex</option>
+                <option value="M">Male</option>
+                <option value="F">Female</option>
+            </select>
+            <span asp-validation-for="Animal.AnimalSex" class="text-danger"></span>
+        </div>
+
+        <!-- Date of Birth Field -->
+        <div class="form-group mb-3">
+            <label asp-for="Animal.AnimalDob" class="control-label">Date of Birth</label>
+            <input asp-for="Animal.AnimalDob" class="form-control" type="date" />
+            <span asp-validation-for="Animal.AnimalDob" class="text-danger"></span>
+        </div>
+
+        <!-- Arrival Date Field -->
+        <div class="form-group mb-3">
+            <label asp-for="Animal.ArrivalDate" class="control-label">Arrival Date</label>
+            <input asp-for="Animal.ArrivalDate" class="form-control" type="date" />
+            <span asp-validation-for="Animal.ArrivalDate" class="text-danger"></span>
+        </div>
+
+        <!-- Enclosure Field -->
+        <div class="form-group mb-3">
+            <label asp-for="Animal.EnclosureId" class="control-label">Enclosure</label>
+            <select asp-for="Animal.EnclosureId" class="form-control" asp-items="@(ViewData["EnclosureId"] as IEnumerable<SelectListItem>)">
+                <option value="">-- Select Enclosure --</option>
+            </select>
+            <span asp-validation-for="Animal.EnclosureId" class="text-danger"></span>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="d-flex">
+            <button type="submit" class="btn btn-primary me-2">Create</button>
+            <a asp-page="./Index" class="btn btn-secondary">Back to List</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

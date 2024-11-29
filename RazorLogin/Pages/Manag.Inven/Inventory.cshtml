@@ -1,0 +1,58 @@
+﻿@page "{shopId:int?}/{foodStoreId:int?}"
+
+@model RazorLogin.Pages.Manag.Inven.InventoryModel
+@{
+    ViewData["Title"] = "Store Inventory";
+}
+
+<h2>
+    @if (Model.ShopId.HasValue)
+    {
+        @:Gift Shop ID: @Model.ShopId
+    }
+    else if (Model.FoodStoreId.HasValue)
+    {
+        @:Food Store ID: @Model.FoodStoreId
+    }
+</h2>
+
+<a asp-page="./Add"
+   asp-route-shopId="@(Model.ShopId ?? (int?)null)"
+   asp-route-foodStoreId="@(Model.FoodStoreId ?? (int?)null)"
+   class="btn btn-primary">Add New Item</a>
+
+@if (Model.Items.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Item ID</th>
+                <th>Item Name</th>
+                <th>Quantity</th>
+                <th>Restock Date</th>
+                <th>Price</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Items)
+            {
+                <tr>
+                    <td>@item.ItemId</td>
+                    <td>@item.ItemName</td>
+                    <td>@item.ItemCount</td>
+                    <td>@item.RestockDate.ToString("yyyy-MM-dd")</td>
+                    <td>@($"${item.ItemPrice}")</td>
+                    <td>
+                        <a asp-page="./Edit" asp-route-id="@item.ItemId" class="btn btn-warning">Edit</a>
+                        <a asp-page="./Delete" asp-route-id="@item.ItemId" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No items available for this store.</p>
+}

@@ -1,0 +1,80 @@
+﻿@page
+@model RazorLogin.Pages.Manag.Inven.IndexModel
+@{
+    ViewData["Title"] = "My Stores and Employees";
+}
+
+<!-- Container with Light Green Background -->
+<div class="container mt-5 p-4" style="background-color: #e8f5e9; border-radius: 10px;">
+    <h2 class="text-success">Assigned Stores</h2>
+
+    <!-- Card for Assigned Store Details -->
+    <div class="card shadow-sm mb-4" style="border-radius: 8px;">
+        <div class="card-body">
+            @if (Model.AssignedGiftShop != null)
+            {
+                <h4 class="card-title"><strong>Gift Shop:</strong> @Model.AssignedGiftShop.GiftShopName</h4>
+                <p><i class="fas fa-map-marker-alt text-muted"></i> <strong>Location:</strong> @Model.AssignedGiftShop.GiftShopLocation</p>
+                <p><i class="fas fa-clock text-muted"></i> <strong>Open Time:</strong> @Model.AssignedGiftShop.GiftShopOpenTime</p>
+                <p><i class="fas fa-clock text-muted"></i> <strong>Close Time:</strong> @Model.AssignedGiftShop.GiftShopCloseTime</p>
+                <div class="d-flex">
+                    <a asp-page="./EdSto" asp-route-storeId="@Model.AssignedGiftShop.ShopId" class="btn btn-outline-secondary me-2">Edit Store Details</a>
+                    <!-- Manual Link for View Inventory -->
+                    <a href="/Manag.Inven/Inventory?shopId=@Model.AssignedGiftShop.ShopId" class="btn btn-outline-primary">View Inventory</a>
+                </div>
+            }
+            else if (Model.AssignedFoodStore != null)
+            {
+                <h4 class="card-title"><strong>Food Store:</strong> @Model.AssignedFoodStore.FoodStoreName</h4>
+                <p><i class="fas fa-map-marker-alt text-muted"></i> <strong>Location:</strong> @Model.AssignedFoodStore.FoodStoreLocation</p>
+                <p><i class="fas fa-clock text-muted"></i> <strong>Open Time:</strong> @Model.AssignedFoodStore.FoodStoreOpenTime</p>
+                <p><i class="fas fa-clock text-muted"></i> <strong>Close Time:</strong> @Model.AssignedFoodStore.FoodStoreCloseTime</p>
+                <div class="d-flex">
+                    <a asp-page="./EdSto" asp-route-storeId="@Model.AssignedFoodStore.FoodStoreId" class="btn btn-outline-secondary me-2">Edit Store Details</a>
+                    <!-- Manual Link for View Inventory -->
+                    <a href="/Manag.Inven/Inventory?foodStoreId=@Model.AssignedFoodStore.FoodStoreId" class="btn btn-outline-primary">View Inventory</a>
+                </div>
+            }
+            else
+            {
+                <p class="text-muted">No assigned store found for this manager.</p>
+            }
+        </div>
+    </div>
+
+    <!-- Section for Employees Under This Store -->
+    <h3 class="text-success mt-5">Employees Under This Store</h3>
+
+    @if (Model.EmployeesUnderManager.Any())
+    {
+        <div class="card shadow-sm" style="border-radius: 8px;">
+            <div class="card-body">
+                <table class="table table-hover">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Employee ID</th>
+                            <th>Name</th>
+                            <th>Department</th>
+                            <th>Email</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var employee in Model.EmployeesUnderManager)
+                        {
+                            <tr>
+                                <td>@employee.EmployeeId</td>
+                                <td>@employee.EmployeeFirstName @employee.EmployeeLastName</td>
+                                <td>@employee.Department</td>
+                                <td>@employee.EmployeeEmail</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+    else
+    {
+        <p class="text-muted">No employees found under this store.</p>
+    }
+</div>

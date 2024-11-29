@@ -60,12 +60,12 @@ namespace RazorLogin.Pages.CustomerPage
             customerInDb.CustomerLastName = Customer.CustomerLastName;
             customerInDb.CustomerAddress = Customer.CustomerAddress;
             customerInDb.CustomerEmail = Customer.CustomerEmail;
+            customerInDb.CustomerDob = Customer.CustomerDob;
 
             // The fields below are NOT being updated
             // customerInDb.MembershipStartDate; (unchanged)
             // customerInDb.MembershipEndDate;   (unchanged)
             // customerInDb.MembershipType;      (unchanged)
-            // customerInDb.DOB;                 (unchanged)
             try
             {
                 await _context.SaveChangesAsync();

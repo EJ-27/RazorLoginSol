@@ -1,3 +1,7 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -14,57 +18,45 @@ namespace RazorLogin.Pages.Shop.Dining1
             _context = context;
         }
 
-        public List<FoodStore> FoodStores { get; set; } = new List<FoodStore>();
+        // This will hold the list of food stores and their manager data
+        public IList<FoodStoreViewModel> FoodStores { get; set; } = default!;
 
-        public async Task<IActionResult> OnGetAsync()
+        public async Task OnGetAsync()
         {
-            try
+            // Fetch all food stores, including their employees (and managers if assigned)
+            var foodStores = await _context.FoodStores
+                .Include(f => f.Employees) // Include employees assigned to the food store
+                .ThenInclude(e => e.Manager) // Include the manager associated with each employee
+                .ToListAsync();
+
+            // Map the food store data into the view model
+            FoodStores = foodStores.Select(f => new FoodStoreViewModel
             {
-                using (var connection = _context.Database.GetDbConnection())
-                {
-                    await connection.OpenAsync();
-
-                    // SQL query to fetch all food stores
-                    var foodStoreQuery = "SELECT * FROM Food_store";
-                    using (var command = connection.CreateCommand())
-                    {
-                        command.CommandText = foodStoreQuery;
-
-                        using (var reader = await command.ExecuteReaderAsync())
-                        {
-                            var foodStores= new List<FoodStore>();
-                            while (await reader.ReadAsync())
-                            {
-                                // Since I am having problems with mapping the TimeOnly data type, I will read them as strings instead and convert them to TimeOnly manually
-                                var openTimeString = reader["Food_store_open_time"].ToString();
-                                var closeTimeString = reader["Food_store_close_time"].ToString();
-
-                                // Parsing the times manually
-                                var openTime = TimeOnly.Parse(openTimeString);
-                                var closeTime = TimeOnly.Parse(closeTimeString);
-
-                                foodStores.Add(new FoodStore
-                                {
-                                    FoodStoreId = reader.GetInt32(reader.GetOrdinal("Food_store_ID")),
-                                    FoodStoreName = reader.GetString(reader.GetOrdinal("Food_store_name")),
-                                    FoodStoreLocation = reader.GetString(reader.GetOrdinal("Food_store_location")),
-                                    FoodStoreOpenTime= openTime,
-                                    FoodStoreCloseTime = closeTime,
-                                    FoodStoreType = reader.GetString(reader.GetOrdinal("Food_store_type"))
-                                });
-                            }
-                            FoodStores = foodStores;
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                ModelState.AddModelError("", $"An error occurred while fetching data: {ex.Message}");
-                return Page();
-            }
-
-            return Page();
+                FoodStoreId = f.FoodStoreId,
+                FoodStoreName = f.FoodStoreName,
+                FoodStoreLocation = f.FoodStoreLocation,
+                FoodStoreYearToDateSales = f.FoodStoreYearToDateSales,
+                FoodStoreOpenTime = f.FoodStoreOpenTime,
+                FoodStoreCloseTime = f.FoodStoreCloseTime,
+                // Find the manager if there's any employee with a manager assigned to the store
+                ManagerName = f.Employees
+                    .Where(e => e.FoodStoreId == f.FoodStoreId && e.Manager != null) // Ensure manager is assigned to the employee
+                    .Select(e => e.Manager.Employee.EmployeeFirstName + " " + e.Manager.Employee.EmployeeLastName)
+                    .FirstOrDefault() ?? "None" // If no manager is found, return "None"
+            }).ToList();
         }
+
+    }
+
+    // ViewModel for FoodStore with Manager information
+    public class FoodStoreViewModel
+    {
+        public int FoodStoreId { get; set; }
+        public string FoodStoreName { get; set; }
+        public string FoodStoreLocation { get; set; }
+        public int FoodStoreYearToDateSales { get; set; }
+        public TimeOnly? FoodStoreOpenTime { get; set; } // Nullable TimeOnly
+        public TimeOnly? FoodStoreCloseTime { get; set; } // Nullable TimeOnly
+        public string ManagerName { get; set; } // The name of the manager
     }
 }

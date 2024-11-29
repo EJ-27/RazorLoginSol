@@ -71,7 +71,7 @@ using (var scope = app.Services.CreateScope())
 {
     var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
 
-    string email = "admin@admin.com";
+    string email = "Admin@Official.com";
     string password = "Test1234!";
     if (await userManager.FindByEmailAsync(email) == null) {
 
@@ -91,7 +91,7 @@ using (var scope = app.Services.CreateScope())
 {
     var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
 
-    string email = "Manager@zoo.com";
+    string email = "Manager@Manager.com";
     string password = "Test1234!";
     if (await userManager.FindByEmailAsync(email) == null)
     {
@@ -112,7 +112,7 @@ using (var scope = app.Services.CreateScope())
 {
     var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
 
-    string email = "Zookeeper@zoo.com";
+    string email = "Zookeeper@Zookeeper.com";
     string password = "Test1234!";
     if (await userManager.FindByEmailAsync(email) == null)
     {
@@ -221,7 +221,7 @@ using (var scope = app.Services.CreateScope())
 {
     var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
 
-    string email = "StoreEmp@zoo.com";
+    string email = "Employee@Employee.com";
     string password = "Test1234!";
     if (await userManager.FindByEmailAsync(email) == null)
     {

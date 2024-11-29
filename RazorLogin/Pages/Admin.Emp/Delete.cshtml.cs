@@ -48,15 +48,67 @@ namespace RazorLogin.Pages.Admin.Emp
                 return NotFound();
             }
 
-            var employee = await _context.Employees.FindAsync(id);
-            if (employee != null)
+            var employee = await _context.Employees
+                .Include(e => e.Dependants)
+                .Include(e => e.Events)
+                .Include(e => e.Manager)
+                .Include(e => e.Zookeeper)
+                .FirstOrDefaultAsync(e => e.EmployeeId == id);
+
+            if (employee == null)
             {
-                // Find the user associated with the employee's email
-                var user = await _userManager.FindByEmailAsync(employee.EmployeeEmail);
+                return NotFound();
+            }
+
+
+
+            // Remove the validation errors for fields we don't care about in the delete process.
+            ModelState.Remove("Employee.EmployeeEmail");
+            ModelState.Remove("Employee.EmployeeDob");
+
+
+            // Check if the employee has a matching EmployeeId in the Manager table
+            if (_context.Managers.Any(m => m.EmployeeId == employee.EmployeeId))
+            {
+                ModelState.AddModelError(string.Empty, "Cannot delete this employee because they are a manager.");
+            }
+
+            // Check if the employee has a matching EmployeeId in the Zookeeper table
+            if (_context.Zookeepers.Any(z => z.EmployeeId == employee.EmployeeId))
+            {
+                ModelState.AddModelError(string.Empty, "Cannot delete this employee because they are a zookeeper.");
+            }
+
+            // Check if the employee has dependents
+            if (employee.Dependants.Any())
+            {
+                ModelState.AddModelError(string.Empty, "Cannot delete this employee because they have dependents.");
+            }
+
+            // Check if the employee has events
+            if (employee.Events.Any())
+            {
+                ModelState.AddModelError(string.Empty, "Cannot delete this employee because they are associated with events.");
+            }
+
+            // If any errors were added to the ModelState, return to the page
+            if (!ModelState.IsValid)
+            {
+                // Re-bind the employee to the view model
+                Employee = employee;
+                return Page();
+            }
+
+            // Proceed with deleting the employee and associated user
+            var user = await _userManager.FindByEmailAsync(employee.EmployeeEmail);
+            _context.Employees.Remove(employee);
+
+            try
+            {
+                await _context.SaveChangesAsync();
 
                 if (user != null)
                 {
-                    // Delete the Identity user
                     var result = await _userManager.DeleteAsync(user);
                     if (!result.Succeeded)
                     {
@@ -65,16 +117,21 @@ namespace RazorLogin.Pages.Admin.Emp
                         {
                             ModelState.AddModelError(string.Empty, error.Description);
                         }
+                        Employee = employee; // Re-bind the employee to the view model
                         return Page(); // Return to the page to display errors
                     }
                 }
-
-                // Delete the employee record
-                _context.Employees.Remove(employee);
-                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                // Log the error (ex) if needed
+                ModelState.AddModelError(string.Empty, "An error occurred while deleting the employee. Please try again.");
+                Employee = employee; // Re-bind the employee to the view model
+                return Page(); // Return to the page to display errors
             }
 
             return RedirectToPage("./Index");
         }
+
     }
 }

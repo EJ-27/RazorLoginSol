@@ -1,0 +1,65 @@
+﻿@page
+@model RazorLogin.Pages.CustomerEvents.IndexModel
+
+@{
+    ViewData["Title"] = "Available Events";
+}
+
+<h1>Available Events</h1>
+
+<div class="event-container">
+    @foreach (var item in Model.Event)
+    {
+        <div class="event-item">
+            <h2 class="event-title">@item.EventName</h2>
+            <div class="event-details">
+                <p><strong>Start Time:</strong> @item.EventStartTime.ToShortTimeString()</p>
+                <p><strong>End Time:</strong> @item.EventEndTime.ToShortTimeString()</p>
+                <p><strong>Date:</strong> @(item.EventDate.HasValue ? item.EventDate.Value.ToLongDateString() : "N/A")</p>
+                <p><strong>Location:</strong> @item.EventLocation</p>
+            </div>
+        </div>
+    }
+</div>
+
+<style>
+    .event-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 20px;
+        justify-items: center;
+        margin-top: 20px;
+    }
+
+    .event-item {
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        background-color: #ffffff;
+        padding: 20px;
+        width: 100%;
+        max-width: 350px;
+        text-align: left;
+        transition: transform 0.3s ease-in-out;
+    }
+
+        /* Hover effect */
+        .event-item:hover {
+            transform: translateY(-5px);
+        }
+
+    /* Title styling */
+    .event-title {
+        font-size: 1.75em;
+        color: #2c6dbf; 
+        margin-bottom: 10px;
+        font-weight: bold;
+    }
+
+    /* Event details section */
+    .event-details p {
+        font-size: 1em;
+        color: #444;
+        margin: 8px 0;
+    }
+</style>

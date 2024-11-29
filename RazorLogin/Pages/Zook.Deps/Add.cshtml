@@ -1,0 +1,56 @@
+﻿@page
+@model RazorLogin.Pages.Zook.Deps.CreateModel
+
+@{
+    ViewData["Title"] = "Add Dependent";
+}
+
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Add Dependent</h2>
+
+    <div class="shadow p-4 rounded bg-light">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+            <div class="mb-3">
+                <label asp-for="Dependent.DependentName" class="form-label"></label>
+                <input asp-for="Dependent.DependentName" class="form-control" />
+                <span asp-validation-for="Dependent.DependentName" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Dependent.DependentDob" class="form-label"></label>
+                <input asp-for="Dependent.DependentDob" class="form-control" type="date" />
+                <span asp-validation-for="Dependent.DependentDob" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Dependent.Relationship" class="form-label"></label>
+                <input asp-for="Dependent.Relationship" class="form-control" />
+                <span asp-validation-for="Dependent.Relationship" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Dependent.HealthcareTier" class="form-label"></label>
+                <select asp-for="Dependent.HealthcareTier" class="form-control">
+                    <option value="">Select Healthcare Tier</option>
+                    <option value="Tier 1">Tier 1</option>
+                    <option value="Tier 2">Tier 2</option>
+                    <option value="Tier 3">Tier 3</option>
+                </select>
+                <span asp-validation-for="Dependent.HealthcareTier" class="text-danger"></span>
+            </div>
+
+            <div class="text-center">
+                <input type="submit" value="Add Dependent" class="btn btn-primary me-2" />
+                <a asp-page="./Index" class="btn btn-secondary">Back to My Dependents</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

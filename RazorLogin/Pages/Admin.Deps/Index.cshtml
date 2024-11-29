@@ -2,65 +2,58 @@
 @model RazorLogin.Pages.Admin.Deps.IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "All Dependants";
 }
 
-<h1>Index</h1>
+<h1>All Dependants</h1>
 
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
-<table class="table">
+<!-- Instruction Note -->
+<div class="mt-3">
+    <small class="text-muted">
+        Here you can view all dependants associated with employees. To edit or delete a dependant, use the actions provided in the last column.
+    </small>
+</div>
+
+
+
+<!-- Dependants Table -->
+<table class="table table-striped mt-3">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Dependant[0].DependentName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Dependant[0].DependentSex)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Dependant[0].DependentDob)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Dependant[0].Relationship)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Dependant[0].HealthcareTier)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Dependant[0].Employee)
-            </th>
-            <th></th>
+            <th>@Html.DisplayNameFor(model => model.Dependant[0].DepndantId)</th>
+            <th>@Html.DisplayNameFor(model => model.Dependant[0].DependentName)</th>
+            <th>@Html.DisplayNameFor(model => model.Dependant[0].DependentDob)</th>
+            <th>@Html.DisplayNameFor(model => model.Dependant[0].Relationship)</th>
+            <th>@Html.DisplayNameFor(model => model.Dependant[0].HealthcareTier)</th>
+            <th>@Html.DisplayNameFor(model => model.Dependant[0].Employee)</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Dependant) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.DependentName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DependentSex)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DependentDob)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Relationship)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HealthcareTier)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Employee.EmployeeId)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.DepndantId">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.DepndantId">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.DepndantId">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.Dependant)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.DepndantId)</td>
+                <td>@Html.DisplayFor(modelItem => item.DependentName)</td>
+                <td>
+                    @if (item.DependentDob.HasValue)
+                    {
+                        @item.DependentDob.Value.ToString("yyyy-MM-dd")
+                    }
+                    else
+                    {
+                        <span>N/A</span>
+                    }
+                </td>
+                <td>@Html.DisplayFor(modelItem => item.Relationship)</td>
+                <td>@Html.DisplayFor(modelItem => item.HealthcareTier)</td>
+                <td>@item.Employee.EmployeeFirstName @item.Employee.EmployeeLastName</td> <!-- Display Employee's First and Last Name -->
+                <td>
+                    <!-- Edit and Delete Actions -->
+                    <a class="btn btn-warning btn-sm" asp-page="./Edit" asp-route-id="@item.DepndantId">Edit</a>
+                    <a class="btn btn-danger btn-sm" asp-page="./Delete" asp-route-id="@item.DepndantId">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

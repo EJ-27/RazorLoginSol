@@ -48,14 +48,49 @@ namespace RazorLogin.Pages.Admin.GShps
                 return NotFound();
             }
 
-            var giftshop = await _context.GiftShops.FindAsync(id);
-            if (giftshop != null)
+            var giftshop = await _context.GiftShops
+                .FirstOrDefaultAsync(g => g.ShopId == id);
+
+            if (giftshop == null)
             {
-                GiftShop = giftshop;
-                _context.GiftShops.Remove(GiftShop);
-                await _context.SaveChangesAsync();
+                return NotFound();
             }
 
+            // Check if any employees are associated with this giftshop
+            var employeesAssignedToGiftShop = await _context.Employees
+                .Where(e => e.ShopId == giftshop.ShopId)
+                .ToListAsync();
+
+            if (employeesAssignedToGiftShop.Any())
+            {
+                // Add an error to the ModelState if employees are found
+                ModelState.AddModelError(string.Empty, "Cannot delete this gift shop because there are employees assigned to it.");
+                GiftShop = giftshop; // Re-bind giftshop data for the page
+                return Page(); // Re-render the page with the error
+            }
+
+            try
+            {
+                // Proceed with deletion if no employees are assigned
+                _context.GiftShops.Remove(giftshop);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException dbEx)
+            {
+                // Handle specific database errors (e.g., foreign key violation, or other update issues)
+                ModelState.AddModelError(string.Empty, "An error occurred while deleting the gift shop. " + dbEx.Message);
+                GiftShop = giftshop; // Re-bind giftshop data
+                return Page(); // Re-render the page with the error message
+            }
+            catch (Exception ex)
+            {
+                // Catch unexpected errors
+                ModelState.AddModelError(string.Empty, "An unexpected error occurred. Please try again later. " + ex.Message);
+                GiftShop = giftshop; // Re-bind giftshop data
+                return Page(); // Re-render the page with the error message
+            }
+
+            // Redirect to the list page after successful deletion
             return RedirectToPage("./Index");
         }
     }

@@ -22,10 +22,12 @@ public partial class Enclosure
     public int ZookeeperId { get; set; }
 
     public string? OccupancyStatus { get; set; }
+    public bool? IsDeleted { get; set; }
+
 
     public virtual ICollection<Animal> Animals { get; set; } = new List<Animal>();
 
     public virtual ICollection<Closing> Closings { get; set; } = new List<Closing>();
 
-    public virtual Zookeeper Zookeeper { get; set; } = null!;
+    public virtual Zookeeper? Zookeeper { get; set; } = null!; //added ? 11/10 to fix edit page
 }

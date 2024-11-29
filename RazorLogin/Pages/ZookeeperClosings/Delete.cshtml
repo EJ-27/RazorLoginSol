@@ -1,0 +1,53 @@
+﻿@page
+@model RazorLogin.Pages.ZookeeperClosings.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete Enclosure Closing";
+}
+
+<div class="container my-5">
+    <h1 class="text-center mb-4">Delete Closing</h1>
+
+    <h3 class="text-center text-danger mb-4">Are you sure you want to delete this closure?</h3>
+    <hr />
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h4 class="text-muted mb-3">Closing Details</h4>
+            <dl class="row mb-4">
+                <dt class="col-sm-3 fw-bold">
+                Closings End
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Closing.ClosingsEnd)
+                </dd>
+                <dt class="col-sm-3 fw-bold">
+                    Closings Start
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Closing.ClosingsStart)
+                </dd>
+                <dt class="col-sm-3 fw-bold">
+                    Closing Reason
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Closing.ClosingsReason)
+                </dd>
+                <dt class="col-sm-3 fw-bold">
+                    Enclosure Id
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Closing.EnclosureId)
+                </dd>
+            </dl>
+
+            <form method="post">
+                <input type="hidden" asp-for="Closing.ClosingId" />
+                <div class="d-flex justify-content-center gap-3">
+                    <button type="submit" class="btn btn-danger btn-lg">Delete</button>
+                    <a asp-page="./Index" class="btn btn-outline-secondary btn-lg">Back to List</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

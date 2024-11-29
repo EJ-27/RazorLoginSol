@@ -5,52 +5,68 @@
     ViewData["Title"] = "Update or Upgrade Membership";
 }
 
-<h1>Update or Upgrade Membership</h1>
+<div class="container my-5">
+    <h1 class="text-center mb-4">Update or Upgrade Your Membership</h1>
 
-<h4>Customer</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Customer.CustomerId" />
-            <input type="hidden" asp-for="Customer.MembershipStartDate" id="MembershipStartDate" />
-            <input type="hidden" asp-for="Customer.MembershipEndDate" id="MembershipEndDate" />
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["SuccessMessage"]
+        </div>
+    }
 
-            <div>
-                <label asp-for="Customer.CustomerEmail"></label>
-                <input asp-for="Customer.CustomerEmail" readonly />
-                <span asp-validation-for="Customer.CustomerEmail"></span>
-            </div>
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["ErrorMessage"]
+        </div>
+    }
 
-            <!-- Membership Type Dropdown -->
-            <div class="form-group">
-                <label asp-for="Customer.MembershipType" class="control-label"></label>
-                <select asp-for="Customer.MembershipType" class="form-control" id="membershipDropdown" onchange="updateMembershipPrice()">
-                    <option value="">Select Membership</option>
-                    @foreach (var option in Model.MembershipOptions)
-                    {
-                        <option value="@option.Value" selected="@option.Selected">@option.Text</option>
-                    }
-                </select>
-                <span asp-validation-for="Customer.MembershipType" class="text-danger"></span>
-            </div>
+    <hr />
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                <input type="hidden" asp-for="Customer.CustomerId" />
+                <input type="hidden" asp-for="Customer.MembershipStartDate" id="MembershipStartDate" />
+                <input type="hidden" asp-for="Customer.MembershipEndDate" id="MembershipEndDate" />
 
-            <!-- Membership Price Display -->
-            <div class="form-group">
-                <label>Membership Price:</label>
-                <p id="membershipPrice">$0</p>
-            </div>
+                <!-- Customer Email Display -->
+                <div class="form-group">
+                    <label asp-for="Customer.CustomerEmail" class="form-label">Customer Email:</label>
+                    <input asp-for="Customer.CustomerEmail" class="form-control" readonly />
+                </div>
 
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+                <!-- Membership Type Dropdown -->
+                <div class="form-group">
+                    <label asp-for="Customer.MembershipType" class="form-label">Membership Type:</label>
+                    <select asp-for="Customer.MembershipType" class="form-control" id="membershipDropdown" onchange="updateMembershipPrice()">
+                        <option value="">Select Membership</option>
+                        @foreach (var option in Model.MembershipOptions)
+                        {
+                            <option value="@option.Value" selected="@option.Selected">@option.Text</option>
+                        }
+                    </select>
+
+                    <span asp-validation-for="Customer.MembershipType" class="text-danger"></span>
+                </div>
+
+                <!-- Membership Price Display -->
+                <div class="form-group">
+                    <label>Membership Price:</label>
+                    <p id="membershipPrice" class="font-weight-bold" style="font-size: 1.25rem;">$0</p>
+                </div>
+
+                <div class="form-group text-center mt-4">
+                    <input type="submit" value="Save Changes" class="btn btn-success btn-lg w-100" />
+                </div>
+            </form>
+        </div>
     </div>
-</div>
 
-<div>
-    <a asp-page="./Index">Back to List</a>
+    <div class="text-center mt-5">
+        <a asp-page="./Index" class="btn btn-secondary btn-sm">Back to Membership List</a>
+    </div>
 </div>
 
 @section Scripts {
@@ -58,27 +74,27 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
     <script>
-        // Update membership price and dates based on selected membership tier
+        // Update membership price display based on selected membership tier
         function updateMembershipPrice() {
             var selectedMembership = document.getElementById('membershipDropdown').value;
             var priceDisplay = document.getElementById('membershipPrice');
-            var price = 0;
+            var priceText = "";
 
             switch (selectedMembership) {
-                case 'Free':
-                    price = 0;
+                case 'FREE TIER':
+                    priceText = "$0";
                     break;
-                case 'Family':
-                    price = 15;
+                case 'FAMILY TIER':
+                    priceText = "$15 Monthly";
                     break;
-                case 'VIP':
-                    price = 25;
+                case 'VIP TIER':
+                    priceText = "$25 Monthly";
                     break;
                 default:
-                    price = 0;
+                    priceText = "$0";
             }
 
-            priceDisplay.innerText = '$' + price + (price > 0 ? '/month' : '');
+            priceDisplay.innerText = priceText;
 
             // Set membership start and end dates
             var startDate = new Date();
@@ -88,5 +104,9 @@
             document.getElementById('MembershipStartDate').value = startDate.toISOString().split('T')[0]; // Set to current date
             document.getElementById('MembershipEndDate').value = endDate.toISOString().split('T')[0]; // Set to one year from now
         }
+
+        window.onload = function () {
+            updateMembershipPrice();
+        };
     </script>
 }

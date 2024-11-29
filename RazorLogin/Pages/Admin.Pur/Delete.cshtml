@@ -1,0 +1,41 @@
+﻿@page
+@model RazorLogin.Pages.Admin.Pur.DeleteModel
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Purchase</title>
+</head>
+<body>
+
+    <h2>Are you sure you want to delete this purchase?</h2>
+
+
+    @if (!ModelState.IsValid)
+    {
+        <div class="alert alert-danger">
+            @foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
+            {
+                <p>@error.ErrorMessage</p>
+            }
+        </div>
+    }
+
+    <div>
+        <p><strong>Purchase ID:</strong> @Model.Purchase.PurchaseId</p>
+        <p><strong>Customer ID:</strong> @Model.Purchase.CustomerId</p>
+        <p><strong>Store ID:</strong> @Model.Purchase.StoreId</p>
+        <p><strong>Num Items:</strong> @Model.Purchase.NumItems</p>
+        <p><strong>Total Purchases Price:</strong> @Model.Purchase.TotalPurchasesPrice</p>
+        <p><strong>Purchase Method:</strong> @Model.Purchase.PurchaseMethod</p>
+    </div>
+
+    <form method="post">
+        <button type="submit">Delete</button>
+        <a href="/Admin.Pur/Index">Cancel</a>
+    </form>
+
+</body>
+</html>

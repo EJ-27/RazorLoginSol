@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using RazorLogin.Models;
 
 namespace RazorLogin.Pages.Admin.Mana
@@ -33,6 +34,19 @@ namespace RazorLogin.Pages.Admin.Mana
             if (!ModelState.IsValid)
             {
                 return Page();
+            }
+
+            // Generate a unique managid based on EmployeeId
+            int employeeId = Manager.EmployeeId;
+            Random random = new Random();
+            int randomSuffix = random.Next(10000, 99999); // Generate a random number
+            Manager.ManagerId = int.Parse($"{employeeId}{randomSuffix}"); // Concatenate employee ID and random number
+
+            // Ensure managid is unique in the database
+            while (await _context.Dependants.AnyAsync(d => d.DepndantId == Manager.ManagerId))
+            {
+                randomSuffix = random.Next(10000, 99999);
+                Manager.ManagerId = int.Parse($"{employeeId}{randomSuffix}");
             }
 
             _context.Managers.Add(Manager);

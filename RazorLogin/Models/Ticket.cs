@@ -17,5 +17,8 @@ public partial class Ticket
 
     public int PurchaseId { get; set; }
 
+    public bool? IsDeleted { get; set; }
+
+
     public virtual Purchase? Purchase { get; set; } = null!;
 }

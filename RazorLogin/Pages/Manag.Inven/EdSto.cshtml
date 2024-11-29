@@ -1,0 +1,84 @@
+﻿@page "{storeId:int}"
+@model RazorLogin.Pages.Manag.Inven.EditStoreModel
+@{
+    ViewData["Title"] = "Edit Store Details";
+}
+
+<h2>Edit Store Details</h2>
+
+@if (!string.IsNullOrEmpty(ViewData["ErrorMessage"] as string))
+{
+    <div class="alert alert-danger" role="alert">
+        <strong>Error:</strong> @ViewData["ErrorMessage"]
+    </div>
+}
+
+
+@if (Model.AssignedGiftShop != null)
+{
+    <form method="post">
+        <div class="form-group">
+            <label asp-for="AssignedGiftShop.GiftShopName">Gift Shop Name</label>
+            <input asp-for="AssignedGiftShop.GiftShopName" class="form-control" />
+            <span asp-validation-for="AssignedGiftShop.GiftShopName" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="AssignedGiftShop.GiftShopLocation">Gift Shop Location</label>
+            <input asp-for="AssignedGiftShop.GiftShopLocation" class="form-control" />
+            <span asp-validation-for="AssignedGiftShop.GiftShopLocation" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="AssignedGiftShop.GiftShopOpenTime">Gift Shop Open Time</label>
+            <input asp-for="AssignedGiftShop.GiftShopOpenTime" class="form-control" type="time" />
+            <span asp-validation-for="AssignedGiftShop.GiftShopOpenTime" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="AssignedGiftShop.GiftShopCloseTime">Gift Shop Closing Time</label>
+            <input asp-for="AssignedGiftShop.GiftShopCloseTime" class="form-control" type="time" />
+            <span asp-validation-for="AssignedGiftShop.GiftShopCloseTime" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+        <a asp-page="./Index" class="btn btn-secondary ms-2">Cancel</a>
+    </form>
+}
+else if (Model.AssignedFoodStore != null)
+{
+    <form method="post">
+        <div class="form-group">
+            <label asp-for="AssignedFoodStore.FoodStoreName" class="form-label">Food Store Name</label>
+            <input asp-for="AssignedFoodStore.FoodStoreName" class="form-control" />
+            <span asp-validation-for="AssignedFoodStore.FoodStoreName" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="AssignedFoodStore.FoodStoreLocation">Food Store Location</label>
+            <input asp-for="AssignedFoodStore.FoodStoreLocation" class="form-control" />
+            <span asp-validation-for="AssignedFoodStore.FoodStoreLocation" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="AssignedFoodStore.FoodStoreOpenTime">Food Store Open Time</label>
+            <input asp-for="AssignedFoodStore.FoodStoreOpenTime" type="time" class="form-control" />
+            <span asp-validation-for="AssignedFoodStore.FoodStoreOpenTime" class="text-danger"></span>
+
+        </div>
+
+        <div class="form-group">
+            <label asp-for="AssignedFoodStore.FoodStoreCloseTime">Food Store Close Time</label>
+            <input asp-for="AssignedFoodStore.FoodStoreCloseTime" type="time" class="form-control" />
+            <span asp-validation-for="AssignedFoodStore.FoodStoreCloseTime" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+        <a asp-page="./Index" class="btn btn-secondary ms-2">Cancel</a>
+
+    </form>
+}
+else
+{
+    <p>No store details found for editing.</p>
+}

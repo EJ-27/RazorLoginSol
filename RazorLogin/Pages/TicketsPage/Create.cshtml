@@ -5,58 +5,76 @@
     ViewData["Title"] = "Purchase Ticket";
 }
 
-<h1>Purchase Ticket</h1>
+<div class="container my-5">
+    <h1 class="text-center mb-4">Purchase Your Ticket</h1>
 
-<h4>Ticket</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["SuccessMessage"]
+        </div>
+    }
 
-            <!-- Ticket Type Dropdown -->
-            <div class="form-group">
-                <label asp-for="SelectedTicketType" class="control-label"></label>
-                <select asp-for="SelectedTicketType" class="form-control" onchange="updateTicketPrice()">
-                    <option value="">Select Ticket Type</option>
-                    @foreach (var ticketType in Model.TicketTypes)
-                    {
-                        <option value="@ticketType.Key">@ticketType.Key</option>
-                    }
-                </select>
-                <span asp-validation-for="SelectedTicketType" class="text-danger"></span>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm border-light">
+                <div class="card-body">
+                    <h4 class="card-title">Choose Your Ticket</h4>
+                    <hr />
+
+                    <form method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <!-- Ticket Type Dropdown Section -->
+                        <div class="form-group">
+                            <label asp-for="SelectedTicketType" class="control-label">Ticket Type</label>
+                            <select asp-for="SelectedTicketType" class="form-control" id="SelectedTicketType" onchange="updateTicketPrice()">
+                                <option value="">Select Ticket Type</option>
+                                @foreach (var ticketType in Model.TicketTypes)
+                                {
+                                    <option>@ticketType.Key</option>
+                                }
+                            </select>
+                            <span asp-validation-for="SelectedTicketType" class="text-danger"></span>
+                        </div>
+
+                        <!-- Ticket Price Display Section -->
+                        <div class="form-group mt-4">
+                            <label class="control-label">Ticket Price</label>
+                            <p id="ticketPrice" class="h4 text-primary">$0</p>
+                        </div>
+
+                        <!-- Hidden field for MembershipType -->
+                        <input type="hidden" id="membershipType" value="@Model.MembershipType" />
+
+                        <!-- Submit Button Section -->
+                        <div class="form-group text-center mt-4">
+                            <input type="submit" value="Purchase" class="btn btn-success btn-lg" />
+                        </div>
+                    </form>
+                </div>
             </div>
+        </div>
+    </div>
 
-            <!-- Ticket Price Display -->
-            <div class="form-group">
-                <label>Ticket Price:</label>
-                <p id="ticketPrice">$0</p>
-            </div>
-
-
-            <!-- Submit Button -->
-            <div class="form-group">
-                <input type="submit" value="Purchase" class="btn btn-primary" />
-            </div>
-        </form>
+    <div class="text-center mt-4">
+        <a asp-page="Index" class="btn btn-outline-secondary btn-lg">Back to My Tickets</a>
     </div>
 </div>
 
-<div>
-    <a asp-page="Index">Back to List</a>
-</div>
-
-@section Scripts {
+@section Scripts{
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+
     <script>
         // Update ticket price based on selected ticket type
         function updateTicketPrice() {
             var ticketType = document.getElementById('SelectedTicketType').value;
             var ticketPrice = 0;
+            var membershipType = document.getElementById('membershipType').value;
 
-            // Define prices
+            // Define base prices
             switch (ticketType) {
                 case 'Adult':
                     ticketPrice = 25;
@@ -72,8 +90,33 @@
                     ticketPrice = 0;
             }
 
-            // Display the ticket price
+            // Apply membership discount
+            if (membershipType === "FAMILY TIER") {
+                ticketPrice -= 2;
+            } else if (membershipType === "VIP TIER") {
+                ticketPrice -= 3;
+            }
+
+            // Display the updated ticket price
             document.getElementById('ticketPrice').innerText = '$' + ticketPrice;
         }
+
+        window.onload = function () {
+            var selectedTicketType = '@Model.SelectedTicketType';
+            var ticketSelect = document.getElementById('SelectedTicketType');
+
+            // Set the selected option based on the model value
+            for (var i = 0; i < ticketSelect.options.length; i++) {
+                if (ticketSelect.options[i].text === selectedTicketType) {
+                    ticketSelect.selectedIndex = i;
+                    break;
+                }
+            }
+
+            // Call updateTicketPrice() if there is a selected ticket type
+            if (selectedTicketType) {
+                updateTicketPrice();
+            }
+        };
     </script>
 }

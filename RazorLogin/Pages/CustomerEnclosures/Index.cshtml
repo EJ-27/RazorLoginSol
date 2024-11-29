@@ -1,0 +1,102 @@
+﻿@page
+@model RazorLogin.Pages.CustomerEnclosures.IndexModel
+
+@{
+    ViewData["Title"] = "Our Enclosures";
+}
+
+<h1>Our Enclosures</h1>
+
+<div class="enclosure-container">
+    @foreach (var item in Model.Enclosure)
+    {
+        <div class="enclosure-item @(item.OccupancyStatus == "CLOSED" ? "closed-enclosure" : "")">
+            <h2 class="enclosure-title">@item.EnclosureName</h2>
+            <div class="enclosure-details">
+                <p><strong>Open Time:</strong> @item.EnclosureOpenTime.ToString("hh:mm tt")</p>
+                <p><strong>Close Time:</strong> @item.EnclosureCloseTime.ToString("hh:mm tt")</p>
+                <p><strong>Cleaning Time:</strong> @item.EnclosureCleaningTime.ToString("hh:mm tt")</p>
+                <p><strong>Feeding Time:</strong> @item.EnclosureFeedingTime.ToString("hh:mm tt")</p>
+                <p><strong>Animals in Enclosure:</strong></p>
+                <ul>
+                    @foreach (var animal in item.Animals)
+                    {
+                        <li>@animal.Species</li>
+                    }
+                </ul>
+                @if (item.OccupancyStatus == "CLOSED")
+                {
+                    <p class="closed-status">Currently Closed</p>
+                }
+            </div>
+        </div>
+    }
+</div>
+
+<style>
+    .enclosure-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 20px;
+        justify-items: center;
+        margin-top: 20px;
+    }
+
+    .enclosure-item {
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        background-color: #ffffff;
+        padding: 20px;
+        width: 100%;
+        max-width: 350px;
+        text-align: left;
+        transition: transform 0.3s ease-in-out;
+    }
+
+        /* Hover effect */
+        .enclosure-item:hover {
+            transform: translateY(-5px);
+        }
+
+    /* Title styling */
+    .enclosure-title {
+        font-size: 1.75em;
+        color: #2c6dbf;
+        margin-bottom: 10px;
+        font-weight: bold;
+    }
+
+    /* Enclosure details section */
+    .enclosure-details p {
+        font-size: 1em;
+        color: #444;
+        margin: 8px 0;
+    }
+
+    .enclosure-details ul {
+        list-style-type: none;
+        padding-left: 0;
+        margin-top: 5px;
+    }
+
+    .enclosure-details li {
+        font-size: 1em;
+        color: #555;
+        margin: 4px 0;
+    }
+
+    /* Styling for closed enclosures */
+    .closed-enclosure {
+        background-color: #f8d7da;
+        border: 1px solid #f5c6cb;
+        opacity: 0.6; /* Dim the closed enclosures */
+    }
+
+    .closed-status {
+        color: #721c24;
+        font-weight: bold;
+        font-size: 1.1em;
+        margin-top: 10px;
+    }
+</style>

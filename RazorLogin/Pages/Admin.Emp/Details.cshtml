@@ -5,99 +5,120 @@
     ViewData["Title"] = "Employee Details";
 }
 
-<h1>Employee Details</h1>
+<h1 class="mb-4">Employee Details</h1>
 
-<div>
-    <h4>Employee</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Employee.Ssn)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Employee.Ssn)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Employee.EmployeeFirstName)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Employee.EmployeeFirstName)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Employee.EmployeeLastName)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Employee.EmployeeLastName)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Employee.EmployeeDob)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Employee.EmployeeDob)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Employee.EmployeeAddress)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Employee.EmployeeAddress)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Employee.EmployeeSalary)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Employee.EmployeeSalary)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Employee.DateOfEmployment)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Employee.DateOfEmployment)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Employee.Degree)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Employee.Degree)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Employee.EmployeePhoneNumber)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Employee.EmployeePhoneNumber)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Employee.Department)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Employee.Department)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Employee.EmployeeEmail)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Employee.EmployeeEmail)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Employee.FoodStore)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Employee.FoodStore.FoodStoreId)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Employee.Shop)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Employee.Shop.ShopId)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Employee.Supervisor)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Employee.Supervisor.ManagerId)
-        </dd>
-    </dl>
+<!-- Basic Information Box -->
+<div class="card mb-4">
+    <div class="card-body">
+        <h3 class="card-title">Basic Information</h3>
+        <hr />
+        <div class="row mb-3">
+            <div class="col-sm-4">
+                <strong>SSN:</strong>
+                <p>@Html.DisplayFor(model => model.Employee.Ssn)</p>
+            </div>
+            <div class="col-sm-4">
+                <strong>Name:</strong>
+                <p>@Html.DisplayFor(model => model.Employee.EmployeeFirstName) @Html.DisplayFor(model => model.Employee.EmployeeLastName)</p>
+            </div>
+            <div class="col-sm-4">
+                <strong>Date of Birth:</strong>
+                <p>@Html.DisplayFor(model => model.Employee.EmployeeDob)</p>
+            </div>
+        </div>
+    </div>
 </div>
-<div>
-    <a asp-page="./Edit" asp-route-id="@Model.Employee.EmployeeId">Edit</a> |
-    <a asp-page="./Index">Back to List</a>
+
+<!-- Contact Information Box -->
+<div class="card mb-4">
+    <div class="card-body">
+        <h3 class="card-title">Contact Information</h3>
+        <hr />
+        <div class="row mb-3">
+            <div class="col-sm-6">
+                <strong>Address:</strong>
+                <p>@Html.DisplayFor(model => model.Employee.EmployeeAddress)</p>
+            </div>
+            <div class="col-sm-6">
+                <strong>Phone Number:</strong>
+                <p>@Html.DisplayFor(model => model.Employee.EmployeePhoneNumber)</p>
+            </div>
+            <div class="col-sm-6">
+                <strong>Email:</strong>
+                <p>@Html.DisplayFor(model => model.Employee.EmployeeEmail)</p>
+            </div>
+        </div>
+    </div>
 </div>
+
+<!-- Employment Information Box -->
+<div class="card mb-4">
+    <div class="card-body">
+        <h3 class="card-title">Employment Details</h3>
+        <hr />
+        <div class="row mb-3">
+            <div class="col-sm-6">
+                <strong>Salary:</strong>
+                <p>@Html.DisplayFor(model => model.Employee.EmployeeSalary)</p>
+            </div>
+            <div class="col-sm-6">
+                <strong>Date of Employment:</strong>
+                <p>@Html.DisplayFor(model => model.Employee.DateOfEmployment)</p>
+            </div>
+            <div class="col-sm-6">
+                <strong>Department:</strong>
+                <p>@Html.DisplayFor(model => model.Employee.Department)</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Education Box -->
+<div class="card mb-4">
+    <div class="card-body">
+        <h3 class="card-title">Education</h3>
+        <hr />
+        <div class="row mb-3">
+            <div class="col-sm-6">
+                <strong>Degree:</strong>
+                <p>@Html.DisplayFor(model => model.Employee.Degree)</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Workplace Information Box -->
+<div class="card mb-4">
+    <div class="card-body">
+        <h3 class="card-title">Workplace Information</h3>
+        <hr />
+        <div class="row mb-3">
+            <div class="col-sm-6">
+                <strong>Food Store ID:</strong>
+                <p>@Html.DisplayFor(model => model.Employee.FoodStoreId)</p>
+            </div>
+            <div class="col-sm-6">
+                <strong>Gift Shop ID:</strong>
+                <p>@Html.DisplayFor(model => model.Employee.ShopId)</p>
+            </div>
+            <div class="col-sm-6">
+                <strong>Supervisor ID:</strong>
+                <p>@Html.DisplayFor(model => model.Employee.SupervisorId)</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Action Buttons -->
+<div class="d-flex justify-content-between mt-4">
+    <a class="btn btn-primary" asp-page="./Edit" asp-route-id="@Model.Employee.EmployeeId">
+        <i class="fas fa-edit"></i> Edit
+    </a>
+    <a class="btn btn-secondary" asp-page="./Index">
+        <i class="fas fa-arrow-left"></i> Back to List
+    </a>
+</div>
+
+@section Scripts {
+    <!-- Optionally include any additional JS, like icons or custom scripts -->
+}

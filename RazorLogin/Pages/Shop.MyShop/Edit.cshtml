@@ -1,0 +1,62 @@
+﻿@page "{itemId:int}"
+@model RazorLogin.Pages.Shop.MyShop.EditModel
+
+@{
+    ViewData["Title"] = "Edit Item";
+}
+
+<div class="container mt-4">
+    <h1 class="text-center mb-4">Edit Item</h1>
+
+    <form method="post" class="shadow p-4 rounded bg-light">
+        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+        <input type="hidden" asp-for="Item.ItemId" />
+
+        <!-- Display Item Name as read-only -->
+        <div class="form-group mb-3">
+            <label asp-for="Item.ItemName" class="form-label">Item Name</label>
+            <input asp-for="Item.ItemName" class="form-control" readonly />
+            <span asp-validation-for="Item.ItemName" class="text-danger"></span>
+        </div>
+
+        <!-- Display Item Price as read-only -->
+        <div class="form-group mb-3">
+            <label asp-for="Item.ItemPrice" class="form-label">Item Price</label>
+            <input asp-for="Item.ItemPrice" class="form-control" readonly />
+            <span asp-validation-for="Item.ItemPrice" class="text-danger"></span>
+        </div>
+
+        <!-- Editable Item Count -->
+        <div class="form-group mb-3">
+            <label asp-for="Item.ItemCount" class="form-label">Item Count</label>
+            <input asp-for="Item.ItemCount" class="form-control" />
+            <span asp-validation-for="Item.ItemCount" class="text-danger"></span>
+        </div>
+
+        <!-- Editable Restock Date -->
+        <div class="form-group mb-3">
+            <label asp-for="Item.RestockDate" class="form-label">Restock Date</label>
+            <input asp-for="Item.RestockDate" class="form-control" type="date" />
+            <span asp-validation-for="Item.RestockDate" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">Save Changes</button>
+    </form>
+
+    <div class="mt-4">
+        <a asp-page="./Inventory" class="btn btn-secondary">Back to Inventory</a>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+<style>
+    .container {
+        max-width: 500px;
+    }
+</style>

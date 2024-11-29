@@ -1,0 +1,66 @@
+﻿@page
+@model RazorLogin.Pages.Admin.Reports3.IndexModel
+@{
+    ViewData["Title"] = "Employee Degree Report";
+}
+
+<h2>Employee Degree Report</h2>
+
+<div>
+    <h3>Degree Statistics</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Degree</th>
+                <th>Count</th>
+                <th>Average Age</th>
+                <th>Minimum Age</th>
+                <th>Maximum Age</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>High School Diploma</td>
+                <td>@Model.Report.EmployeeCountHS</td>
+                <td>@Model.Report.EmployeeAvgAgeHS</td>
+                <td>@Model.Report.EmployeeMinAgeHS</td>
+                <td>@Model.Report.EmployeeMaxAgeHS</td>
+            </tr>
+            <tr>
+                <td>Masters Degree</td>
+                <td>@Model.Report.EmployeeCountMasters</td>
+                <td>@Model.Report.EmployeeAvgAgeMasters</td>
+                <td>@Model.Report.EmployeeMinAgeMasters</td>
+                <td>@Model.Report.EmployeeMaxAgeMasters</td>
+            </tr>
+            <tr>
+                <td>Bachelors Degree</td>
+                <td>@Model.Report.EmployeeCountBachelors</td>
+                <td>@Model.Report.EmployeeAvgAgeBachelors</td>
+                <td>@Model.Report.EmployeeMinAgeBachelors</td>
+                <td>@Model.Report.EmployeeMaxAgeBachelors</td>
+            </tr>
+            <tr>
+                <td>Doctoral Degree</td>
+                <td>@Model.Report.EmployeeCountDoctoral</td>
+                <td>@Model.Report.EmployeeAvgAgeDoctoral</td>
+                <td>@Model.Report.EmployeeMinAgeDoctoral</td>
+                <td>@Model.Report.EmployeeMaxAgeDoctoral</td>
+            </tr>
+            <tr>
+                <td>Associates Degree</td>
+                <td>@Model.Report.EmployeeCountAssociates</td>
+                <td>@Model.Report.EmployeeAvgAgeAssociates</td>
+                <td>@Model.Report.EmployeeMinAgeAssociates</td>
+                <td>@Model.Report.EmployeeMaxAgeAssociates</td>
+            </tr>
+            <tr>
+                <td>NULL Degree</td>
+                <td>@Model.Report.EmployeeCountNull</td>
+                <td>@Model.Report.EmployeeAvgAgeNull</td>
+                <td>@Model.Report.EmployeeMinAgeNull</td>
+                <td>@Model.Report.EmployeeMaxAgeNull</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

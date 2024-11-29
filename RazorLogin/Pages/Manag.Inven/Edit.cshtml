@@ -1,0 +1,53 @@
+﻿@page 
+@model RazorLogin.Pages.Manag.Inven.EditModel
+@{
+    ViewData["Title"] = "Edit Item";
+}
+
+<!-- Container for Form with Light Background and Rounded Corners -->
+<div class="container mt-5 p-4" style="background-color: #f8f9fa; border-radius: 10px;">
+    <h2 class="text-primary mb-4">Edit Item</h2>
+
+    <form method="post">
+        <!-- Form Group for Item Name -->
+        <div class="form-group mb-3">
+            <label asp-for="Item.ItemName" class="form-label font-weight-bold">Item Name</label>
+            <input asp-for="Item.ItemName" class="form-control" placeholder="Enter item name" />
+            <span asp-validation-for="Item.ItemName" class="text-danger"></span>
+        </div>
+
+        <!-- Form Group for Item Count -->
+        <div class="form-group mb-3">
+            <label asp-for="Item.ItemCount" class="form-label font-weight-bold">Item Count</label>
+            <input asp-for="Item.ItemCount" class="form-control" placeholder="Enter item count" />
+            <span asp-validation-for="Item.ItemCount" class="text-danger"></span>
+        </div>
+
+        <!-- Form Group for Restock Date -->
+        <div class="form-group mb-3">
+            <label asp-for="Item.RestockDate" class="form-label font-weight-bold">Restock Date</label>
+            <input asp-for="Item.RestockDate" class="form-control" type="date" />
+            <span asp-validation-for="Item.RestockDate" class="text-danger"></span>
+        </div>
+
+        <!-- Form Group for Item Price -->
+        <div class="form-group mb-3">
+            <label asp-for="Item.ItemPrice" class="form-label font-weight-bold">Price</label>
+            <input asp-for="Item.ItemPrice" class="form-control" placeholder="Enter item price" />
+            <span asp-validation-for="Item.ItemPrice" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary me-2">Save Changes</button>
+        <!-- Action Buttons with Spacing -->
+        <div class="mt-4">
+            <a asp-page="./Inventory"
+               asp-route-shopId="@(Model.Item?.ShopId ?? (int?)null)"
+               asp-route-foodStoreId="@(Model.Item?.FoodStoreId ?? (int?)null)"
+               class="btn btn-secondary">Cancel</a>
+        </div>
+
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

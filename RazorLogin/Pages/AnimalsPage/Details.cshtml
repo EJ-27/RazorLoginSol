@@ -1,0 +1,60 @@
+﻿@page
+@model RazorLogin.Pages.AnimalsPage.DetailsModel
+
+@{
+    ViewData["Title"] = "Animal Details";
+}
+
+<!-- Container with Light Background and Rounded Corners -->
+<div class="container mt-5 p-4" style="background-color: #e3f2fd; border-radius: 10px;">
+    <h2 class="text-primary mb-4">Animal Details</h2>
+
+    <!-- Card for Animal Details -->
+    <div class="card shadow-sm" style="border-radius: 8px;">
+        <div class="card-body">
+            <dl class="row mb-0">
+                <dt class="col-sm-4 font-weight-bold">Animal Name</dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.Animal.AnimalName)</dd>
+
+                <dt class="col-sm-4 font-weight-bold">Sex</dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.Animal.AnimalSex)</dd>
+
+                <dt class="col-sm-4 font-weight-bold">Date of Birth</dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.Animal.AnimalDob)</dd>
+
+                <dt class="col-sm-4 font-weight-bold">Species</dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.Animal.Species)</dd>
+
+                <dt class="col-sm-4 font-weight-bold">Weight</dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.Animal.Weight)</dd>
+
+                <dt class="col-sm-4 font-weight-bold">Diet</dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.Animal.Diet)</dd>
+
+                <dt class="col-sm-4 font-weight-bold">Arrival Date</dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.Animal.ArrivalDate)</dd>
+
+                <dt class="col-sm-4 font-weight-bold">Medical Notes</dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.Animal.MedicalNotes)</dd>
+
+                <dt class="col-sm-4 font-weight-bold">Endangered Status</dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.Animal.EndangeredStatus)</dd>
+
+                <dt class="col-sm-4 font-weight-bold">Feeding Time</dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.Animal.FeedingTime)</dd>
+
+               
+            </dl>
+        </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="mt-4">
+        <a asp-page="./Edit" asp-route-id="@Model.Animal.AnimalId" class="btn btn-primary me-2">Edit</a>
+        <a asp-page="./Index" class="btn btn-secondary">Back to List</a>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -39,7 +39,7 @@ namespace RazorLogin.Pages.Shop.Dining1
             // SQL query to get the food store details based on the ID
             var foodStoreQ = "SELECT * FROM Food_Store WHERE Food_store_ID = @storeId";
             // SQL query to get all Employees that work in dining
-            var employeeQ = "SELECT * FROM Employee WHERE Department = 'DINING' AND Food_store_ID = @storeId";
+            var employeeQ = "SELECT * FROM Employee WHERE Department = 'FOOD' AND Food_store_ID = @storeId";
             var EmployeecountQ = "SELECT COUNT(*) FROM Employee WHERE Food_store_ID =@storeId";
 
             try
@@ -75,9 +75,7 @@ namespace RazorLogin.Pages.Shop.Dining1
                                     FoodStoreLocation = reader.GetString(reader.GetOrdinal("Food_store_location")),
                                     FoodStoreOpenTime = openTime,
                                     FoodStoreCloseTime = closeTime,
-                                    FoodStoreType = reader.IsDBNull(reader.GetOrdinal("Food_store_type"))
-                                        ? null
-                                        : reader.GetString(reader.GetOrdinal("Food_store_type"))
+                                    
                                 };
                             }
                             else

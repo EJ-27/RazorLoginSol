@@ -7,110 +7,183 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/RazorLogin.styles.css" asp-append-version="true" />
+    <style>
+        .navbar {
+            background-color: #05472A;
+        }
+
+        .navbar-nav .nav-link {
+            color: white !important;
+        }
+
+        .navbar-nav .dropdown-menu .nav-link {
+            color: black !important;
+        }
+
+        .navbar-brand h2 {
+            color: white;
+        }
+
+        .navbar-nav .nav-link:hover, .navbar-nav .nav-link:focus {
+            color: #ffc107 !important;
         }
     </style>
 </head>
 <body>
 
-
-     <header>
-            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">RazorLogin</a>
+                <a class="navbar-brand" asp-area="" asp-page="/Index"><h2>Houston Zoo</h2></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between w-100">
 
-                
                     @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
                     {
                         <ul class="navbar-nav flex-grow-1">
-                           
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Admin.Users/Index">Users</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Admin.Cust/Index">Customers</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Admin.Emp/Index">Employees</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Admin.Mana/Index">Managers</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Admin.Zook/Index">Zookeepers</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Admin.Deps/Index">Dependants</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Admin.GShps/Index">Stores</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Admin.FShps/Index">Dining</a>
-                            </li>
-                            <li>
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Admin.Tick/Index">Tickets</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/MyDependents/Index">My Dependents</a>
+                                <a class="nav-link text-white" asp-area="" asp-page="/Admin.Cust/Index">Customers</a>
                             </li>
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle text-dark" id="financesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Reports
+                                <a class="nav-link dropdown-toggle text-white" id="EmpDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Employees
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="empDropdown">
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-page="/Admin.Emp/Index">Employees</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-page="/Admin.Eve/Index">Events</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-page="/Admin.Deps/Index">Dependants</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-page="/Admin.Mana/Index">Managers</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-white" id="ZookDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Zookeeper
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="zookDropdown">
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-page="/Admin.Zook/Index">Zookeepers</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-page="/Admin.Anim/Index">Animals</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-page="/Admin.Encl/Index">Enclosures</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-page="/Admin.Clos/Index">Closings</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-white" id="StoreDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Stores
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="storeDropdown">
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-page="/Admin.GShps/Index">Shops</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-page="/Admin.FShps/Index">Dining</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-white" id="Moneydropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Finances
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="zookDropdown">
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-page="/Admin.Pur/Index">Purchases</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-page="/Admin.Tick/Index">Tickets</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-white" id="personalDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Account
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="financesDropdown">
                                     <li>
-                                        <a class="dropdown-item" asp-area="" asp-page="/Admin.Reports/Index1">Employee Cost Report</a> 
+                                        <a class="dropdown-item text-dark" asp-area="" asp-page="/MyDependents/Index">My Dependents</a>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" asp-area="" asp-page="/Admin.Reports2/Index">Employee Demographics Report</a>
+                                        <a class="dropdown-item text-dark" asp-area="" asp-page="/Admin.Personal/Index">Employee Info</a>
                                     </li>
-                                  
+                                </ul>
+                            </li>
+                            <!--<li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-white" id="financesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Reports
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="financesDropdown">
+                                    
+                                    <li>
+                                        <a class="dropdown-item text-dark" asp-area="" asp-page="/Admin.TixRep/Index">Ticket Sales Report</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item text-dark" asp-area="" asp-page="/Admin.PurchRep/Index">Purchase Sales Report</a>
+                                    </li>
+                                </ul>
+                            </li> -->
+                        </ul>
+                    }
+
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("Manager"))
+                    {
+                        <ul class="navbar-nav flex-grow-1">
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Manag.Tick/Index">Tickets</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Manag.Purch/Index">Purchases</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Manag.Inven/Index">My Store</a>
+                            </li>
+                         
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Manag.Dep/Index">My Dependents</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Manag.Perso/Index">User Info</a>
+                            </li>
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-white" id="financesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Finance Reports
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="financesDropdown">
+
+                                    <li>
+                                        <a class="dropdown-item text-dark" asp-area="" asp-page="/Admin.TixRep/Index">Ticket Sales Report</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item text-dark" asp-area="" asp-page="/Admin.PurchRep/Index">Purchase Sales Report</a>
+                                    </li>   
+                                    
                                 </ul>
                             </li>
                         </ul>
                     }
 
-                    @if (User.Identity.IsAuthenticated && User.IsInRole("Manager"))
-                {
-
-                      <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="Manager.Shop/Index">Shops</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Manager.Employees/Index">Employees</a>
-                        </li>
-                        
-
-                         <!---  <li class="nav-item">
-                                <a class="nav-link text dark" asp-area="" asp-area="/Manager.Reports/Index">Reports</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text dark" asp-area="" asp-area="/Manager.Customers/Index">Customers</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/MyDependents/Index">My Dependents</a>
-                            </li>
-                         --->
-
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Manag.Report/Index">Dining Stores Report</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Manag.Report2/Index">Gift Shops Report</a>
-                            </li>
-                        </ul>
-
-                }
-                            
-
                     @if (User.Identity.IsAuthenticated && User.IsInRole("Shop"))
-                {
+                    {
                         <ul class="navbar-nav flex-grow-1">
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-page="/Shop.Dining1/Index">Food Stores</a>
@@ -121,40 +194,78 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-page="/Shop.Eve/Index">Events</a>
                             </li>
+                            <li> 
+                             <li class= "nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Shop.Personal/Index">User Info</a>
+                            </li>
+                            <li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Shop.Deps/Index">My Dependants</a>
+                            </li>
+                            <li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Shop.MyShop/Index">My Shop</a>
+                            </li>
+
                         </ul>
-                }
+                    }
 
                     @if (User.Identity.IsAuthenticated && User.IsInRole("Zookeeper"))
-                {
-
-
-                  
-                }
+                    {
+                        <ul class="navbar-nav flex-grow-1">
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-page="/ZookeeperPage/Index">Zookeepers</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-page="/EnclosurePage/Index">Enclosures</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-page="/ZookeeperClosings/Index">Closings</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-page="/AnimalsPage/Index">Animals</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-page="/Zook.eve/Index">Events</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-page="/Zoo.Myinfo/Index">Employee Info</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-page="/Zook.Deps/Index">My Dependents</a>
+                            </li>
+                        </ul>
+                    }
 
                     @if (User.Identity.IsAuthenticated && User.IsInRole("Customer"))
-                {   <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/TicketsPage/Index">Tickets</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/MembershipPage/Index">Memberships</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/CustomerPage/Index">My Account</a>
-                        </li>
-                    </ul>
-
-
-                }
-
+                    {
+                        <ul class="navbar-nav flex-grow-1">
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-page="/CustomerEnclosures/Index">Our Enclosures</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-page="/CustomerEvents/Index">Events</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-page="/TicketsPage/Index">Tickets</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-page="/MembershipPage/Index">Memberships</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-page="/CustomerShop/Index">Online Shop</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-page="/CustomerPage/Index">My Account</a>
+                            </li>
+                        </ul>
+                    }
 
                     <partial name="_LoginPartial" />
-                
                 </div>
             </div>
         </nav>
-    </header> 
-
+    </header>
 
     <div class="container">
         <main role="main" class="pb-3">

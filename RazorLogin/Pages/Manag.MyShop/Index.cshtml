@@ -1,0 +1,84 @@
+﻿@page
+@model RazorLogin.Pages.Manag.MyShop.IndexModel
+
+@{
+    ViewData["Title"] = "My Shop";
+}
+
+<div class="container mt-4">
+    <h1 class="text-center mb-4">Your Assigned Shop</h1>
+
+    @if (Model.FoodStore != null)
+    {
+        <table class="table table-striped table-hover shadow-sm">
+            <thead class="table-dark">
+                <tr>
+                    <th>Name</th>
+                    <th>Location</th>
+                    <th>Opening Time</th>
+                    <th>Closing Time</th>
+                    
+                    
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@Model.FoodStore.FoodStoreName</td>
+                    <td>@Model.FoodStore.FoodStoreLocation</td>
+                    <td>@Model.FoodStore.FoodStoreOpenTime?.ToString("hh:mm tt")</td>
+                    <td>@Model.FoodStore.FoodStoreCloseTime?.ToString("hh:mm tt")</td>
+                    
+                    
+                    <td>
+                        <a asp-page="./Details" asp-route-foodStoreId="@Model.FoodStore.FoodStoreId" class="btn btn-primary btn-sm me-2">Details</a>
+                        <a asp-page="./Inventory" asp-route-foodStoreId="@Model.FoodStore.FoodStoreId" class="btn btn-info btn-sm">View Inventory</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    }
+    else if (Model.GiftShop != null)
+    {
+        <table class="table table-striped table-hover shadow-sm">
+            <thead class="table-dark">
+                <tr>
+                    <th>Name</th>
+                    <th>Location</th>
+                    <th>Opening Time</th>
+                    <th>Closing Time</th>
+                    
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@Model.GiftShop.GiftShopName</td>
+                    <td>@Model.GiftShop.GiftShopLocation</td>
+                    <td>@Model.GiftShop.GiftShopOpenTime.ToString("hh:mm tt")</td>
+                    <td>@Model.GiftShop.GiftShopCloseTime.ToString("hh:mm tt")</td>
+                    
+                    <td>
+                        <a asp-page="./Details" class="btn btn-primary btn-sm me-2">Details</a>
+                        <a asp-page="./Inventory" asp-route-shopId="@Model.GiftShop.ShopId" class="btn btn-info btn-sm">View Inventory</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p class="text-center">No shop assigned to you.</p>
+    }
+</div>
+
+<style>
+    .table th, .table td {
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .btn {
+        min-width: 100px;
+    }
+</style>

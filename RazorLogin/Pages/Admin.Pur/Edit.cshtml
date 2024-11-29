@@ -1,0 +1,49 @@
+﻿@page
+@model RazorLogin.Pages.Admin.Pur.EditModel
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Purchase</title>
+</head>
+<body>
+
+    <h2>Edit Purchase</h2>
+
+    <form method="post">
+        <div>
+            <label for="PurchaseId">Purchase ID</label>
+            <input type="text" id="PurchaseId" name="PurchaseId" value="@Model.Purchase.PurchaseId" readonly />
+        </div>
+
+        <div>
+            <label for="CustomerId">Customer ID</label>
+            <input type="number" id="CustomerId" name="CustomerId" value="@Model.Purchase.CustomerId" />
+        </div>
+
+        <div>
+            <label for="StoreId">Store ID</label>
+            <input type="number" id="StoreId" name="StoreId" value="@Model.Purchase.StoreId" />
+        </div>
+
+        <div>
+            <label for="NumItems">Number of Items</label>
+            <input type="number" id="NumItems" name="NumItems" value="@Model.Purchase.NumItems" />
+        </div>
+
+        <div>
+            <label for="TotalPurchasesPrice">Total Purchases Price</label>
+            <input type="number" id="TotalPurchasesPrice" name="TotalPurchasesPrice" value="@Model.Purchase.TotalPurchasesPrice" />
+        </div>
+
+      
+
+        <button type="submit">Save Changes</button>
+    </form>
+
+    <a href="/Admin.Pur/Index">Back to Purchase List</a>
+
+</body>
+</html>

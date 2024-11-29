@@ -48,14 +48,52 @@ namespace RazorLogin.Pages.Admin.FShps
                 return NotFound();
             }
 
-            var foodstore = await _context.FoodStores.FindAsync(id);
-            if (foodstore != null)
+            var foodstore = await _context.FoodStores
+                .FirstOrDefaultAsync(f => f.FoodStoreId == id);
+
+            if (foodstore == null)
             {
-                FoodStore = foodstore;
-                _context.FoodStores.Remove(FoodStore);
-                await _context.SaveChangesAsync();
+                return NotFound();
             }
 
+            ModelState.Remove("FoodStore.FoodStoreName");
+            ModelState.Remove("FoodStore.FoodStoreLocation");
+
+            // Check if any employees are associated with this foodstore
+            var employeesAssignedToFoodStore = await _context.Employees
+                .Where(e => e.FoodStoreId == foodstore.FoodStoreId)
+                .ToListAsync();
+
+            if (employeesAssignedToFoodStore.Any())
+            {
+                // Add an error to the ModelState to indicate that employees are still assigned
+                ModelState.AddModelError(string.Empty, "Cannot delete this food store because there are employees assigned to it.");
+                FoodStore = foodstore; // Re-bind the foodstore data for the page
+                return Page(); // Re-render the page with the error
+            }
+
+            try
+            {
+                // Proceed with deletion if no employees are assigned to the food store
+                _context.FoodStores.Remove(foodstore);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException dbEx)
+            {
+                // Handle specific database errors (e.g., foreign key violation, or other update issues)
+                ModelState.AddModelError(string.Empty, "An error occurred while deleting the food store. " + dbEx.Message);
+                FoodStore = foodstore; // Re-bind foodstore data
+                return Page(); // Re-render the page with the error message
+            }
+            catch (Exception ex)
+            {
+                // Catch unexpected errors
+                ModelState.AddModelError(string.Empty, "An unexpected error occurred. Please try again later. " + ex.Message);
+                FoodStore = foodstore; // Re-bind foodstore data
+                return Page(); // Re-render the page with the error message
+            }
+
+            // Redirect to the list page after successful deletion
             return RedirectToPage("./Index");
         }
     }

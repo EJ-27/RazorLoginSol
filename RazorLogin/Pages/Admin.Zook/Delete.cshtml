@@ -10,6 +10,19 @@
 <h3>Are you sure you want to delete this?</h3>
 <div>
     <h4>Zookeeper</h4>
+
+    @if (!ModelState.IsValid)
+    {
+        <div class="alert alert-danger">
+            <ul>
+                @foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    <li>@error.ErrorMessage</li>
+                }
+            </ul>
+        </div>
+    }
+
     <hr />
     <dl class="row">
         <dt class="col-sm-2">

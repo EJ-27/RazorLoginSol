@@ -1,0 +1,62 @@
+﻿@page
+@model RazorLogin.Pages.EnclosurePage.IndexModel
+
+@{
+    ViewData["Title"] = "Enclosures";
+}
+
+<h1>Enclosures</h1>
+
+<!-- Link to Add New Enclosure -->
+<p>
+    <a class="btn btn-primary" asp-page="./Create">Add New Enclosure</a>
+</p>
+
+<!-- Instruction Note -->
+<div class="mt-3">
+    <small class="text-muted">
+        This page lists all enclosures assigned to the currently logged in zookeeper. To update or delete an enclosure, click the corresponding action buttons.
+    </small>
+</div>
+
+<table class="table table-striped mt-3">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Enclosure[0].EnclosureId)</th>
+            <th>@Html.DisplayNameFor(model => model.Enclosure[0].EnclosureName)</th>
+            
+            <th>Status</th>
+            <th>@Html.DisplayNameFor(model => model.Enclosure[0].EnclosureOpenTime)</th>
+            <th>@Html.DisplayNameFor(model => model.Enclosure[0].EnclosureCloseTime)</th>
+            <th>@Html.DisplayNameFor(model => model.Enclosure[0].EnclosureCleaningTime)</th>
+            <th>@Html.DisplayNameFor(model => model.Enclosure[0].EnclosureFeedingTime)</th>
+            
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Enclosure)
+        {
+            <tr>
+                <td>@item.EnclosureId</td>
+                <td>@item.EnclosureName</td>
+                
+                <td>@item.OccupancyStatus</td>
+                <td>@item.EnclosureOpenTime</td>
+                <td>@item.EnclosureCloseTime</td>
+                <td>@item.EnclosureCleaningTime</td>
+                <td>@item.EnclosureFeedingTime</td>
+
+               
+
+                
+
+                <!-- Action Buttons (Edit, Delete) -->
+                <td>
+                    <a class="btn btn-warning btn-sm" asp-page="./Edit" asp-route-id="@item.EnclosureId">Edit</a>
+                    <a class="btn btn-danger btn-sm" asp-page="./Delete" asp-route-id="@item.EnclosureId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

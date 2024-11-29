@@ -21,6 +21,10 @@ public partial class Purchase
 
     public TimeOnly? PurchaseTime { get; set; }
 
+    public string? ItemName { get; set; }
+
+    public bool? IsDeleted { get; set; }
+
     public virtual Customer? Customer { get; set; }
 
     public virtual ICollection<Ticket> Tickets { get; set; } = new List<Ticket>();

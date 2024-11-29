@@ -1,0 +1,24 @@
+﻿@page
+@model RazorLogin.Pages.Admin.Reports3.ManIndexModel
+@{
+}
+
+<h1>Manager Statistics</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Degree</th>
+            <th>Count</th>
+            <th>Average Age</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>High School Diploma</td>
+            <td>@Model.Report.ManagerCountHS</td>
+            <td>@Model.Report.ManagerAvgAgeHS</td>
+        </tr>
+        <!-- Add rows for other degrees -->
+    </tbody>
+</table>

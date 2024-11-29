@@ -1,0 +1,57 @@
+﻿@page
+@model RazorLogin.Pages.Admin.Eve.IndexModel
+
+@{
+    ViewData["Title"] = "Events List";
+}
+
+<h1>Events List</h1>
+
+<!-- Instruction Note -->
+<div class="mt-3">
+    <small class="text-muted">
+        The Event list displays all scheduled events. You can view the event's name, date, location, start time, end time, and employee representative (if assigned).
+    </small>
+</div>
+
+<!-- Table with Events -->
+<table class="table table-striped mt-3">
+    <thead>
+        <tr>
+            <th>Event Name</th>
+            <th>Location</th>
+            <th>Date</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>Employee Rep</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var eventItem in Model.Events)
+        {
+            <tr>
+                <td>@eventItem.EventName</td>
+                <td>@eventItem.EventLocation</td>
+                <td>@eventItem.EventDate?.ToString("MM/dd/yyyy")</td>
+                <td>@eventItem.EventStartTime.ToString("hh:mm tt")</td> <!-- Format Start Time -->
+                <td>@eventItem.EventEndTime.ToString("hh:mm tt")</td>   <!-- Format End Time -->
+                <td>
+                    @if (eventItem.EventEmployeeRep != null)
+                    {
+                        @eventItem.EventEmployeeRep.EmployeeFirstName @eventItem.EventEmployeeRep.EmployeeLastName
+                    }
+                    else
+                    {
+                        <span>No Representative</span> <!-- Display message if no employee rep exists -->
+                    }
+                </td>
+
+                <td>
+                    <!-- Edit and Delete Links -->
+                    <a class="btn btn-danger btn-sm" asp-page="./Delete" asp-route-id="@eventItem.EventId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

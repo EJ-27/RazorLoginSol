@@ -1,0 +1,68 @@
+﻿@page
+@model RazorLogin.Pages.AnimalsPage.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container mt-5 p-4" style="background-color: #e8f5e9; border-radius: 10px;">
+    <h2 class="text-success">Animal Information</h2>
+
+    <!-- Button to Create New Animal Record -->
+    <div class="mb-4">
+        <a asp-page="Create" class="btn btn-success">Create New</a>
+    </div>
+
+    <!-- Card for Animal Information Table -->
+    <div class="card shadow-sm" style="border-radius: 8px;">
+        <div class="card-body">
+            <table class="table table-hover">
+                <thead class="table-light">
+                    <tr>
+                        <th>Animal ID</th>
+                        <th>Animal Name</th>
+                        <th>Animal Sex</th>
+                        <th>Animal DOB</th>
+                        <th>Species</th>
+                        <th>Weight</th>
+                        <th>Diet</th>
+                        <th>Arrival Date</th>
+                        <th>Endangered Status</th>
+                        <th>Feeding Time</th>
+                        <th>Enclosure</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Animal)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.AnimalId)</td>
+                            <td>@Html.DisplayFor(modelItem => item.AnimalName)</td>
+                            <td>@Html.DisplayFor(modelItem => item.AnimalSex)</td>
+                            <td>@Html.DisplayFor(modelItem => item.AnimalDob)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Species)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Weight)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Diet)</td>
+                            <td>@Html.DisplayFor(modelItem => item.ArrivalDate)</td>
+                            <td>@(string.IsNullOrEmpty(item.EndangeredStatus) ? "N/A" : item.EndangeredStatus)</td>
+                            <td>@Html.DisplayFor(modelItem => item.FeedingTime)</td>
+                            <td>@(item.Enclosure?.EnclosureName ?? "N/A")</td> <!-- Display Enclosure Name -->
+                            <td>
+                                <div class="mb-2">
+                                    <a asp-page="./Edit" asp-route-id="@item.AnimalId" class="btn btn-warning btn-sm w-100">Edit</a>
+                                </div>
+                                <div class="mb-2">
+                                    <a asp-page="./Details" asp-route-id="@item.AnimalId" class="btn btn-info btn-sm w-100">Details</a>
+                                </div>
+                                <div>
+                                    <a asp-page="./Delete" asp-route-id="@item.AnimalId" class="btn btn-danger btn-sm w-100">Delete</a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

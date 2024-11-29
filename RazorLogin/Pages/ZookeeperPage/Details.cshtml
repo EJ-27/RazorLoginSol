@@ -1,0 +1,54 @@
+﻿@page
+@model RazorLogin.Pages.ZookeeperPage.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Zookeeper Details</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">Employee Name</dt>
+        <dd class="col-sm-10">
+            @if (Model.Zookeeper.Employee != null)
+            {
+                @Model.Zookeeper.Employee.EmployeeFirstName @Model.Zookeeper.Employee.EmployeeLastName
+            }
+            else
+            {
+                <span>Unassigned</span>
+            }
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Zookeeper.TrainingRenewalDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Zookeeper.TrainingRenewalDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Zookeeper.LastTrainingDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Zookeeper.LastTrainingDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Zookeeper.AssignedDepartment)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Zookeeper.AssignedDepartment)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Zookeeper.Employee)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Zookeeper.Employee.EmployeeId)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Zookeeper.ZookeeperId">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

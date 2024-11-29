@@ -1,0 +1,68 @@
+﻿@page
+@model RazorLogin.Pages.CustomerShop.IndexModel
+
+@{
+    ViewData["Title"] = "Online Shop";
+}
+
+<div class="container my-5">
+    <h1 class="text-center mb-4">Houston Zoo Online Shop</h1>
+
+    <div class="text-center mb-4">
+        <a asp-page="MyPurchases" class="btn btn-purchases btn-lg">My Purchases</a>
+    </div>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success text-center" role="alert">
+            @TempData["SuccessMessage"]
+        </div>
+    }
+
+    <div class="row">
+        @foreach (var item in Model.Item)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm border-light">
+                    <div class="card-body">
+                        <h5 class="card-title">@item.ItemName</h5>
+                        <p class="h4 text-primary">
+                            @(item.ItemPrice?.ToString("C") ?? "N/A")
+                        </p>
+                        <p class="text-muted">Stock: @item.ItemCount</p>
+
+                        @if (item.ItemCount > 0)
+                        {
+                            <form method="post" asp-page="./Index">
+                                <input type="hidden" name="itemId" value="@item.ItemId" />
+                                <div class="input-group">
+                                    <input type="number" name="quantity" min="1" max="@item.ItemCount" value="1" required class="form-control w-auto" />
+                                    <button type="submit" class="btn btn-success btn-lg">Purchase</button>
+                                </div>
+                            </form>
+                        }
+                        else
+                        {
+                            <span class="text-danger">Out of Stock</span>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<style>
+    .btn-purchases {
+        background-color: #007bff;
+        border-color: #007bff;
+        color: white; 
+    }
+
+    .btn-purchases:hover {
+        background-color: #0056b3;
+        border-color: #004085;
+        color: white; 
+    }
+</style>
+

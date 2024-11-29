@@ -9,16 +9,15 @@
 
 <h4>FoodStore</h4>
 <hr />
+
+<div class="alert alert-info">
+    <strong>Note:</strong> Location must be unique.
+</div>
+
 <div class="row">
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <text>ID's must be unique!</text> <br />
-                <label asp-for="FoodStore.FoodStoreId" class="control-label"></label>
-                <input asp-for="FoodStore.FoodStoreId" class="form-control" />
-                <span asp-validation-for="FoodStore.FoodStoreId" class="text-danger"></span>
-            </div>
             <div class="form-group">
                 <label asp-for="FoodStore.FoodStoreName" class="control-label"></label>
                 <input asp-for="FoodStore.FoodStoreName" class="form-control" />
@@ -31,12 +30,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="FoodStore.FoodStoreOpenTime" class="control-label"></label>
-                <input asp-for="FoodStore.FoodStoreOpenTime" class="form-control" />
+                <input asp-for="FoodStore.FoodStoreOpenTime" class="form-control" type="time" />
                 <span asp-validation-for="FoodStore.FoodStoreOpenTime" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="FoodStore.FoodStoreCloseTime" class="control-label"></label>
-                <input asp-for="FoodStore.FoodStoreCloseTime" class="form-control" />
+                <input asp-for="FoodStore.FoodStoreCloseTime" class="form-control" type="time" />
                 <span asp-validation-for="FoodStore.FoodStoreCloseTime" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -44,16 +43,7 @@
                 <input asp-for="FoodStore.FoodStoreCustomerCapacity" class="form-control" />
                 <span asp-validation-for="FoodStore.FoodStoreCustomerCapacity" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="FoodStore.FoodStoreType" class="control-label"></label>
-                <input asp-for="FoodStore.FoodStoreType" class="form-control" />
-                <span asp-validation-for="FoodStore.FoodStoreType" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="FoodStore.FoodStoreYearToDateSales" class="control-label"></label>
-                <input asp-for="FoodStore.FoodStoreYearToDateSales" class="form-control" />
-                <span asp-validation-for="FoodStore.FoodStoreYearToDateSales" class="text-danger"></span>
-            </div>
+           
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
@@ -62,7 +52,7 @@
 </div>
 
 <div>
-    <a asp-page="Index">Back to List</a>
+    <a asp-page="Index">Back to Food Stores and Dining</a>
 </div>
 
 @section Scripts {

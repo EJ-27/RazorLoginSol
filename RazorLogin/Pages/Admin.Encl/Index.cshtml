@@ -1,0 +1,63 @@
+﻿@page
+@model RazorLogin.Pages.Admin.Encl.IndexModel
+
+@{
+    ViewData["Title"] = "Enclosures";
+}
+
+<h1>Enclosures</h1>
+
+<!-- Link to Add New Enclosure -->
+<p>
+    <a class="btn btn-primary" asp-page="./Create">Add New Enclosure</a>
+</p>
+
+<!-- Instruction Note -->
+<div class="mt-3">
+    <small class="text-muted">
+        This page lists all enclosures in the system, along with their department and assigned zookeepers. To update or delete an enclosure, click the corresponding action buttons.
+    </small>
+</div>
+
+<table class="table table-striped mt-3">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Enclosure[0].EnclosureId)</th>
+            <th>@Html.DisplayNameFor(model => model.Enclosure[0].EnclosureName)</th>
+            <th>@Html.DisplayNameFor(model => model.Enclosure[0].OccupancyStatus)</th>
+            <th>@Html.DisplayNameFor(model => model.Enclosure[0].Zookeeper)</th>
+            <th>@Html.DisplayNameFor(model => model.Enclosure[0].ZookeeperId)</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Enclosure)
+        {
+            <tr>
+                <td>@item.EnclosureId</td>
+                <td>@item.EnclosureName</td>
+                <td>@item.OccupancyStatus</td>
+
+                <!-- Show Zookeeper's Full Name from Employee -->
+                <td>
+                    @if (item.Zookeeper != null && item.Zookeeper.Employee != null)
+                    {
+                        @item.Zookeeper.Employee.EmployeeFirstName  @item.Zookeeper.Employee.EmployeeLastName
+                    }
+                    else
+                    {
+                        <span>No Zookeeper Assigned</span>
+                    }
+                </td>
+
+                <td>@item.ZookeeperId</td>
+
+                <!-- Action Buttons (Edit, Delete) -->
+                <td>
+                    <a class="btn btn-warning btn-sm" asp-page="./Edit" asp-route-id="@item.EnclosureId">Edit</a>
+                    <a class="btn btn-danger btn-sm" asp-page="./Delete" asp-route-id="@item.EnclosureId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

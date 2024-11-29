@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -8,11 +8,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-
-    <Compile Remove="Pages\NewFolder\**" />
-    <Content Remove="Pages\NewFolder\**" />
-    <EmbeddedResource Remove="Pages\NewFolder\**" />
-    <None Remove="Pages\NewFolder\**" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.QuickGrid.EntityFrameworkAdapter" Version="8.0.10" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.10" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.8" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,32 +20,103 @@
 
     <Compile Remove="obj\**" />
 
-    <Compile Remove="Pages\Admin.Eve\**" />
-
     <Compile Remove="Pages\Admin.Purch\**" />
+
+    <Compile Remove="Pages\Admin.Reports2\**" />
+
+    <Compile Remove="Pages\Admin.Reports3\**" />
+
+    <Compile Remove="Pages\Manag.Sho\**" />
+
+    <Compile Remove="Pages\Zook.Encl\**" />
     <Content Remove="obj\**" />
-    <Content Remove="Pages\Admin.Eve\**" />
     <Content Remove="Pages\Admin.Purch\**" />
+    <Content Remove="Pages\Admin.Reports2\**" />
+    <Content Remove="Pages\Admin.Reports3\**" />
+    <Content Remove="Pages\Manag.Sho\**" />
+    <Content Remove="Pages\Zook.Encl\**" />
     <EmbeddedResource Remove="obj\**" />
-    <EmbeddedResource Remove="Pages\Admin.Eve\**" />
     <EmbeddedResource Remove="Pages\Admin.Purch\**" />
+    <EmbeddedResource Remove="Pages\Admin.Reports2\**" />
+    <EmbeddedResource Remove="Pages\Admin.Reports3\**" />
+    <EmbeddedResource Remove="Pages\Manag.Sho\**" />
+    <EmbeddedResource Remove="Pages\Zook.Encl\**" />
     <None Remove="obj\**" />
-    <None Remove="Pages\Admin.Eve\**" />
     <None Remove="Pages\Admin.Purch\**" />
+    <None Remove="Pages\Admin.Reports2\**" />
+    <None Remove="Pages\Admin.Reports3\**" />
+    <None Remove="Pages\Manag.Sho\**" />
+    <None Remove="Pages\Zook.Encl\**" />
 
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Pages\Admin.FShps\Details.cshtml.cs" />
+    <Compile Remove="Pages\Admin.GShps\Details.cshtml.cs" />
     <Compile Remove="Pages\Admin.Reports\EmployeeDataReport.cshtml.cs" />
     <Compile Remove="Pages\Admin.Reports\Index.cshtml.cs" />
+    <Compile Remove="Pages\Admin.Tick\Details.cshtml.cs" />
+    <Compile Remove="Pages\Admin.Zook\Details.cshtml.cs" />
+    <Compile Remove="Pages\Zook.Eve\Delete.cshtml.cs" />
+    <Compile Remove="test2\Animal.cs" />
+    <Compile Remove="test2\AspNetRole.cs" />
+    <Compile Remove="test2\AspNetRoleClaim.cs" />
+    <Compile Remove="test2\AspNetUser.cs" />
+    <Compile Remove="test2\AspNetUserClaim.cs" />
+    <Compile Remove="test2\AspNetUserLogin.cs" />
+    <Compile Remove="test2\AspNetUserToken.cs" />
+    <Compile Remove="test2\Closing.cs" />
+    <Compile Remove="test2\Customer.cs" />
+    <Compile Remove="test2\Dependant.cs" />
+    <Compile Remove="test2\Employee.cs" />
+    <Compile Remove="test2\Enclosure.cs" />
+    <Compile Remove="test2\Event.cs" />
+    <Compile Remove="test2\FoodStore.cs" />
+    <Compile Remove="test2\GiftShop.cs" />
+    <Compile Remove="test2\Item.cs" />
+    <Compile Remove="test2\Manager.cs" />
+    <Compile Remove="test2\Purchase.cs" />
+    <Compile Remove="test2\tempContClos.cs" />
+    <Compile Remove="test2\Ticket.cs" />
+    <Compile Remove="test2\Zookeeper.cs" />
+    <Compile Remove="test3\Animal.cs" />
+    <Compile Remove="test3\AspNetRole.cs" />
+    <Compile Remove="test3\AspNetRoleClaim.cs" />
+    <Compile Remove="test3\AspNetUser.cs" />
+    <Compile Remove="test3\AspNetUserClaim.cs" />
+    <Compile Remove="test3\AspNetUserLogin.cs" />
+    <Compile Remove="test3\AspNetUserToken.cs" />
+    <Compile Remove="test3\Closing.cs" />
+    <Compile Remove="test3\Customer.cs" />
+    <Compile Remove="test3\Dependant.cs" />
+    <Compile Remove="test3\Employee.cs" />
+    <Compile Remove="test3\Enclosure.cs" />
+    <Compile Remove="test3\Event.cs" />
+    <Compile Remove="test3\FoodStore.cs" />
+    <Compile Remove="test3\GiftShop.cs" />
+    <Compile Remove="test3\Item.cs" />
+    <Compile Remove="test3\Manager.cs" />
+    <Compile Remove="test3\Purchase.cs" />
+    <Compile Remove="test3\tempContClos.cs" />
+    <Compile Remove="test3\Ticket.cs" />
+    <Compile Remove="test3\Zookeeper.cs" />
     <Compile Remove="test\Employee.cs" />
     <Compile Remove="test\Event_wthout_day_n_loca.cs" />
     <Compile Remove="test\tempcontext.cs" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="Pages\Admin.FShps\Details.cshtml" />
+    <Content Remove="Pages\Admin.GShps\Details.cshtml" />
     <Content Remove="Pages\Admin.Reports\EmployeeDataReport.cshtml" />
     <Content Remove="Pages\Admin.Reports\Index.cshtml" />
+    <Content Remove="Pages\Admin.Tick\Details.cshtml" />
+    <Content Remove="Pages\Admin.Zook\Details.cshtml" />
+    <Content Remove="Pages\Shop.Dining1\AddItem.cshtml" />
+    <Content Remove="Pages\Shop.Dining1\Editing.cshtml" />
+    <Content Remove="Pages\Shop.GShop\AddItem.cshtml" />
+    <Content Remove="Pages\Shop.GShop\Editing.cshtml" />
+    <Content Remove="Pages\Zook.Eve\Delete.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -56,15 +127,20 @@
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.10" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.10">
+
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.11">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.6" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.7" />
   </ItemGroup>
 
 
   <ItemGroup>
+    <Folder Include="Pages\Zook.Anim\" />
+    <Folder Include="test3\" />
+
+    <Folder Include="test2\" />
     <Folder Include="test\" />
   </ItemGroup>
 

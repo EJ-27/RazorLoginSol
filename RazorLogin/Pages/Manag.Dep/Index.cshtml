@@ -1,0 +1,68 @@
+@page
+@model RazorLogin.Pages.Manag.Dep.IndexModel
+@{
+    ViewData["Title"] = "My Dependents";
+}
+
+<!-- Container with Light Green Background -->
+<div class="container mt-5 p-4" style="background-color: #e8f5e9; border-radius: 10px;">
+    <h2 class="text-success">My Dependents</h2>
+    <hr />
+
+    <!-- Button to Add New Dependent -->
+    <div class="mb-3">
+        <a asp-page="./Create" class="btn btn-primary">Add New Dependent</a>
+    </div>
+
+    <!-- Card Layout for Dependents Table -->
+    <div class="card shadow-sm mt-4" style="border-radius: 8px;">
+        <div class="card-body">
+            <h3 class="card-title">Your Dependents</h3>
+
+            <table class="table table-hover mt-3">
+                <thead class="table-light">
+                    <tr>
+                        <th>Dependent ID</th>
+                        <th>Dependent Name</th>
+                        <th>DOB</th>
+                        <th>Relationship</th>
+                        <th>Healthcare Tier</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.Dependant.Count == 0)
+                    {
+                        <tr>
+                            <td colspan="6" class="text-center text-muted">No dependents found.</td>
+                        </tr>
+                    }
+                    else
+                    {
+                        foreach (var dependent in Model.Dependant)
+                        {
+                            <tr>
+                                <td>@dependent.DepndantId</td>
+                                <td>@dependent.DependentName</td>
+                                <td>@dependent.DependentDob?.ToString("yyyy-MM-dd")</td>
+                                <td>@dependent.Relationship</td>
+                                <td>@dependent.HealthcareTier</td>
+                                <td>
+                                    <a asp-page="./Edit" asp-route-id="@dependent.DepndantId" class="btn btn-sm btn-outline-primary">Edit</a>
+                                    <a asp-page="./Delete" asp-route-id="@dependent.DepndantId" class="btn btn-sm btn-outline-danger ms-2">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Back to Profile Link -->
+    @*
+    <div class="mt-3">
+        <a asp-page="./Index" class="btn btn-link">Back to Profile</a>
+    </div>
+    *@
+</div>

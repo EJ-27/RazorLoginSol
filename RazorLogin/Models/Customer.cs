@@ -24,6 +24,8 @@ public partial class Customer
 
     public string CustomerEmail { get; set; } = null!;
 
+    public bool? IsDeleted { get; set; }
+
     public virtual Purchase? Purchase { get; set; }
 
     public virtual ICollection<FoodStore> FoodStores { get; set; } = new List<FoodStore>();

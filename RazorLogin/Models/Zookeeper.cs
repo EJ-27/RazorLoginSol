@@ -16,6 +16,7 @@ public partial class Zookeeper
     public DateOnly? LastTrainingDate { get; set; }
 
     public string? AssignedDepartment { get; set; }
+    public bool? IsDeleted { get; set; }
 
     public virtual ICollection<Animal> Animals { get; set; } = new List<Animal>();
 

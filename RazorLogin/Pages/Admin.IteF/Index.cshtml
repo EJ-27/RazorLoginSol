@@ -1,0 +1,76 @@
+﻿@page
+@model RazorLogin.Pages.Admin.IteF.IndexModel
+
+@{
+    ViewData["Title"] = "Food Store Items";
+}
+
+<div class="container mt-4">
+    <!-- Header: Food Store ID -->
+    <h1 class="mb-4">Food Store ID @Model.FoodStoreId's Inventory</h1>
+
+    <!-- Back to Food Stores Button -->
+    <div class="mb-3">
+        <a asp-page="/Admin.FShps/Index" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left-circle"></i> Back to Food Stores
+        </a>
+    </div>
+
+    <!-- Create New Item Button -->
+    <div class="mb-3">
+        <a asp-page="Create" asp-route-foodStoreId="@Model.FoodStoreId" class="btn btn-primary">
+            <i class="bi bi-plus-circle"></i> Create New Item
+        </a>
+    </div>
+
+    <!-- Items Table -->
+    <div class="card">
+        <div class="card-header">
+            <h5 class="card-title mb-0">Available Items</h5>
+        </div>
+        <div class="card-body">
+            @if (Model.Item.Any())
+            {
+                <table class="table table-striped table-bordered">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.Item[0].ItemId)</th>
+                            <th>@Html.DisplayNameFor(model => model.Item[0].ItemName)</th>
+                            <th>@Html.DisplayNameFor(model => model.Item[0].ItemCount)</th>
+                            <th>@Html.DisplayNameFor(model => model.Item[0].RestockDate)</th>
+                            <th>@Html.DisplayNameFor(model => model.Item[0].ItemPrice)</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Item)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(modelItem => item.ItemId)</td>
+                                <td>@Html.DisplayFor(modelItem => item.ItemName)</td>
+                                <td>@Html.DisplayFor(modelItem => item.ItemCount)</td>
+                                <td>@Html.DisplayFor(modelItem => item.RestockDate)</td>
+                                <td>@Html.DisplayFor(modelItem => item.ItemPrice)</td>
+                                <td>
+                                    <a asp-page="./Edit" asp-route-id="@item.ItemId" class="btn btn-sm btn-warning">
+                                        <i class="bi bi-pencil-square"></i> Edit
+                                    </a>
+                                    <a asp-page="./Delete" asp-route-id="@item.ItemId" class="btn btn-sm btn-danger">
+                                        <i class="bi bi-trash"></i> Delete
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p>No items found in this food store. <a asp-page="Create" asp-route-foodStoreId="@Model.FoodStoreId">Create one now</a>.</p>
+            }
+        </div>
+    </div>
+</div>
+
+<!-- Add Bootstrap Icons for better visuals -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />

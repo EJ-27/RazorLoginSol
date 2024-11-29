@@ -1,0 +1,62 @@
+﻿@page
+@model RazorLogin.Pages.ZookeeperClosings.EditModel
+
+@{
+    ViewData["Title"] = "Edit Closing Details";
+}
+
+<div class="container my-5">
+    <h1 class="text-center mb-4">Edit Closing Details</h1>
+
+    <h4 class="text-muted text-center">Edit the details for this enclosure closing</h4>
+    <hr />
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                <input type="hidden" asp-for="Closing.ClosingId" />
+
+                <div class="form-group mb-3">
+                    <label asp-for="Closing.ClosingsEnd" class="form-label fw-bold">Closings End</label>
+                    <input asp-for="Closing.ClosingsEnd" class="form-control" placeholder="Select Closing End Date" />
+                    <span asp-validation-for="Closing.ClosingsEnd" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-3">
+                    <label asp-for="Closing.ClosingsStart" class="form-label fw-bold">Closings Start</label>
+                    <input asp-for="Closing.ClosingsStart" class="form-control" placeholder="Select Closing Start Date" />
+                    <span asp-validation-for="Closing.ClosingsStart" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Closing.ClosingsReason" class="form-label fw-bold">Closing Reason</label>
+                    <input asp-for="Closing.ClosingsReason" class="form-control" placeholder="Enter Reason for Closure" />
+                    <span asp-validation-for="Closing.ClosingsReason" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Closing.EnclosureId" class="form-label fw-bold">Enclosure Id</label>
+                    <select asp-for="Closing.EnclosureId" class="form-control" asp-items="ViewBag.EnclosureId">
+                        <option value="">Select Enclosure</option>
+                    </select>
+                    <span asp-validation-for="Closing.EnclosureId" class="text-danger"></span>
+                </div>
+
+                <div class="form-group text-center">
+                    <input type="submit" value="Save Changes" class="btn btn-success btn-lg" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="mt-4 text-center">
+        <a asp-page="./Index" class="btn btn-outline-primary">Back to List</a>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

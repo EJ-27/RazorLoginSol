@@ -1,0 +1,90 @@
+﻿@page
+@model RazorLogin.Pages.Admin.Pur.IndexModel
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purchases</title>
+
+    <style>
+        /* Table styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            color: #333;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        /* Add some spacing around the table */
+        .table-container {
+            margin: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="table-container">
+        <h2>Purchase Details</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>PurchaseId</th>
+                    <th>CustomerId</th>
+                    <th>StoreId</th>
+                    <th>Actions</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var purchase in Model.Purchases)
+                {
+                    <tr>
+                        <td>@purchase.PurchaseId</td>
+                        <td>@(purchase.CustomerId.HasValue ? purchase.CustomerId.ToString() : "null")</td>
+                        <td>
+                            @if (purchase.StoreId == -1)
+                            {
+                                <span>Ticket Sale</span>
+                            }
+                            else
+                            {
+                                @(purchase.StoreId.HasValue ? purchase.StoreId.ToString() : "null")
+                            }
+                        </td>
+
+                        <td>
+                            <a href="/Admin.Pur/Edit?id=@purchase.PurchaseId">Edit</a> |
+                            <a href="/Admin.Pur/Delete?id=@purchase.PurchaseId">Delete</a>
+                        </td>
+       
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>

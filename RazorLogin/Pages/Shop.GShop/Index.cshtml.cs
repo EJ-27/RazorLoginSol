@@ -14,56 +14,45 @@ namespace RazorLogin.Pages.Shop.GShop
             _context = context;
         }
 
-        public List<GiftShop> GiftShops { get; set; } = new List<GiftShop>();
+        // This will hold the list of gift shops and their manager data
+        public IList<GiftShopViewModel> GiftShops { get; set; } = default!;
 
-        public async Task<IActionResult> OnGetAsync()
+        public async Task OnGetAsync()
         {
-            try
+            // Fetch all gift shops, including their employees (and managers if assigned)
+            var giftShops = await _context.GiftShops
+                .Include(g => g.Employees) // Include employees assigned to the shop
+                .ThenInclude(e => e.Manager) // Include the manager associated with each employee
+                .ToListAsync();
+
+            // Map the gift shop data into the view model
+            GiftShops = giftShops.Select(g => new GiftShopViewModel
             {
-                using (var connection = _context.Database.GetDbConnection())
-                {
-                    await connection.OpenAsync();
-
-                    // SQL query to fetch all food stores
-                    var GShopQ = "SELECT * FROM Gift_shop";
-                    using (var command = connection.CreateCommand())
-                    {
-                        command.CommandText = GShopQ;
-
-                        using (var reader = await command.ExecuteReaderAsync())
-                        {
-                            var giftShops = new List<GiftShop>();
-                            while (await reader.ReadAsync())
-                            {
-                                // Since I am having problems with mapping the TimeOnly data type, I will read them as strings instead and convert them to TimeOnly manually
-                                var openTimeString = reader["Gift_shop_open_time"].ToString();
-                                var closeTimeString = reader["Gift_shop_close_time"].ToString();
-
-                                // Parsing the times manually
-                                var openTime = TimeOnly.Parse(openTimeString);
-                                var closeTime = TimeOnly.Parse(closeTimeString);
-
-                                giftShops.Add(new GiftShop
-                                {
-                                    ShopId = reader.GetInt32(reader.GetOrdinal("Shop_ID")),
-                                    GiftShopName = reader.GetString(reader.GetOrdinal("Gift_shop_Name")),
-                                    GiftShopLocation = reader.GetString(reader.GetOrdinal("Gift_shop_Location")),
-                                    GiftShopOpenTime = openTime,
-                                    GiftShopCloseTime = closeTime,
-                                });
-                            }
-                            GiftShops = giftShops;
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                ModelState.AddModelError("", $"An error occurred while fetching data: {ex.Message}");
-                return Page();
-            }
-
-            return Page();
+                ShopId = g.ShopId,
+                GiftShopName = g.GiftShopName,
+                GiftShopLocation = g.GiftShopLocation,
+                GiftShopYearToDateSales = g.GiftShopYearToDateSales,
+                GiftShopOpenTime = g.GiftShopOpenTime,
+                GiftShopCloseTime = g.GiftShopCloseTime,
+                // Find the manager if there's any employee with a manager assigned to the shop
+                ManagerName = g.Employees
+                    .Where(e => e.ShopId == g.ShopId && e.Manager != null) // Ensure manager is assigned to the employee
+                    .Select(e => e.Manager.Employee.EmployeeFirstName + " " + e.Manager.Employee.EmployeeLastName)
+                    .FirstOrDefault() ?? "None" // If no manager is found, return "None"
+            }).ToList();
         }
+
+    }
+
+    // ViewModel for GiftShop with Manager information
+    public class GiftShopViewModel
+    {
+        public int ShopId { get; set; }
+        public string GiftShopName { get; set; }
+        public string GiftShopLocation { get; set; }
+        public int GiftShopYearToDateSales { get; set; }
+        public TimeOnly GiftShopOpenTime { get; set; }
+        public TimeOnly GiftShopCloseTime { get; set; }
+        public string ManagerName { get; set; } // The name of the manager
     }
 }

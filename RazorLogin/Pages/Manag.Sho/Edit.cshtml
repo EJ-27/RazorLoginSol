@@ -1,0 +1,58 @@
+﻿@page
+@model RazorLogin.Pages.Manag.Sho.EditModel
+@{
+    ViewData["Title"] = "Edit Store";
+}
+
+<h2>Edit Store</h2> 
+
+<form method="post">
+@if (Model.IsGiftShop)
+{
+    <div class="form-group">
+        <label asp-for="GiftShop.GiftShopName"></label>
+        <input asp-for="GiftShop.GiftShopName" class="form-control" />
+        <span asp-validation-for="GiftShop.GiftShopName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="GiftShop.GiftShopLocation"></label>
+        <input asp-for="GiftShop.GiftShopLocation" class="form-control" />
+        <span asp-validation-for="GiftShop.GiftShopLocation" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="GiftShop.GiftShopOpenTime">Open Time</label>
+        <input asp-for="GiftShop.GiftShopOpenTime" class="form-control" type="time" />
+        <span asp-validation-for="GiftShop.GiftShopOpenTime" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="GiftShop.GiftShopCloseTime">Close Time</label>
+        <input asp-for="GiftShop.GiftShopCloseTime" class="form-control" type="time" />
+        <span asp-validation-for="GiftShop.GiftShopCloseTime" class="text-danger"></span>
+    </div>
+    }
+    else
+    {
+    <div class="form-group">
+        <label asp-for="FoodStore.FoodStoreName"></label>
+        <input asp-for="FoodStore.FoodStoreName" class="form-control" />
+        <span asp-validation-for="FoodStore.FoodStoreName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="FoodStore.FoodStoreLocation"></label>
+        <input asp-for="FoodStore.FoodStoreLocation" class="form-control" />
+        <span asp-validation-for="FoodStore.FoodStoreLocation" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="FoodStore.FoodStoreOpenTime">Open Time</label>
+        <input asp-for="FoodStore.FoodStoreOpenTime" class="form-control" type="time" />
+        <span asp-validation-for="FoodStore.FoodStoreOpenTime" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="FoodStore.FoodStoreCloseTime">Close Time</label>
+        <input asp-for="FoodStore.FoodStoreCloseTime" class="form-control" type="time" />
+        <span asp-validation-for="FoodStore.FoodStoreCloseTime" class="text-danger"></span>
+    </div>
+    }
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a asp-page="./Index" class="btn btn-secondary">Cancel</a>
+</form>

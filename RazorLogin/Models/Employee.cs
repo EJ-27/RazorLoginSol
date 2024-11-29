@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace RazorLogin.Models;
 
@@ -13,6 +14,7 @@ public partial class Employee
 
     public string? EmployeeLastName { get; set; }
 
+    [Required(ErrorMessage = "Date of Birth is required.")]
     public DateOnly? EmployeeDob { get; set; }
 
     public string? EmployeeAddress { get; set; }
@@ -29,11 +31,12 @@ public partial class Employee
 
     public string? Department { get; set; }
 
-    public int? ShopId { get; set; }
+    public int? ShopId { get; set; } // POSSIBLE ERROR REMOVE QUESTION MRK
 
-    public int? FoodStoreId { get; set; }
+    public int? FoodStoreId { get; set; } // POSSIBLE ERROR REMOVE QUESTION MRK
 
     public string EmployeeEmail { get; set; } = null!;
+    public bool? IsDeleted { get; set; }
 
     public virtual ICollection<Dependant> Dependants { get; set; } = new List<Dependant>();
 

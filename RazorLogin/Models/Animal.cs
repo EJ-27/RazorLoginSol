@@ -31,7 +31,9 @@ public partial class Animal
 
     public int ZookeeperId { get; set; }
 
-    public virtual Enclosure Enclosure { get; set; } = null!;
+    public bool? IsDeleted { get; set; }
 
-    public virtual Zookeeper Zookeeper { get; set; } = null!;
+    public virtual Enclosure? Enclosure { get; set; } = null!;  //added ? on 11/10 in order to allow editing of animals
+
+    public virtual Zookeeper? Zookeeper { get; set; } = null!;  //added ? on 11/10 in order to allow editing of animals
 }

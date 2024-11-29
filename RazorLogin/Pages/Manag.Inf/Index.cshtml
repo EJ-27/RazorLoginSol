@@ -1,0 +1,53 @@
+﻿@page
+@model RazorLogin.Pages.Manag.Inf.IndexModel
+
+@{
+    ViewData["Title"] = "Manager Overview";
+}
+
+<!-- Main Container with a Light Background and Rounded Corners -->
+<div class="container mt-5 p-4" style="background-color: #e8f5e9; border-radius: 10px;">
+    <h2 class="text-success">Managers Overview</h2>
+
+    <!-- Add New Manager Button -->
+    <div class="mb-4">
+        <a asp-page="Create" class="btn btn-success">Add New Manager</a>
+    </div>
+
+    <!-- Card for Manager Table with Shadow and Rounded Corners -->
+    <div class="card shadow-sm mb-4" style="border-radius: 8px;">
+        <div class="card-body">
+            <table class="table table-hover">
+                <thead class="table-light">
+                    <tr>
+                        <th>Manager Name</th>
+                        <th>Department</th>
+                        <th>Employment Date</th>
+                        <th>Email</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var manager in Model.Managers)
+                    {
+                        <tr>
+                            <td>@manager.Employee.EmployeeFirstName @manager.Employee.EmployeeLastName</td>
+                            <td>@manager.Department</td>
+                            <td>@manager.ManagerEmploymentDate?.ToString("MM/dd/yyyy")</td>
+                            <td>@manager.Employee.EmployeeEmail</td>
+                            <td>
+                                <div class="d-flex flex-column">
+                                    <a asp-page="./viewPersonal" asp-route-id="@manager.ManagerId" class="btn btn-info btn-sm mb-1">View Details</a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

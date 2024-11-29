@@ -5,47 +5,43 @@
     ViewData["Title"] = "All Gift Shops";
 }
 
-<h1>All Food Stores</h1>
+<div class="container mt-4">
+    <h1 class="text-center mb-4">All Gift Shops</h1>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.GiftShops[0].GiftShopName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.GiftShops[0].GiftShopLocation)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.GiftShops[0].GiftShopOpenTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.GiftShops[0].GiftShopCloseTime)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var store in Model.GiftShops)
-        {
+    <table class="table table-striped table-hover shadow-sm">
+        <thead class="table-dark">
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => store.GiftShopName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => store.GiftShopLocation)
-                </td>
-                <td>
-                    @(store.GiftShopOpenTime.ToString("hh:mm tt"))
-                </td>
-                <td>
-                    @(store.GiftShopCloseTime.ToString("hh:mm tt"))
-                </td>
-                <td>
-                    <a asp-page="./Details" asp-route-id="@store.ShopId">Details</a>
-                    <a asp-page="./Inventory" asp-route-shopId="@store.ShopId">View Inventory</a>
-                </td>
+                <th>@Html.DisplayNameFor(model => model.GiftShops[0].GiftShopName)</th>
+                <th>@Html.DisplayNameFor(model => model.GiftShops[0].GiftShopLocation)</th>
+                <th>@Html.DisplayNameFor(model => model.GiftShops[0].GiftShopOpenTime)</th>
+                <th>@Html.DisplayNameFor(model => model.GiftShops[0].GiftShopCloseTime)</th>
+                <th>Actions</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var store in Model.GiftShops)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => store.GiftShopName)</td>
+                    <td>@Html.DisplayFor(modelItem => store.GiftShopLocation)</td>
+                    <td>@(store.GiftShopOpenTime.ToString("hh:mm tt"))</td>
+                    <td>@(store.GiftShopCloseTime.ToString("hh:mm tt"))</td>
+                    <td>
+                        <a asp-page="./Details" asp-route-id="@store.ShopId" class="btn btn-primary btn-sm me-2">Details</a>
+                        <a asp-page="./Inventory" asp-route-shopId="@store.ShopId" class="btn btn-info btn-sm">View Inventory</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<style>
+    .table th, .table td {
+        text-align: center;
+        vertical-align: middle;
+    }
+    .btn {
+        min-width: 100px;
+    }
+</style>

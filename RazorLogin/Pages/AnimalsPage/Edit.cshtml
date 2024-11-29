@@ -1,0 +1,124 @@
+﻿@page
+@model RazorLogin.Pages.AnimalsPage.EditModel
+@{
+    ViewData["Title"] = "Edit Animal";
+}
+
+<!-- Container with Light Background and Rounded Corners -->
+<div class="container mt-5 p-4" style="background-color: #e8f5e9; border-radius: 10px;">
+    <h2 class="text-success mb-4">Edit Animal Information</h2>
+
+    <form method="post">
+        <div class="row">
+            <!-- Left Column -->
+            <div class="col-md-6">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Animal.AnimalId" />
+
+                <!-- Animal Name Field -->
+                <div class="form-group mb-3">
+                    <label asp-for="Animal.AnimalName" class="control-label"></label>
+                    <input asp-for="Animal.AnimalName" class="form-control" />
+                    <span asp-validation-for="Animal.AnimalName" class="text-danger"></span>
+                </div>
+
+                <!-- Animal Sex Field -->
+                <div class="form-group mb-3">
+                    <label asp-for="Animal.AnimalSex" class="control-label"></label>
+                    <select asp-for="Animal.AnimalSex" class="form-control">
+                        <option value="">Select Sex</option>
+                        <option value="M">Male</option>
+                        <option value="F">Female</option>
+                    </select>
+                    <span asp-validation-for="Animal.AnimalSex" class="text-danger"></span>
+                </div>
+
+                <!-- Date of Birth Field -->
+                <div class="form-group mb-3">
+                    <label asp-for="Animal.AnimalDob" class="control-label">Date of Birth</label>
+                    <input asp-for="Animal.AnimalDob" class="form-control" type="date" />
+                    <span asp-validation-for="Animal.AnimalDob" class="text-danger"></span>
+                </div>
+
+                <!-- Species Field -->
+                <div class="form-group mb-3">
+                    <label asp-for="Animal.Species" class="control-label"></label>
+                    <input asp-for="Animal.Species" class="form-control" />
+                    <span asp-validation-for="Animal.Species" class="text-danger"></span>
+                </div>
+
+                <!-- Weight Field -->
+                <div class="form-group mb-3">
+                    <label asp-for="Animal.Weight" class="control-label"></label>
+                    <input asp-for="Animal.Weight" class="form-control" />
+                    <span asp-validation-for="Animal.Weight" class="text-danger"></span>
+                </div>
+
+                <!-- Diet Field -->
+                <div class="form-group mb-3">
+                    <label asp-for="Animal.Diet" class="control-label"></label>
+                    <input asp-for="Animal.Diet" class="form-control" />
+                    <span asp-validation-for="Animal.Diet" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Right Column -->
+            <div class="col-md-6">
+                <!-- Arrival Date Field -->
+                <div class="form-group mb-3">
+                    <label asp-for="Animal.ArrivalDate" class="control-label">Arrival Date</label>
+                    <input asp-for="Animal.ArrivalDate" class="form-control" type="date" />
+                    <span asp-validation-for="Animal.ArrivalDate" class="text-danger"></span>
+                </div>
+
+                <!-- Enclosure Field -->
+                <div class="form-group mb-3">
+                    <label asp-for="Animal.EnclosureId" class="control-label">Enclosure</label>
+                    <select asp-for="Animal.EnclosureId" class="form-control" asp-items="ViewBag.EnclosureId"></select>
+                    <span asp-validation-for="Animal.EnclosureId" class="text-danger"></span>
+                </div>
+
+                <!-- Medical Notes Field -->
+                <div class="form-group mb-3">
+                    <label asp-for="Animal.MedicalNotes" class="control-label"></label>
+                    <input asp-for="Animal.MedicalNotes" class="form-control" />
+                    <span asp-validation-for="Animal.MedicalNotes" class="text-danger"></span>
+                </div>
+
+                <!-- Endangered Status Field -->
+                <div class="form-group mb-3">
+                    <label asp-for="Animal.EndangeredStatus" class="control-label"></label>
+                    <input asp-for="Animal.EndangeredStatus" class="form-control" />
+                    <span asp-validation-for="Animal.EndangeredStatus" class="text-danger"></span>
+                </div>
+
+                <!-- Feeding Time Field -->
+                <div class="form-group mb-3">
+                    <label asp-for="Animal.FeedingTime" class="control-label"></label>
+                    <input asp-for="Animal.FeedingTime" class="form-control" type="time" />
+                    <span asp-validation-for="Animal.FeedingTime" class="text-danger"></span>
+                </div>
+
+                <!-- Zookeeper Field (Read-only) -->
+                <div class="form-group mb-3">
+                    <label asp-for="Animal.ZookeeperId" class="control-label">Zookeeper</label>
+                    <!-- Display Zookeeper ID in a read-only field -->
+                    <input asp-for="Animal.ZookeeperId" class="form-control" readonly="readonly" value="@Model.Animal.ZookeeperId" />
+                    <span asp-validation-for="Animal.ZookeeperId" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="form-group mt-4">
+            <button type="submit" class="btn btn-primary me-2">Save</button>
+            <a asp-page="./Index" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

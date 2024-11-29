@@ -24,7 +24,7 @@ namespace RazorLogin.Pages.Shop.GShop.Dining1
 
         public void OnGet()
         {
-            Item.FoodStoreId = FoodStoreId;
+            Item= Item ?? new Item();
         }
 
         public async Task<IActionResult> OnPostAsync()
@@ -34,8 +34,19 @@ namespace RazorLogin.Pages.Shop.GShop.Dining1
                 return Page();
             }
 
+
+            Random random = new Random();
+            int randomSuffix = random.Next(10000, 99999);
+            Item.ItemId = randomSuffix;
+
+            while (await _context.Items.AnyAsync(d => d.ItemId == Item.ItemId))
+            {
+                randomSuffix = random.Next(10000, 99999);
+                Item.ItemId = randomSuffix;
+            }
+
             // Insert item into the database using raw SQL
-            var sqlQuery = "INSERT INTO item(item_ID, Item_name, Item_count, Restock_date, Food_store_ID) VALUES (@ItemId, @ItemName, @ItemCount, @RestockDate, @FoodStoreId)";
+            var sqlQuery = "INSERT INTO Item (item_ID, Item_name, Item_count, Restock_date, Food_store_ID) VALUES (@ItemId, @ItemName, @ItemCount, @RestockDate, @FoodStoreId)";
 
             using (var connection = _context.Database.GetDbConnection())
             {
@@ -43,14 +54,20 @@ namespace RazorLogin.Pages.Shop.GShop.Dining1
 
                 using (var command = connection.CreateCommand())
                 {
-                    
+                    command.CommandText = sqlQuery;
+                    command.Parameters.Add(new SqlParameter("@ItemId", Item.ItemId));
+                    command.Parameters.Add(new SqlParameter("@ItemName", Item.ItemName));
+                    command.Parameters.Add(new SqlParameter("@ItemCount", Item.ItemCount));
+                    command.Parameters.Add(new SqlParameter("@RestockDate", Item.RestockDate));
+                    command.Parameters.Add(new SqlParameter("@FoodStoreId", Item.FoodStoreId ?? (object)DBNull.Value));
+                    await command.ExecuteNonQueryAsync();
                 }
             }
 
             // Redirect to the inventory page based on which ID (shopId or foodStoreId) was used
             if (Item.ShopId.HasValue)
             {
-                return RedirectToPage("./Inventory", new { shopId = Item.ShopId });
+                return RedirectToPage("./Inventory", new { FoodStoreId = Item.ShopId });
             }
             else if (Item.FoodStoreId.HasValue)
             {

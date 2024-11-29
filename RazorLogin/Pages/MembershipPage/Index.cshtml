@@ -5,32 +5,79 @@
     ViewData["Title"] = "My Membership";
 }
 
-<h1>My Membership</h1>
+<div class="container my-5">
+    <h1 class="text-center mb-4">My Membership</h1>
 
-@if (Model.Customer != null)
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th>@Html.DisplayNameFor(model => Model.Customer.MembershipStartDate)</th>
-                <th>@Html.DisplayNameFor(model => Model.Customer.MembershipEndDate)</th>
-                <th>@Html.DisplayNameFor(model => Model.Customer.MembershipType)</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>@Html.DisplayFor(modelItem => Model.Customer.MembershipStartDate)</td>
-                <td>@Html.DisplayFor(modelItem => Model.Customer.MembershipEndDate)</td>
-                <td>@Html.DisplayFor(modelItem => Model.Customer.MembershipType)</td>
-                <td>
-                    <a asp-page="./Edit" asp-route-id="@Model.Customer.CustomerId">Update or Upgrade Membership </a> |
-                </td>
-            </tr>
-        </tbody>
-    </table>
-}
-else
-{
-    <p>No account details found.</p>
-}
+    @if (Model.Customer != null)
+    {
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+                <h4 class="card-title">Membership Details</h4>
+                <div class="row">
+                    <div class="col-md-6">
+                        <p><strong>Membership Start Date:</strong> @Html.DisplayFor(modelItem => Model.Customer.MembershipStartDate)</p>
+                        <p><strong>Membership End Date:</strong> @Html.DisplayFor(modelItem => Model.Customer.MembershipEndDate)</p>
+                        <p><strong>Membership Type:</strong> @Html.DisplayFor(modelItem => Model.Customer.MembershipType)</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p>
+                            <strong>Description:</strong>
+                            @{
+                                var description = Model.Customer.MembershipType switch
+                                {
+                                    "FREE TIER" => "Access to basic features and standard pricing.",
+                                    "FAMILY TIER" => "Access to select benefits and an additional $2 off ticket prices.",
+                                    "VIP TIER" => "Exclusive benefits along with an extra $3 off ticket prices.",
+                                    _ => "No description available"
+                                };
+                            }
+                            @description
+                        </p>
+                    </div>
+                </div>
+
+                <div class="text-center mt-4">
+                    <a asp-page="./Edit" asp-route-id="@Model.Customer.CustomerId" class="btn btn-primary btn-lg w-100">Update or Upgrade Membership</a>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <p class="text-center">No account details found. Please contact support.</p>
+    }
+
+    <h2 class="mt-5 text-center">Available Membership Types</h2>
+
+    <div class="row justify-content-center">
+        <!-- Free Tier Card -->
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h4 class="card-title text-center">Free Tier</h4>
+                    <p class="card-text">Access to basic features and standard pricing.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Family Tier Card -->
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h4 class="card-title text-center">Family Tier</h4>
+                    <p class="card-text">Access to select benefits and an additional $2 off ticket prices.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- VIP Tier Card -->
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h4 class="card-title text-center">VIP Tier</h4>
+                    <p class="card-text">Exclusive benefits along with an extra $3 off ticket prices.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

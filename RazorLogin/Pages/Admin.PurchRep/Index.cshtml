@@ -1,0 +1,133 @@
+﻿@page
+@model RazorLogin.Pages.Admin.PurchRep.IndexModel
+
+@{
+    ViewData["Title"] = "Zoo Purchases Report";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+
+    <!-- Include Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEJgX5p6b9d6owxNf8VGRyT2fK4IFk1Qk4Lfu2R1v1zOTJ4vjbs6F5hFGZJYI" crossorigin="anonymous">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Chart.js Zoom Plugin -->
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom"></script>
+
+    <!-- You can add other custom stylesheets here if needed -->
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Zoo Purchases Report</h2>
+
+        <!-- Date Range Form -->
+        <form method="get" class="mb-4">
+            <div class="row">
+                <div class="col-md-3">
+                    <label for="startDate" class="form-label">Start Date:</label>
+                    <input type="date" id="startDate" name="startDate" class="form-control" value="@Model.StartDate.ToString("yyyy-MM-dd")" />
+                </div>
+                <div class="col-md-3">
+                    <label for="endDate" class="form-label">End Date:</label>
+                    <input type="date" id="endDate" name="endDate" class="form-control" value="@Model.EndDate.ToString("yyyy-MM-dd")" />
+                </div>
+                <div class="col-md-3 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary">Generate Report</button>
+                </div>
+            </div>
+        </form>
+
+        <!-- Report Summary -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h3>Report Summary</h3>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <p><strong>Total Revenue:</strong> @(Model.TotalRevenue ?? 0) </p>
+                    </div>
+                    <div class="col-md-4">
+                        <p><strong>Highest Single Purchase:</strong> @(Model.HighestPurchase ?? 0) </p>
+                    </div>
+                    <div class="col-md-4">
+                        <p><strong>Lowest Single Purchase:</strong> @(Model.LowestPurchase ?? 0) </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Customer Purchases Table -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h3>Customer Purchases</h3>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Customer ID</th>
+                            <th>Age</th>
+                            <th>Membership Tier</th>
+                            <th>Total Purchases</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var customer in Model.CustomerData)
+                        {
+                            <tr>
+                                <td>@customer.Customer_ID</td>
+                                <td>@customer.CustomerAge</td>
+                                <td>@customer.Membership_type</td>
+                                <td>@customer.TotalPurchasesOverall</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+      
+
+        <!-- Purchases Per Day Table -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h3>Purchases Per Day (Table)</h3>
+                <p class="text-muted">This table provides the detailed number of purchases for each day in the selected range.</p>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Purchase Date</th>
+                            <th>Total Purchases</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var purchase in Model.PurchasesPerDay)
+                        {
+                            <tr>
+                                <td>@purchase.Purchase_date.ToString("yyyy-MM-dd")</td>
+                                <td>@purchase.TotalPurchases</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Optional Bootstrap JS (if needed for interactivity) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+   
+</body>
+</html>

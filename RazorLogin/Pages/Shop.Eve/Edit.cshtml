@@ -2,36 +2,58 @@
 @model RazorLogin.Pages.Shop.Eve.EditModel
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Edit Event";
 }
 
-<h2>Edit Event</h2>
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Edit Event</h2>
 
-<form method="post">
-    <input type="hidden" asp-for="Event.EventId" />
-    <div class="form-group">
-        <label asp-for="Event.EventEmployeeRepId"></label>
-        <input asp-for="Event.EventEmployeeRepId" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label asp-for="Event.EventName"></label>
-        <input asp-for="Event.EventName" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label asp-for="Event.EventStartTime"></label>
-        <input asp-for="Event.EventStartTime" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label asp-for="Event.EventEndTime"></label>
-        <input asp-for="Event.EventEndTime" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label asp-for="Event.EventDate"></label>
-        <input asp-for="Event.EventDate" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label asp-for="Event.EventLocation"></label>
-        <input asp-for="Event.EventLocation" class="form-control" />
-    </div>
-    <button type="submit" class="btn btn-primary">Save</button>
-</form>
+    <form method="post" class="shadow p-4 rounded bg-light">
+        <input type="hidden" asp-for="Event.EventId" />
+        <input type="hidden" asp-for="Event.EventEmployeeRepId" />
+
+        <div class="form-group mb-3">
+            <label asp-for="Event.EventName" class="form-label">Event Name</label>
+            <input asp-for="Event.EventName" class="form-control" />
+            <span asp-validation-for="Event.EventName" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="Event.EventStartTime" class="form-label">Start Time</label>
+            <input asp-for="Event.EventStartTime" class="form-control" type="time" />
+            <span asp-validation-for="Event.EventStartTime" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="Event.EventEndTime" class="form-label">End Time</label>
+            <input asp-for="Event.EventEndTime" class="form-control" type="time" />
+            <span asp-validation-for="Event.EventEndTime" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="Event.EventDate" class="form-label">Date</label>
+            <input asp-for="Event.EventDate" class="form-control" type="date" />
+            <span asp-validation-for="Event.EventDate" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="Event.EventLocation" class="form-label">Location</label>
+            <input asp-for="Event.EventLocation" class="form-control" />
+            <span asp-validation-for="Event.EventLocation" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">Save</button>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+<style>
+    .container {
+        max-width: 600px;
+    }
+</style>

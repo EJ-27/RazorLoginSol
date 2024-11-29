@@ -2,54 +2,68 @@
 @model RazorLogin.Pages.Admin.Tick.EditModel
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Edit Ticket";
 }
 
-<h1>Edit</h1>
+<h1>Edit Ticket</h1>
 
-<h4>Ticket</h4>
+<h4>Modify the details of the selected ticket</h4>
 <hr />
+
+<!-- Form for Editing Ticket -->
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-6">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <!-- Hidden TicketId Field -->
             <input type="hidden" asp-for="Ticket.TicketId" />
+
+            <!-- Ticket Type Input -->
             <div class="form-group">
-                <label asp-for="Ticket.TicketType" class="control-label"></label>
+                <label asp-for="Ticket.TicketType" class="control-label">Ticket Type</label>
                 <input asp-for="Ticket.TicketType" class="form-control" />
                 <span asp-validation-for="Ticket.TicketType" class="text-danger"></span>
             </div>
+
+            <!-- Ticket Price Input -->
             <div class="form-group">
-                <label asp-for="Ticket.TicketPrice" class="control-label"></label>
+                <label asp-for="Ticket.TicketPrice" class="control-label">Ticket Price</label>
                 <input asp-for="Ticket.TicketPrice" class="form-control" />
                 <span asp-validation-for="Ticket.TicketPrice" class="text-danger"></span>
             </div>
+
+            <!-- Ticket Purchase Date Input (Calendar Picker) -->
             <div class="form-group">
-                <label asp-for="Ticket.TicketPurchaseDate" class="control-label"></label>
-                <input asp-for="Ticket.TicketPurchaseDate" class="form-control" />
+                <label asp-for="Ticket.TicketPurchaseDate" class="control-label">Purchase Date</label>
+                <input asp-for="Ticket.TicketPurchaseDate" class="form-control" type="date" />
                 <span asp-validation-for="Ticket.TicketPurchaseDate" class="text-danger"></span>
             </div>
+
+            <!-- Purchase ID Dropdown -->
             <div class="form-group">
-                <label asp-for="Ticket.TicketEntryTime" class="control-label"></label>
-                <input asp-for="Ticket.TicketEntryTime" class="form-control" />
-                <span asp-validation-for="Ticket.TicketEntryTime" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Ticket.PurchaseId" class="control-label"></label>
-                <select asp-for="Ticket.PurchaseId" class="form-control" asp-items="ViewBag.PurchaseId"></select>
+                <label asp-for="Ticket.PurchaseId" class="control-label">Purchase</label>
+                <select asp-for="Ticket.PurchaseId" class="form-control" asp-items="ViewBag.PurchaseId">
+                    <option value="">Select Purchase</option>
+                </select>
                 <span asp-validation-for="Ticket.PurchaseId" class="text-danger"></span>
             </div>
+
+            <!-- Submit Button -->
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Save Changes" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
+<!-- Back to List Link -->
 <div>
-    <a asp-page="./Index">Back to List</a>
+    <a class="btn btn-secondary" asp-page="./Index">Back to Ticket List</a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

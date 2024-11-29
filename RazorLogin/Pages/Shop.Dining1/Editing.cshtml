@@ -1,30 +1,37 @@
 ﻿@page "{itemId:int}/{foodStoreId:int}"
 @model RazorLogin.Pages.Shop.Dining1.EditingModel
+
 @{
     ViewData["Title"] = "Edit Item";
 }
 
-<h1>Edit Item</h1>
+<div class="container mt-4">
+    <h1 class="text-center mb-4">Edit Item</h1>
 
-<form method="post">
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <input type="hidden" asp-for="Item.ItemId" />
-    <input type="hidden" asp-for="Item.FoodStoreId" />
-    <div class="form-group">
-        <label asp-for="Item.ItemCount" class="control-label"></label>
-        <input asp-for="Item.ItemCount" class="form-control" />
-        <span asp-validation-for="Item.ItemCount" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Item.RestockDate" class="control-label"></label>
-        <input asp-for="Item.RestockDate" class="form-control" type="date" />
-        <span asp-validation-for="Item.RestockDate" class="text-danger"></span>
-    </div>
-    <button type="submit" class="btn btn-primary">Save Changes</button>
-</form>
+    <form method="post" class="shadow p-4 rounded bg-light">
+        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
-<div>
-    <a asp-page="./Inventory" asp-route-foodStoreId="@Model.Item.FoodStoreId">Back to Inventory</a>
+        <input type="hidden" asp-for="Item.ItemId" />
+        <input type="hidden" asp-for="Item.FoodStoreId" />
+
+        <div class="form-group mb-3">
+            <label asp-for="Item.ItemCount" class="form-label">Item Count</label>
+            <input asp-for="Item.ItemCount" class="form-control" />
+            <span asp-validation-for="Item.ItemCount" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="Item.RestockDate" class="form-label">Restock Date</label>
+            <input asp-for="Item.RestockDate" class="form-control" type="date" />
+            <span asp-validation-for="Item.RestockDate" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">Save Changes</button>
+    </form>
+
+    <div class="mt-4">
+        <a asp-page="./Inventory" asp-route-foodStoreId="@Model.Item.FoodStoreId" class="btn btn-secondary">Back to Inventory</a>
+    </div>
 </div>
 
 @section Scripts {
@@ -32,3 +39,9 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }
+
+<style>
+    .container {
+        max-width: 500px;
+    }
+</style>

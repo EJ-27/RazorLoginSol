@@ -1,0 +1,33 @@
+﻿@page
+@model RazorLogin.Pages.ZookeeperPage.IndexModel
+
+@{
+    ViewData["Title"] = "Zookeeper Information";
+}
+
+<h1>Zookeeper Information</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Employee First Name</th>
+            <th>Employee Last Name</th>
+            <th>Zookeeper ID</th>
+            <th>Assigned Department</th>
+            
+            
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var zookeeper in Model.Zookeepers)
+        {
+            <tr>
+                <td>@zookeeper.Employee.EmployeeFirstName</td>
+                <td>@zookeeper.Employee.EmployeeLastName</td>
+                <td>@zookeeper.ZookeeperId</td>
+                <td>@zookeeper.AssignedDepartment</td>
+                
+            </tr>
+        }
+    </tbody>
+</table>

@@ -23,6 +23,7 @@ public partial class Dependant
     public string? Relationship { get; set; }
 
     public string? HealthcareTier { get; set; }
+    public bool? IsDeleted { get; set; }
 
     public virtual Employee Employee { get; set; } = null!;
 }

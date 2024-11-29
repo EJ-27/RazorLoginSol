@@ -2,56 +2,46 @@
 @model RazorLogin.Pages.TicketsPage.IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "My Tickets";
 }
 
-<h1>My Tickets</h1>
+<div class="container my-5">
+    <h1 class="text-center mb-4">My Tickets</h1>
 
-<p>
-    <a asp-page="Create">Purchase Tickets</a>
-</p>
+    <div class="text-center mb-4">
+        <a asp-page="Create" class="btn btn-primary btn-lg">Purchase Tickets</a>
+    </div>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Tickets[0].TicketType)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Tickets[0].TicketPrice)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Tickets[0].TicketPurchaseDate)
-            </th>
-            <th>Actions</th> 
-        </tr>
-    </thead>
-    <tbody>
-        @if (Model.Tickets != null && Model.Tickets.Any())
-        {
-            foreach (var item in Model.Tickets)
+    @if (Model.Tickets != null && Model.Tickets.Any())
+    {
+        <div class="row">
+            @foreach (var item in Model.Tickets)
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.TicketType)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.TicketPrice)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.TicketPurchaseDate)
-                    </td>
-                    <td>
-                        <a asp-page="./Delete" asp-route-id="@item.TicketId">Cancel Ticket</a>
-                    </td>
-                </tr>
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow-sm border-light">
+                        <div class="card-body">
+                            <h5 class="card-title">@item.TicketType</h5>
+                            <p class="h4 text-primary">
+                                $@Html.DisplayFor(modelItem => item.TicketPrice)
+                            </p>
+                            <p class="text-muted">
+                                <strong>Purchase Date:</strong> @Html.DisplayFor(modelItem => item.TicketPurchaseDate)
+                            </p>
+                            <div class="d-flex justify-content-between">
+                                <a asp-page="./Delete" asp-route-id="@item.TicketId" class="btn btn-danger btn-sm">
+                                    <i class="fas fa-times-circle"></i> Cancel
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             }
-        }
-        else
-        {
-            <tr>
-                <td colspan="3">No tickets found.</td>
-            </tr>
-        }
-    </tbody>
-</table>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info text-center" role="alert">
+            You have no tickets yet. <a asp-page="Create" class="btn btn-primary btn-sm">Purchase Tickets</a>
+        </div>
+    }
+</div>

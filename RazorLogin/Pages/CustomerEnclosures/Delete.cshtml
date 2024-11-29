@@ -1,0 +1,70 @@
+﻿@page
+@model RazorLogin.Pages.CustomerEnclosures.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Enclosure</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Enclosure.EnclosureName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Enclosure.EnclosureName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Enclosure.EnclosureDepartment)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Enclosure.EnclosureDepartment)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Enclosure.EnclosureOpenTime)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Enclosure.EnclosureOpenTime)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Enclosure.EnclosureCloseTime)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Enclosure.EnclosureCloseTime)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Enclosure.EnclosureCleaningTime)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Enclosure.EnclosureCleaningTime)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Enclosure.EnclosureFeedingTime)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Enclosure.EnclosureFeedingTime)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Enclosure.OccupancyStatus)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Enclosure.OccupancyStatus)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Enclosure.Zookeeper)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Enclosure.Zookeeper.ZookeeperId)
+        </dd>
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="Enclosure.EnclosureId" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-page="./Index">Back to List</a>
+    </form>
+</div>

@@ -1,0 +1,78 @@
+﻿@page
+@model RazorLogin.Pages.Zook.Encl.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Enclosure[0].EnclosureName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Enclosure[0].EnclosureOpenTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Enclosure[0].EnclosureCloseTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Enclosure[0].EnclosureCleaningTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Enclosure[0].EnclosureFeedingTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Enclosure[0].ZookeeperId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Enclosure[0].OccupancyStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Enclosure[0].Zookeeper)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Enclosure) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.EnclosureName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EnclosureOpenTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EnclosureCloseTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EnclosureCleaningTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EnclosureFeedingTime)
+            </td>
+            <td>
+                 @Html.DisplayFor(modelItem => item.ZookeeperId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OccupancyStatus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Zookeeper.ZookeeperId)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.EnclosureId">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.EnclosureId">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.EnclosureId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

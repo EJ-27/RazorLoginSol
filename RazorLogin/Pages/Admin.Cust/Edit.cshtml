@@ -2,73 +2,115 @@
 @model RazorLogin.Pages.Admin.Cust.EditModel
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Edit Customer";
 }
 
-<h1>Edit</h1>
+<h1>Edit Customer</h1>
 
-<h4>Customer</h4>
+<h4>Customer Information</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-8 offset-md-2">
         <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+            <!-- Hidden Customer ID -->
             <input type="hidden" asp-for="Customer.CustomerId" />
-            <div class="form-group">
-                <label asp-for="Customer.CustomerFirstName" class="control-label"></label>
-                <input asp-for="Customer.CustomerFirstName" class="form-control" />
-                <span asp-validation-for="Customer.CustomerFirstName" class="text-danger"></span>
+
+            <!-- First Name -->
+            <div class="form-group row">
+                <label asp-for="Customer.CustomerFirstName" class="col-sm-3 col-form-label">First Name</label>
+                <div class="col-sm-9">
+                    <input asp-for="Customer.CustomerFirstName" class="form-control" placeholder="Enter first name" />
+                    <span asp-validation-for="Customer.CustomerFirstName" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Customer.CustomerLastName" class="control-label"></label>
-                <input asp-for="Customer.CustomerLastName" class="form-control" />
-                <span asp-validation-for="Customer.CustomerLastName" class="text-danger"></span>
+
+            <!-- Last Name -->
+            <div class="form-group row">
+                <label asp-for="Customer.CustomerLastName" class="col-sm-3 col-form-label">Last Name</label>
+                <div class="col-sm-9">
+                    <input asp-for="Customer.CustomerLastName" class="form-control" placeholder="Enter last name" />
+                    <span asp-validation-for="Customer.CustomerLastName" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Customer.CustomerDob" class="control-label"></label>
-                <input asp-for="Customer.CustomerDob" class="form-control" />
-                <span asp-validation-for="Customer.CustomerDob" class="text-danger"></span>
+
+            <!-- Date of Birth -->
+            <div class="form-group row">
+                <label asp-for="Customer.CustomerDob" class="col-sm-3 col-form-label">Date of Birth</label>
+                <div class="col-sm-9">
+                    <input asp-for="Customer.CustomerDob" type="date" class="form-control" />
+                    <span asp-validation-for="Customer.CustomerDob" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Customer.CustomerAddress" class="control-label"></label>
-                <input asp-for="Customer.CustomerAddress" class="form-control" />
-                <span asp-validation-for="Customer.CustomerAddress" class="text-danger"></span>
+
+            <!-- Address -->
+            <div class="form-group row">
+                <label asp-for="Customer.CustomerAddress" class="col-sm-3 col-form-label">Address</label>
+                <div class="col-sm-9">
+                    <input asp-for="Customer.CustomerAddress" class="form-control" placeholder="Enter address" />
+                    <span asp-validation-for="Customer.CustomerAddress" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Customer.MembershipStartDate" class="control-label"></label>
-                <input asp-for="Customer.MembershipStartDate" class="form-control" />
-                <span asp-validation-for="Customer.MembershipStartDate" class="text-danger"></span>
+
+            <!-- Membership Start Date -->
+            <div class="form-group row">
+                <label asp-for="Customer.MembershipStartDate" class="col-sm-3 col-form-label">Membership Start Date</label>
+                <div class="col-sm-9">
+                    <input asp-for="Customer.MembershipStartDate" type="date" class="form-control" />
+                    <span asp-validation-for="Customer.MembershipStartDate" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Customer.MembershipEndDate" class="control-label"></label>
-                <input asp-for="Customer.MembershipEndDate" class="form-control" />
-                <span asp-validation-for="Customer.MembershipEndDate" class="text-danger"></span>
+
+            <!-- Membership End Date -->
+            <div class="form-group row">
+                <label asp-for="Customer.MembershipEndDate" class="col-sm-3 col-form-label">Membership End Date</label>
+                <div class="col-sm-9">
+                    <input asp-for="Customer.MembershipEndDate" type="date" class="form-control" />
+                    <span asp-validation-for="Customer.MembershipEndDate" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Customer.MembershipType" class="control-label"></label><br />
-                <select asp-for="Customer.MembershipType">
-                    <option value="FREE TIER">FREE</option>
-                    <option value="FAMILY TIER">FAMILY</option>
-                    <option value="VIP TIER">VIP</option>
-                </select>
-                <span asp-validation-for="Customer.MembershipType" class="text-danger"></span>
+
+            <!-- Membership Type -->
+            <div class="form-group row">
+                <label asp-for="Customer.MembershipType" class="col-sm-3 col-form-label">Membership Type</label>
+                <div class="col-sm-9">
+                    <select asp-for="Customer.MembershipType" class="form-control">
+                        <option value="FREE TIER">Free Tier</option>
+                        <option value="FAMILY TIER">Family Tier</option>
+                        <option value="VIP TIER">VIP Tier</option>
+                    </select>
+                    <span asp-validation-for="Customer.MembershipType" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Customer.CustomerEmail" class="control-label"></label>
-                <input asp-for="Customer.CustomerEmail" class="form-control" />
-                <span asp-validation-for="Customer.CustomerEmail" class="text-danger"></span>
+
+            <!-- Email (Readonly but included in form submission) -->
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Email</label>
+                <div class="col-sm-9">
+                    <!-- Readonly Email Field -->
+                    <input type="text" class="form-control" value="@Model.Customer.CustomerEmail" readonly />
+
+                    <!-- Hidden Email Field to ensure it's submitted -->
+                    <input type="hidden" asp-for="Customer.CustomerEmail" value="@Model.Customer.CustomerEmail" />
+                    <span asp-validation-for="Customer.CustomerEmail" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+
+            <!-- Submit Button -->
+            <div class="form-group text-center">
+                <input type="submit" value="Save Changes" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-page="./Index">Back to List</a>
+<div class="text-center mt-4">
+    <a asp-page="./Index" class="btn btn-secondary">Back to List</a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

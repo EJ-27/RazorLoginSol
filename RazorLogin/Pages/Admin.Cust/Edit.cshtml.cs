@@ -47,6 +47,23 @@ namespace RazorLogin.Pages.Admin.Cust
                 return Page();
             }
 
+            // Check if the customer is already being tracked
+            var existingCustomer = await _context.Customers.AsNoTracking().FirstOrDefaultAsync(c => c.CustomerId == Customer.CustomerId);
+
+            if (existingCustomer != null)
+            {
+                // Ensure the email is preserved and not overwritten
+                Customer.CustomerEmail = existingCustomer.CustomerEmail; // Preserve email
+            }
+
+            // Detach any existing entity with the same key
+            var trackedCustomer = _context.ChangeTracker.Entries<Customer>().FirstOrDefault(e => e.Entity.CustomerId == Customer.CustomerId);
+            if (trackedCustomer != null)
+            {
+                trackedCustomer.State = EntityState.Detached;  // Detach the existing tracked entity
+            }
+
+            // Now attach the customer entity and mark it as modified
             _context.Attach(Customer).State = EntityState.Modified;
 
             try
@@ -67,6 +84,7 @@ namespace RazorLogin.Pages.Admin.Cust
 
             return RedirectToPage("./Index");
         }
+
 
         private bool CustomerExists(int id)
         {

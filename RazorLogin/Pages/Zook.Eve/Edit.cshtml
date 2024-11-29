@@ -1,0 +1,60 @@
+﻿@page
+@model RazorLogin.Pages.Zook.Eve.EditModel
+
+@{
+    ViewData["Title"] = "Edit Event";
+}
+
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Edit Event</h2>
+
+    <form method="post" class="shadow p-4 rounded bg-light">
+        <input type="hidden" asp-for="Event.EventId" />
+        <input type="hidden" asp-for="Event.EventEmployeeRepId" />
+
+
+        <div class="form-group mb-3">
+            <label asp-for="Event.EventName" class="form-label">Event Name</label>
+            <input asp-for="Event.EventName" class="form-control" />
+            <span asp-validation-for="Event.EventName" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="Event.EventStartTime" class="form-label">Start Time</label>
+            <input asp-for="Event.EventStartTime" class="form-control" type="time" />
+            <span asp-validation-for="Event.EventStartTime" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="Event.EventEndTime" class="form-label">End Time</label>
+            <input asp-for="Event.EventEndTime" class="form-control" type="time" />
+            <span asp-validation-for="Event.EventEndTime" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="Event.EventDate" class="form-label">Date</label>
+            <input asp-for="Event.EventDate" class="form-control" type="date" />
+            <span asp-validation-for="Event.EventDate" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="Event.EventLocation" class="form-label">Location</label>
+            <input asp-for="Event.EventLocation" class="form-control" />
+            <span asp-validation-for="Event.EventLocation" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">Save</button>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+<style>
+    .container {
+        max-width: 600px;
+    }
+</style>

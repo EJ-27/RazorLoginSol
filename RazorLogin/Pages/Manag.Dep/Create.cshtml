@@ -1,0 +1,57 @@
+@page
+@model RazorLogin.Pages.Manag.Dep.CreateModel
+
+@{
+    ViewData["Title"] = "Add Dependent";
+}
+
+
+<h1>Add Dependent</h1>
+
+<hr />
+
+<form method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="form-group">
+        <label asp-for="Dependent.DependentName" class="control-label"></label>
+        <input asp-for="Dependent.DependentName" class="form-control" />
+        <span asp-validation-for="Dependent.DependentName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Dependent.DependentDob" class="control-label"></label>
+        <input asp-for="Dependent.DependentDob" class="form-control" type="date" />
+        <span asp-validation-for="Dependent.DependentDob" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Dependent.Relationship" class="control-label"></label>
+        <input asp-for="Dependent.Relationship" class="form-control" />
+        <span asp-validation-for="Dependent.Relationship" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Dependent.HealthcareTier" class="control-label"></label>
+        <select asp-for="Dependent.HealthcareTier" class="form-control">
+            <option value="">Select Healthcare Tier</option>
+            <option value="Tier 1">Tier 1</option>
+            <option value="Tier 2">Tier 2</option>
+            <option value="Tier 3">Tier 3</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Add Dependent" class="btn btn-primary" />
+    </div>
+</form>
+
+<div>
+    <a asp-page="./Index">Back to My Dependents</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+}
+

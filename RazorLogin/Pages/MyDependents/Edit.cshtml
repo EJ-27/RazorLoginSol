@@ -1,4 +1,3 @@
-
 @page "{id:int}"
 
 @model RazorLogin.Pages.MyDependents.EditModel
@@ -11,32 +10,38 @@
 
 <hr />
 
+<!-- Form for Editing Dependent -->
 <form method="post">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
+    <!-- Dependent ID (Readonly) -->
     <div class="form-group">
-        <label asp-for="Dependent.DepndantId" class="control-label"></label>
+        <label asp-for="Dependent.DepndantId" class="control-label">Dependent ID</label>
         <input asp-for="Dependent.DepndantId" class="form-control" readonly />
         <span asp-validation-for="Dependent.DepndantId" class="text-danger"></span>
     </div>
 
+    <!-- Dependent Name -->
     <div class="form-group">
-        <label asp-for="Dependent.DependentName" class="control-label"></label>
+        <label asp-for="Dependent.DependentName" class="control-label">Dependent Name</label>
         <input asp-for="Dependent.DependentName" class="form-control" />
         <span asp-validation-for="Dependent.DependentName" class="text-danger"></span>
     </div>
 
+    <!-- Dependent Date of Birth -->
     <div class="form-group">
-        <label asp-for="Dependent.DependentDob" class="control-label"></label>
+        <label asp-for="Dependent.DependentDob" class="control-label">Date of Birth</label>
         <input asp-for="Dependent.DependentDob" class="form-control" type="date" />
         <span asp-validation-for="Dependent.DependentDob" class="text-danger"></span>
     </div>
 
+    <!-- Dependent Relationship -->
     <div class="form-group">
-        <label asp-for="Dependent.Relationship" class="control-label"></label>
+        <label asp-for="Dependent.Relationship" class="control-label">Relationship</label>
         <input asp-for="Dependent.Relationship" class="form-control" />
         <span asp-validation-for="Dependent.Relationship" class="text-danger"></span>
     </div>
+
 
     <div class="form-group">
         <label asp-for="Dependent.HealthcareTier" class="control-label"></label>
@@ -48,18 +53,19 @@
         </select>
     </div>
 
+    <!-- Submit Button -->
     <div class="form-group">
         <input type="submit" value="Update Dependent" class="btn btn-primary" />
     </div>
 </form>
 
+<!-- Back to My Dependents Link -->
 <div>
-    <a asp-page="./Index">Back to My Dependents</a>
+    <a class="btn btn-secondary" asp-page="./Index">Back to My Dependents</a>
 </div>
 
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
-
 }

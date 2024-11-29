@@ -8,12 +8,26 @@
 <h1>Create</h1>
 
 <h4>Employee</h4>
+
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <div class="alert alert-danger">
+        @Model.ErrorMessage
+    </div>
+}
+
+<!-- Button to hard refresh the page (Always visible) -->
+<a href="/Admin.Emp/Create" class="btn btn-primary">
+    Refresh Page
+</a>
+
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
+            <!-- Employee Fields (no changes here) -->
             <div class="form-group">
                 <label asp-for="Employee.Ssn" class="control-label"></label>
                 <input asp-for="Employee.Ssn" class="form-control" />
@@ -23,7 +37,7 @@
             <div class="form-group">
                 <label asp-for="Employee.EmployeeFirstName" class="control-label"></label>
                 <input asp-for="Employee.EmployeeFirstName" class="form-control" />
-                <span asp-validation-for="Employee.EmployeeFirstName" class="text-danger"></span>
+                <span asp-validation-for="Employee.EmployeeFirstName" class="text-danger"></span> 
             </div>
 
             <div class="form-group">
@@ -37,6 +51,7 @@
                 <input asp-for="Employee.EmployeeDob" class="form-control" type="date" />
                 <span asp-validation-for="Employee.EmployeeDob" class="text-danger"></span>
             </div>
+
 
             <div class="form-group">
                 <label asp-for="Employee.EmployeeAddress" class="control-label"></label>
@@ -52,14 +67,15 @@
 
             <div class="form-group">
                 <label asp-for="Employee.DateOfEmployment" class="control-label"></label>
-                <input asp-for="Employee.DateOfEmployment" class="form-control" type="date" />
+
+                <input asp-for="Employee.DateOfEmployment" class="form-control" type="date" value="@DateTime.Now.ToString("yyyy-MM-dd")" readonly />
                 <span asp-validation-for="Employee.DateOfEmployment" class="text-danger"></span>
             </div>
 
             <div class="form-group">
                 <label asp-for="Employee.Degree" class="control-label"></label><br />
-                <select asp-for="Employee.Degree">
-                    <option value=""></option>
+                <select asp-for="Employee.Degree" class="form-control">
+                    <option value="">Select Degree</option>
                     <option value="NO SCHOOLING">NONE</option>
                     <option value="HIGH SCHOOL DIPLOMA">HIGHSCHOOL</option>
                     <option value="ASSOCIATE DEGREE">ASSOCIATE</option>
@@ -77,50 +93,98 @@
                 <span asp-validation-for="Employee.EmployeePhoneNumber" class="text-danger"></span>
             </div>
 
+        
+
+
+            <!-- Role Selection -->
             <div class="form-group">
-                <label asp-for="Employee.SupervisorId" class="control-label"></label>
-                <input asp-for="Employee.SupervisorId" class="form-control" />
-                <span asp-validation-for="Employee.SupervisorId" class="text-danger"></span>
+                <label asp-for="Role" class="control-label"></label><br />
+                <select asp-for="Role" id="Role" class="form-control" onchange="toggleStoreFields()">
+                    <option value="ADMIN">Admin</option>
+                    <option value="MANAGER">Manager</option>
+                    <option value="ZOOKEEPER">Zookeeper</option>
+                    <option value="SHOP">Shop</option>
+
+                </select>
+                <span asp-validation-for="Role" class="text-danger"></span>
             </div>
 
-            <div class="form-group">
-                <label asp-for="Employee.Department" class="control-label"></label>
-                <input asp-for="Employee.Department" class="form-control" />
-                <span asp-validation-for="Employee.Department" class="text-danger"></span>
+            <!-- Conditional Store Type Buttons (only show for Manager or Shop roles) -->
+
+            <div class="form-group" id="storeTypeButtons" style="display:none;">
+                <label>Select Store Type:</label><br />
+                <button type="button" class="btn btn-primary" onclick="showStoreDropdown('foodStore')">Food Store</button>
+                <button type="button" class="btn btn-primary" onclick="showStoreDropdown('giftShop')">Gift Shop</button>
             </div>
 
-            <div class="form-group">
+            <!-- Food Store Dropdown for Manager or Shop -->
+            <div class="form-group" id="foodStoreDropdown" style="display:none;">
+                <label asp-for="Employee.FoodStoreId" class="control-label"></label>
+                <select asp-for="Employee.FoodStoreId" class="form-control" id="FoodStoreDropdown">
+                    <option value="">Select Food Store</option>
+
+                    @if (ViewData["FoodStoresWithManagers"] != null)
+                    {
+                        foreach (var store in (List<SelectListItem>)ViewData["FoodStoresWithManagers"])
+                        {
+                            <option value="@store.Value" data-has-manager="true">@store.Text</option>
+                        }
+                    }
+
+                    @if (ViewData["FoodStoresWithoutManagers"] != null)
+                    {
+                        foreach (var store in (List<SelectListItem>)ViewData["FoodStoresWithoutManagers"])
+                        {
+                            <option value="@store.Value" data-has-manager="false">@store.Text</option>
+                        }
+                    }
+                </select>
+                <span asp-validation-for="Employee.FoodStoreId" class="text-danger"></span>
+            </div>
+
+            <!-- Gift Shop Dropdown for Manager or Shop -->
+            <div class="form-group" id="giftShopDropdown" style="display:none;">
                 <label asp-for="Employee.ShopId" class="control-label"></label>
-                <input asp-for="Employee.ShopId" class="form-control" />
+                <select asp-for="Employee.ShopId" class="form-control" id="GiftShopDropdown">
+                    <option value="">Select Gift Shop</option>
+
+                    @if (ViewData["GiftShopsWithManagers"] != null)
+                    {
+                        foreach (var store in (List<SelectListItem>)ViewData["GiftShopsWithManagers"])
+                        {
+                            <option value="@store.Value" data-has-manager="true">@store.Text</option>
+                        }
+                    }
+
+                    @if (ViewData["GiftShopsWithoutManagers"] != null)
+                    {
+                        foreach (var store in (List<SelectListItem>)ViewData["GiftShopsWithoutManagers"])
+                        {
+                            <option value="@store.Value" data-has-manager="false">@store.Text</option>
+                        }
+                    }
+                </select>
                 <span asp-validation-for="Employee.ShopId" class="text-danger"></span>
             </div>
 
-            <div class="form-group">
-                <label asp-for="Employee.FoodStoreId" class="control-label"></label>
-                <input asp-for="Employee.FoodStoreId" class="form-control" />
-                <span asp-validation-for="Employee.FoodStoreId" class="text-danger"></span>
-            </div>
+
+            <!-- Login Information Section -->
+            <h4>Login Information</h4>
+            <hr />
 
             <div class="form-group">
                 <label asp-for="Employee.EmployeeEmail" class="control-label"></label>
                 <input asp-for="Employee.EmployeeEmail" class="form-control" />
                 <span asp-validation-for="Employee.EmployeeEmail" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" />
+                <input asp-for="Password" class="form-control" type="password" />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Role" class="control-label"></label><br />
-                <select asp-for="Role">
-                    <option value="ADMIN">Admin</option>
-                    <option value="MANAGER">Manager</option>
-                    <option value="ZOOKEEPER">Zookeeper</option>
-                    <option value="SHOP">Shop</option>
-                </select>
-                <span asp-validation-for="Role" class="text-danger"></span>
-            </div>
+
+
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
@@ -133,5 +197,71 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        // Show or hide the store-related fields based on the selected role
+        function toggleStoreFields() {
+            var role = document.getElementById('Role').value;
+
+            // Hide all store-related elements initially
+            document.getElementById('storeTypeButtons').style.display = 'none';
+            document.getElementById('foodStoreDropdown').style.display = 'none';
+            document.getElementById('giftShopDropdown').style.display = 'none';
+
+            // Show the store type buttons for Shop and Manager roles
+            if (role === 'SHOP' || role === 'MANAGER') {
+                document.getElementById('storeTypeButtons').style.display = 'block';
+            }
+        }
+
+        // Show the dropdown for the selected store type
+        function showStoreDropdown(storeType) {
+            var role = document.getElementById('Role').value;
+            var foodStoreDropdown = document.getElementById('foodStoreDropdown');
+            var giftShopDropdown = document.getElementById('giftShopDropdown');
+
+            // Hide both dropdowns initially
+            foodStoreDropdown.style.display = 'none';
+            giftShopDropdown.style.display = 'none';
+
+            if (storeType === 'foodStore') {
+                foodStoreDropdown.style.display = 'block';
+                filterStoreOptions(foodStoreDropdown, role);
+            } else if (storeType === 'giftShop') {
+                giftShopDropdown.style.display = 'block';
+                filterStoreOptions(giftShopDropdown, role);
+            }
+        }
+
+        // Filter store options based on the selected role
+        function filterStoreOptions(dropdown, role) {
+            var options = dropdown.getElementsByTagName('option');
+
+            for (var i = 0; i < options.length; i++) {
+                var option = options[i];
+                var hasManager = option.getAttribute('data-has-manager');
+
+                if (role === 'SHOP' && hasManager === 'true') {
+                    option.style.display = 'block';
+                } else if (role === 'MANAGER' && hasManager === 'false') {
+                    option.style.display = 'block';
+                } else {
+                    option.style.display = 'none';
+                }
+            }
+        }
+
+        // Initial check on page load
+        document.addEventListener('DOMContentLoaded', function () {
+            toggleStoreFields(); // Adjust visibility based on the selected role
+        });
+
+    </script>
+
+    <script src="~/lib/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery.validate.unobtrusive.min.js"></script>
 }
+
+
+
+

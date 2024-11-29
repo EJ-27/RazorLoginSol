@@ -15,5 +15,7 @@ public partial class Closing
 
     public int EnclosureId { get; set; }
 
-    public virtual Enclosure Enclosure { get; set; } = null!;
+    public bool? IsDeleted { get; set; }
+
+    public virtual Enclosure? Enclosure { get; set; } = null!; //change add ? 11/10 to allow creation and edit
 }

@@ -1,0 +1,58 @@
+﻿@page
+@model RazorLogin.Pages.ZookeeperPage.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Zookeeper</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Zookeeper.ZookeeperId" />
+            <<div class="form-group">
+                <label>Employee ID</label>
+                <span>@Model.Zookeeper.EmployeeId</span> 
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="Zookeeper.TrainingRenewalDate" class="control-label"></label>
+                <input asp-for="Zookeeper.TrainingRenewalDate" class="form-control" />
+                <span asp-validation-for="Zookeeper.TrainingRenewalDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Zookeeper.LastTrainingDate" class="control-label"></label>
+                <input asp-for="Zookeeper.LastTrainingDate" class="form-control" />
+                <span asp-validation-for="Zookeeper.LastTrainingDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Zookeeper.AssignedDepartment" class="control-label"></label>
+                <select asp-for="Zookeeper.AssignedDepartment" class="form-control">
+                    <option value=""></option>
+                    <option value="LAND">LAND</option>
+                    <option value="SEA">SEA</option>
+                    <option value="SAFARI">SAFARI</option>
+                    <option value="PETTING">PETTING</option>
+                    <option value="TUNDRA">TUNDRA</option>
+                </select>
+                <span asp-validation-for="Zookeeper.AssignedDepartment" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

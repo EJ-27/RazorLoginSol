@@ -1,12 +1,84 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome to The Zoo</h1>
-    <p>  </p>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Background image for the page */
+        body {
+            background-image: url('https://res.cloudinary.com/cognitives-s3/image/upload/c_fill,dpr_auto,f_auto,fl_lossy,h_900,q_auto,w_1200/v1/cog-aap/n/605/2023/May/12/2XfFb3r71fVEkbY9ePg5.jpg'); background-size: cover;
+            background-position: center;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
 
+        /* Custom header style */
+        .hero-text {
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            font-weight: bold;
+        }
 
+        /* Message box styling */
+        .message-box {
+            background-color: rgba(0, 0, 0, 0.6);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 50px;
+        }
+
+        /* Button style */
+        .btn-explore {
+            background-color: #28a745;
+            color: white;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 18px;
+        }
+
+        /* Navbar item styling */
+        .navbar {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        .navbar-nav .nav-link {
+            color: white;
+        }
+
+        .navbar-nav .nav-link:hover, .navbar-nav .nav-link:focus {
+            color: #ffc107 !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Simplified Navbar without any links -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="#"></a>
+    
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <!-- Removed the links in the navbar -->
+        </div>
+    </nav>
+
+    <div class="text-center hero-background">
+        <h1 class="hero-text display-4">Welcome to The Zoo!</h1>
+        <p class="lead">Explore our amazing wildlife, learn about animals, and enjoy your visit.</p>
+    </div>
+
+    <div class="container text-center message-box">
+        <h3>Get ready to explore!</h3>
+        <p>Use the navigation bar above to discover different sections of the zoo. Whether you're looking to learn more about our animals or plan your visit, there's something for everyone!</p>
+    </div>
+
+</body>
+</html>

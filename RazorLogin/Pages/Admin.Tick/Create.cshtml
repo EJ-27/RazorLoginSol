@@ -13,11 +13,8 @@
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Ticket.TicketId" class="control-label"></label>
-                <input asp-for="Ticket.TicketId" class="form-control" />
-                <span asp-validation-for="Ticket.TicketId" class="text-danger"></span>
-            </div>
+       
+
             <div class="form-group">
                 <label asp-for="Ticket.TicketType" class="control-label"></label>
                 <input asp-for="Ticket.TicketType" class="form-control" />
@@ -28,6 +25,12 @@
                 <input asp-for="Ticket.TicketPrice" class="form-control" />
                 <span asp-validation-for="Ticket.TicketPrice" class="text-danger"></span>
             </div>
+            <div class="form-group">
+                <label asp-for="Ticket.TicketPurchaseDate" class="control-label"></label>
+                <input asp-for="Ticket.TicketPurchaseDate" class="form-control" type="date" />
+                <span asp-validation-for="Ticket.TicketPurchaseDate" class="text-danger"></span>
+            </div>
+
             <div class="form-group">
                 <label asp-for="Ticket.PurchaseId" class="control-label"></label>
                 <select asp-for="Ticket.PurchaseId" class ="form-control" asp-items="ViewBag.PurchaseId"></select>

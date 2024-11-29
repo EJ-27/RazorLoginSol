@@ -1,0 +1,122 @@
+﻿@page "{id:int}"
+@model RazorLogin.Pages.Zoo.Myinfo.viewPersonalModel
+@{
+    ViewData["Title"] = "Edit Employee Information";
+}
+
+<h2 class="mb-4">Edit Employee Information</h2>
+
+<form method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger mb-4"></div>
+
+    <div class="card mb-4 shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h4 class="m-0">Employee Information</h4>
+        </div>
+        <div class="card-body">
+            <div class="form-group">
+                <label class="font-weight-bold" asp-for="Employee.EmployeeId"></label>
+                <p class="form-control-plaintext text-muted">@Model.Employee.EmployeeId</p>
+                <input type="hidden" asp-for="Employee.EmployeeId" />
+            </div>
+
+            <div class="form-group">
+                <label class="font-weight-bold" asp-for="Employee.EmployeeEmail"></label>
+                <p class="form-control-plaintext text-muted">@Model.Employee.EmployeeEmail</p>
+                <input type="hidden" asp-for="Employee.EmployeeEmail" />
+            </div>
+
+            <div class="form-group">
+                <label class="font-weight-bold" asp-for="Employee.DateOfEmployment"></label>
+                <p class="form-control-plaintext text-muted">@Model.Employee.DateOfEmployment</p>
+                <input type="hidden" asp-for="Employee.DateOfEmployment" />
+            </div>
+
+            <div class="form-group">
+                <label class="font-weight-bold" asp-for="Employee.EmployeeSalary"></label>
+                <p class="form-control-plaintext text-muted">@Model.Employee.EmployeeSalary</p>
+                <input type="hidden" asp-for="Employee.EmployeeSalary" />
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-4 shadow-sm">
+        <div class="card-header bg-success text-white">
+            <h4 class="m-0">Edit Personal Details</h4>
+        </div>
+        <div class="card-body">
+            <div class="form-group">
+                <label class="font-weight-bold" asp-for="Employee.EmployeeFirstName"></label>
+                <input asp-for="Employee.EmployeeFirstName" class="form-control" />
+                <span asp-validation-for="Employee.EmployeeFirstName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label class="font-weight-bold" asp-for="Employee.EmployeeLastName"></label>
+                <input asp-for="Employee.EmployeeLastName" class="form-control" />
+                <span asp-validation-for="Employee.EmployeeLastName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label class="font-weight-bold" asp-for="Employee.EmployeeDob"></label>
+                <input asp-for="Employee.EmployeeDob" class="form-control" type="date" />
+                <span asp-validation-for="Employee.EmployeeDob" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label class="font-weight-bold" asp-for="Employee.EmployeePhoneNumber"></label>
+                <input asp-for="Employee.EmployeePhoneNumber" class="form-control" />
+                <span asp-validation-for="Employee.EmployeePhoneNumber" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label class="font-weight-bold" asp-for="Employee.EmployeeAddress"></label>
+                <input asp-for="Employee.EmployeeAddress" class="form-control" />
+                <span asp-validation-for="Employee.EmployeeAddress" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+
+    @* Zookeeper Information Section *@
+    @if (Model.Zookeeper != null)
+    {
+        <div class="card mb-4 shadow-sm">
+            <div class="card-header bg-info text-white">
+                <h4 class="m-0">Zookeeper Details</h4>
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label class="font-weight-bold" asp-for="Zookeeper.AssignedDepartment"></label>
+                    <input asp-for="Zookeeper.AssignedDepartment" class="form-control" />
+                    <span asp-validation-for="Zookeeper.AssignedDepartment" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label class="font-weight-bold" asp-for="Zookeeper.TrainingRenewalDate"></label>
+                    <input asp-for="Zookeeper.TrainingRenewalDate" class="form-control" type="date" />
+                    <span asp-validation-for="Zookeeper.TrainingRenewalDate" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label class="font-weight-bold" asp-for="Zookeeper.LastTrainingDate"></label>
+                    <input asp-for="Zookeeper.LastTrainingDate" class="form-control" type="date" />
+                    <span asp-validation-for="Zookeeper.LastTrainingDate" class="text-danger"></span>
+                </div>
+
+                
+            </div>
+        </div>
+    }
+
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+</form>
+
+<div>
+    <a asp-page="/Admin.Personal/Index" class="btn btn-secondary mt-2">Back</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

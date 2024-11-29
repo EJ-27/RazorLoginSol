@@ -1,0 +1,84 @@
+﻿@page
+@model RazorLogin.Pages.Manag.MyShop.DetailsModel
+@{
+    ViewData["Title"] = "Shop Details";
+}
+
+<div class="container mt-4">
+    <h1 class="text-center mb-4">Shop Details</h1>
+
+    <div class="card shadow-sm p-4 mb-4 bg-light">
+        @if (Model.FoodStore != null)
+        {
+            <h3 class="text-primary">@Model.FoodStore.FoodStoreName</h3>
+            <dl class="row mt-3">
+                <dt class="col-sm-3">ID</dt>
+                <dd class="col-sm-9">@Model.FoodStore.FoodStoreId</dd>
+
+                <dt class="col-sm-3">Location</dt>
+                <dd class="col-sm-9">@Model.FoodStore.FoodStoreLocation</dd>
+
+                <dt class="col-sm-3">Opening Time</dt>
+                <dd class="col-sm-9">@Model.FoodStore.FoodStoreOpenTime?.ToString("hh:mm tt")</dd>
+
+                <dt class="col-sm-3">Closing Time</dt>
+                <dd class="col-sm-9">@Model.FoodStore.FoodStoreCloseTime?.ToString("hh:mm tt")</dd>
+
+                
+            </dl>
+        }
+        else if (Model.GiftShop != null)
+        {
+            <h3 class="text-primary">@Model.GiftShop.GiftShopName</h3>
+            <dl class="row mt-3">
+                <dt class="col-sm-3">ID</dt>
+                <dd class="col-sm-9">@Model.GiftShop.ShopId</dd>
+
+                <dt class="col-sm-3">Location</dt>
+                <dd class="col-sm-9">@Model.GiftShop.GiftShopLocation</dd>
+
+                <dt class="col-sm-3">Opening Time</dt>
+                <dd class="col-sm-9">@Model.GiftShop.GiftShopOpenTime.ToString("hh:mm tt")</dd>
+
+                <dt class="col-sm-3">Closing Time</dt>
+                <dd class="col-sm-9">@Model.GiftShop.GiftShopCloseTime.ToString("hh:mm tt")</dd>
+            </dl>
+        }
+    </div>
+
+    <h2 class="mb-3">Employees Working at This Store</h2>
+    <p>Total Employees: <strong>@Model.EmployeeCount</strong></p>
+
+    @if (Model.Employees.Count > 0)
+    {
+        <table class="table table-striped table-hover shadow-sm">
+            <thead class="table-dark">
+                <tr>
+                    <th>Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var employee in Model.Employees)
+                {
+                    <tr>
+                        <td>@employee.EmployeeFirstName @employee.EmployeeLastName</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p class="alert alert-warning">No employees are currently assigned to this store.</p>
+    }
+
+    <div class="mt-4">
+        <a asp-page="./Index" class="btn btn-secondary">Back to List</a>
+    </div>
+</div>
+
+<style>
+    .container {
+        max-width: 600px;
+    }
+</style>

@@ -1,0 +1,50 @@
+﻿@page
+@model RazorLogin.Pages.Manag.Perso.IndexModel
+@{
+    var employee = Model.Employee; // Since we're using a single employee object directly
+}
+
+<h2 class="text-center mb-4">Your Information</h2>
+
+<div class="card">
+    <div class="card-header bg-primary text-white">
+        <h5 class="mb-0">Employee Details</h5>
+    </div>
+    <div class="card-body">
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th scope="row">Employee ID</th>
+                    <td>@employee.EmployeeId</td>
+                </tr>
+                <tr>
+                    <th scope="row">First Name</th>
+                    <td>@employee.EmployeeFirstName</td>
+                </tr>
+                <tr>
+                    <th scope="row">Last Name</th>
+                    <td>@employee.EmployeeLastName</td>
+                </tr>
+                <tr>
+                    <th scope="row">Email</th>
+                    <td>@employee.EmployeeEmail</td>
+                </tr>
+                <tr>
+                    <th scope="row">Date of Birth</th>
+                    <td>@employee.EmployeeDob?.ToString("MM/dd/yyyy")</td>
+                </tr>
+                <tr>
+                    <th scope="row">Address</th>
+                    <td>@employee.EmployeeAddress</td>
+                </tr>
+                <tr>
+                    <th scope="row">Manager</th>
+                    <td>@Model.ManagerName</td> <!-- Display the manager's name here -->
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="card-footer text-center">
+        <a asp-page="./viewPersonal" asp-route-id="@employee.EmployeeId" class="btn btn-primary">Edit Information</a>
+    </div>
+</div>
